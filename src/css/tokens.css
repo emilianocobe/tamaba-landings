@@ -61,7 +61,9 @@
   --lh-cuerpo:   1.65;
 
   --track-etiqueta: 0.14em;
-  --track-display:  0.015em;
+  --track-hero:     -0.008em;         /* Bebas gigante: cierra el paso */
+  --track-display:  0.012em;
+  --track-display-chico: 0.03em;      /* Bebas chico: pide aire */
 
   /* -- Espaciado -------------------------------------------- */
   --esp-1: 0.5rem;
@@ -73,12 +75,22 @@
 
   --ancho-max: 1160px;
   --ancho-texto: 68ch;
+  --ancho-lead: 52ch;                 /* lead a 20px: ~62 caracteres */
   --margen-x: clamp(1.125rem, 4vw, 2.5rem);
+  /* Padding lateral que centra la columna maestra DENTRO de la sección:
+     todo el sitio comparte el mismo borde izquierdo. */
+  --pad-columna: max(var(--margen-x), calc((100% - var(--ancho-max)) / 2));
 
   /* -- Forma y sombra --------------------------------------- */
   --radio: 6px;
   --radio-panel: 14px;
   --sombra-panel: 0 2px 6px rgba(0,0,0,.25), 0 24px 60px -30px rgba(0,0,0,.55);
+  /* Superficies del mundo oscuro: la línea de luz superior da materia
+     (una cabina de estudio tiene volumen, no es papel negro). */
+  --sombra-oscura: inset 0 1px 0 rgba(245,242,239,.06), 0 20px 44px -28px #000;
+  --superficie-grad: linear-gradient(158deg, var(--humo), var(--carbon));
+  /* Corte del paralelogramo del logo: motivo recurrente de la marca */
+  --corte-logo: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
   --sombra-claro: 0 1px 3px rgba(20,18,15,.08), 0 16px 44px -24px rgba(20,18,15,.28);
 
   /* -- Movimiento (presupuesto decreciente hacia el form) --- */

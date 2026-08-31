@@ -8,9 +8,16 @@
    así todos los hijos —título, grillas y bloques angostos— comparten
    el mismo borde izquierdo, sin margins auto por hijo que desalineen. */
 .seccion {
-  padding: var(--esp-6) max(var(--margen-x), calc((100% - var(--ancho-max)) / 2));
+  padding: var(--esp-6) var(--pad-columna);
 }
 .seccion > .titulo-display { margin-bottom: var(--esp-4); }
+
+/* Dos secciones claras consecutivas no deben fundirse en un bloque
+   gigante: la segunda arranca con una regla fina en vez de vacío. */
+.seccion-clara + .seccion-clara { padding-top: 0; }
+.seccion-clara + .seccion-clara > .etiqueta {
+  padding-top: var(--esp-5); border-top: 1px solid var(--panel-linea);
+}
 
 /* Inversión de tema por sección: el corte claro/oscuro marca fronteras.
    El panel claro SEÑALA conversión y datos duros. */
@@ -21,14 +28,14 @@
 .seccion-clara .etiqueta { color: var(--rojo); }
 .seccion-clara p a { text-decoration-color: var(--rojo); }
 
-.parrafo-ancho { max-width: var(--ancho-texto); font-size: var(--t-md); color: var(--tinta-2); }
+.parrafo-ancho { max-width: var(--ancho-lead); font-size: var(--t-md); color: var(--tinta-2); }
 .seccion-clara .parrafo-ancho { color: var(--panel-tinta-2); }
 
 .nota-al-pie { font-size: var(--t-sm); color: var(--tinta-3); margin-top: var(--esp-3); }
 .seccion-clara .nota-al-pie { color: var(--panel-tinta-2); }
 .nota-destacada {
   margin-top: var(--esp-3); padding: var(--esp-2) var(--esp-3);
-  border-left: 3px solid var(--rojo);
+  border-left: 3px solid var(--rojo); clip-path: var(--corte-logo);
   background: color-mix(in srgb, var(--rojo) 6%, transparent);
   font-weight: 600;
 }
@@ -46,8 +53,8 @@
 .dato-numero:last-child { border-right: 0; }
 .dato-numero strong {
   font-family: var(--f-display); font-size: clamp(2rem, 4.5vw, 3.2rem);
-  line-height: 1; color: var(--acento); font-weight: 400;
-  font-variant-numeric: tabular-nums;
+  line-height: 1; color: var(--tinta); font-weight: 400;
+  font-variant-numeric: tabular-nums; letter-spacing: var(--track-display);
 }
 .dato-numero span {
   font-family: var(--f-dato); font-size: var(--t-sm);
@@ -58,13 +65,13 @@
 .panel-conversion {
   background: var(--panel-fondo); color: var(--panel-tinta);
   display: grid; grid-template-columns: 5fr 6fr; gap: var(--esp-5);
-  padding: var(--esp-6) var(--margen-x);
+  padding: var(--esp-6) var(--pad-columna);
   align-items: start;
 }
 .panel-conversion > * { min-width: 0; }
 .conversion-texto { max-width: 480px; margin-left: auto; }
 .conversion-texto .titulo-display { color: var(--panel-tinta); margin-bottom: var(--esp-2); }
-.conversion-sub { font-size: var(--t-md); margin-bottom: var(--esp-2); }
+.conversion-sub { font-size: var(--t-md); margin-bottom: var(--esp-2); max-width: var(--ancho-lead); text-wrap: pretty; }
 .conversion-nota { color: var(--panel-tinta-2); margin-bottom: var(--esp-3); }
 .conversion-titulo-oficial {
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
@@ -77,9 +84,10 @@
 .ghl-form iframe { width: 100%; min-height: 560px; border-radius: var(--radio-panel); background: var(--blanco); }
 
 .contacto-directo {
-  display: flex; flex-direction: column; gap: var(--esp-2);
+  display: flex; flex-direction: column; justify-content: center; gap: var(--esp-2);
   background: var(--blanco); border-radius: var(--radio-panel);
   box-shadow: var(--sombra-claro); padding: var(--esp-4);
+  border-top: 3px solid var(--rojo); min-height: 480px;
 }
 .contacto-directo-titulo { font-weight: 700; font-size: var(--t-md); }
 .contacto-directo-nota { font-size: var(--t-sm); color: var(--panel-tinta-2); }
@@ -89,20 +97,22 @@
 .pilar {
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
   padding: var(--esp-3) var(--esp-3);
-  background: var(--superficie);
+  background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
+  transition: border-color var(--dur-micro) ease, transform var(--dur-micro) var(--curva);
 }
-.pilar h3 { font-size: var(--t-lg); margin-bottom: 8px; }
+.pilar h3 { font-family: var(--f-display); font-weight: 400; font-size: var(--t-lg); letter-spacing: var(--track-display-chico); margin-bottom: 8px; }
 .pilar p { color: var(--tinta-2); }
 
 /* ── Ficha (bento de datos duros) ── */
 .ficha { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--esp-3); }
 .ficha-dato {
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
-  background: var(--superficie);
+  background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
   padding: var(--esp-3);
   display: flex; flex-direction: column; gap: 8px;
+  transition: border-color var(--dur-micro) ease, transform var(--dur-micro) var(--curva);
 }
-.ficha-dato svg { width: 28px; height: 28px; color: var(--acento); }
+.ficha-dato svg { width: 28px; height: 28px; color: var(--tinta-2); transition: color var(--dur-micro) ease; }
 .ficha-etiqueta {
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-xs);
   letter-spacing: var(--track-etiqueta); text-transform: uppercase; color: var(--tinta-3);
@@ -119,7 +129,7 @@
 .ruta li:last-child { border-bottom: 0; }
 .ruta-numero {
   font-family: var(--f-display); font-size: 2.4rem; line-height: 1;
-  color: var(--rojo);
+  color: var(--rojo); font-variant-numeric: tabular-nums;
 }
 .ruta-cuando {
   display: block; font-style: normal;
@@ -137,7 +147,7 @@
   background: var(--blanco); border-radius: var(--radio-panel);
   box-shadow: var(--sombra-claro); padding: var(--esp-3);
 }
-.area h3, .temario h3 { font-size: var(--t-lg); margin-bottom: 8px; color: var(--rojo); }
+.area h3, .temario h3 { font-family: var(--f-display); font-weight: 400; font-size: var(--t-lg); letter-spacing: var(--track-display-chico); margin-bottom: 8px; }
 .area p, .temario p { color: var(--panel-tinta-2); }
 
 .modulos { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--esp-3); }
@@ -148,8 +158,9 @@
 .modulo-codigo {
   font-family: var(--f-display); font-size: 2.6rem; line-height: 1;
   color: var(--rojo); display: block; margin-bottom: var(--esp-2);
+  font-variant-numeric: tabular-nums; letter-spacing: var(--track-display);
 }
-.modulo h3 { margin-bottom: var(--esp-2); }
+.modulo h3 { font-family: var(--f-display); font-weight: 400; font-size: var(--t-lg); letter-spacing: var(--track-display-chico); margin-bottom: var(--esp-2); }
 .modulo p { margin-bottom: var(--esp-2); color: var(--panel-tinta-2); }
 .modulo-meta { font-size: var(--t-sm); }
 
@@ -246,7 +257,7 @@
 
 /* ── Cierre (CTA final) ── */
 .cierre {
-  text-align: center; padding: var(--esp-6) var(--margen-x);
+  text-align: center; padding: var(--esp-6) var(--pad-columna);
   background:
     radial-gradient(ellipse 70% 90% at 50% 110%, color-mix(in srgb, var(--rojo) 22%, transparent), transparent 70%),
     var(--fondo);
@@ -265,7 +276,7 @@
   display: grid; grid-template-columns: 5fr 7fr;
   border-top: 1px solid var(--linea);
 }
-.mapa-datos { padding: var(--esp-5) var(--margen-x); }
+.mapa-datos { padding: var(--esp-5) var(--margen-x) var(--esp-5) var(--pad-columna); }
 .mapa-datos address { font-style: normal; color: var(--tinta-2); line-height: 2.1; margin-bottom: var(--esp-2); }
 .mapa-estado {
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
@@ -285,7 +296,8 @@
   display: flex; flex-direction: column;
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
   overflow: hidden; text-decoration: none;
-  background: var(--superficie);
+  background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
+  transition: border-color var(--dur-micro) ease, transform var(--dur-corta) var(--curva);
 }
 .tarjeta figure { aspect-ratio: 3 / 2; overflow: hidden; }
 .tarjeta figure img {
@@ -345,8 +357,9 @@
 .opciones-evento { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--esp-3); }
 .opcion-evento {
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
-  padding: var(--esp-4); background: var(--superficie);
+  padding: var(--esp-4); background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
   display: flex; flex-direction: column; gap: var(--esp-2);
+  transition: border-color var(--dur-micro) ease, transform var(--dur-micro) var(--curva);
 }
 .opcion-evento h2 { font-family: var(--f-display); font-weight: 400; font-size: var(--t-xl); }
 .opcion-evento p { color: var(--tinta-2); }
@@ -357,9 +370,11 @@
 .premios { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--esp-3); max-width: 800px; }
 .premio {
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
-  padding: var(--esp-4); background: var(--superficie); text-align: center;
+  padding: var(--esp-4); background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
+  text-align: center;
+  transition: border-color var(--dur-micro) ease, transform var(--dur-micro) var(--curva);
 }
-.premio-pct { font-family: var(--f-display); font-size: 4rem; line-height: 1; color: var(--acento); display: block; margin-bottom: var(--esp-2); }
+.premio-pct { font-family: var(--f-display); font-size: 4rem; line-height: 1; color: var(--acento); display: block; margin-bottom: var(--esp-2); font-variant-numeric: tabular-nums; }
 .premio p { color: var(--tinta-2); margin-bottom: var(--esp-2); }
 .premio-cantidad {
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
@@ -369,7 +384,8 @@
 .condiciones li {
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
   letter-spacing: 0.06em; text-transform: uppercase;
-  border: 1px solid var(--linea); border-radius: 999px; padding: 6px 14px; color: var(--tinta-2);
+  border: 1px solid var(--linea); padding: 6px 16px 6px 14px; color: var(--tinta-2);
+  clip-path: var(--corte-logo);
 }
 .cuenta-regresiva {
   margin-top: var(--esp-3);

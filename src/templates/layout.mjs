@@ -61,14 +61,16 @@ ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</sc
 <div class="progreso" aria-hidden="true"><span id="progreso-lectura"></span></div>
 
 <header class="cabecera" id="cabecera">
-  <a class="cabecera-logo" href="${p || './'}" aria-label="TAMABA — inicio">
-    <img src="${p}assets/logos/logo-tamaba-blanco.png" alt="TAMABA · Instituto Terciario A-1441" width="126" height="57">
-  </a>
-  <div class="cabecera-datos" aria-hidden="true">
-    <span class="cabecera-anios">30 AÑOS</span>
-    <span class="cabecera-reloj" id="reloj-sede" hidden></span>
+  <div class="cabecera-interior">
+    <a class="cabecera-logo" href="${p || './'}" aria-label="TAMABA — inicio">
+      <img src="${p}assets/logos/logo-tamaba-blanco.png" alt="TAMABA · Instituto Terciario A-1441" width="126" height="57">
+    </a>
+    <div class="cabecera-datos" aria-hidden="true">
+      <span class="cabecera-anios">30 AÑOS</span>
+      <span class="cabecera-reloj" id="reloj-sede" hidden></span>
+    </div>
+    <a class="boton boton-rojo cabecera-cta" href="${o.cta ? o.cta.href : '#inscripcion'}" data-tb="cta-header">${o.cta ? o.cta.texto : 'Consultar ahora'}</a>
   </div>
-  <a class="boton boton-rojo cabecera-cta" href="${o.cta ? o.cta.href : '#inscripcion'}" data-tb="cta-header">${o.cta ? o.cta.texto : 'Consultar ahora'}</a>
 </header>
 
 <main id="contenido">

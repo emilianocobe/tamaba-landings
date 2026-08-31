@@ -57,9 +57,14 @@ h1, h2, h3 { text-wrap: balance; }
 }
 
 /* ── Cabecera ── */
+/* La barra es full-bleed pero su contenido vive en la MISMA columna
+   maestra que el resto del sitio: el logo alinea con el H1 del hero. */
+.cabecera-interior {
+  display: flex; align-items: center; gap: var(--esp-3);
+  max-width: var(--ancho-max); margin: 0 auto; width: 100%;
+}
 .cabecera {
   position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-nav);
-  display: flex; align-items: center; gap: var(--esp-3);
   padding: 12px var(--margen-x);
   background: rgba(13, 12, 12, 0.85); /* respaldo sin color-mix */
   background: color-mix(in srgb, var(--negro) 82%, transparent);
