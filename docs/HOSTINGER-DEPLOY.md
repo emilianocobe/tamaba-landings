@@ -1,48 +1,48 @@
-# Reemplazo en Hostinger · plan de puesta en producción
-**Versión 1.0 · agosto 2026.**
+# Deploy en Hostinger · estado y operación
+**Versión 2.0 · agosto 2026 · el sitio nuevo YA está en producción.**
 
-## Qué encontré (exploración de solo lectura)
+## Estado actual
 
-- `landing.tamaba.edu.ar` resuelve a **217.21.66.215** (IP de Hostinger) → el sitio **está alojado en tu cuenta de Hostinger** (plan Cloud Startup, que expira 2027-04-05).
-- Es un **WordPress** (confirmado por el export WXR original) servido como subdominio.
-- **La cuenta tiene 35 sitios en total** (headroomlive, victoriabermolen, idoneia, ecobe.app, huggiesgrooming, etc.). El radio de impacto de cualquier error es enorme: por eso el reemplazo tiene que ser quirúrgico y reversible.
+`https://landing.tamaba.edu.ar` sirve el sitio estático nuevo desde Hostinger. Verificado en vivo: home 200, todas las carreras 200, gracias 200, legales 200, assets 200, HTTPS forzado sin loop, gzip activo, caché inmutable en assets, 404 propia, y las 46 redirecciones de las URLs viejas de los anuncios funcionando.
 
-## Por qué NO ejecuté el reemplazo de una
+| Dato | Valor |
+|------|-------|
+| Hosting | Hostinger, plan Cloud Startup (cuenta `tamaba.edu.ar`) |
+| Ruta en el servidor | `public_html/landing/` |
+| IP | 217.21.66.215 |
+| DNS | **AWS Route 53** (nameservers `awsdns-*`) — no se tocó |
+| Repo | `github.com/emilianocobe/tamaba-landings` |
+| Rama de contenido | **`deploy`** — sitio ya construido, `index.html` en la raíz |
 
-Reemplazar la landing es una acción **irreversible, de cara al público, sobre un sitio de producción que ahora mismo recibe tráfico pago** (28,1K vistas de pago al año según el propio dashboard de GHL). Sobre una cuenta compartida con otros 34 sitios. Ejecutarla a ciegas sería temerario. Además, hay dos bloqueos previos que conviene resolver antes del corte:
+## Cómo se publicó
 
-1. **GTM no está creado** (`GTM-XXXXXXX` es placeholder) → si corto ahora, el sitio nuevo tampoco mide, igual que el viejo. Conviene crear el contenedor primero.
-2. **Los formularios de GHL redirigen a las URLs viejas de WordPress** tras el envío. Las 46 páginas puente que generé cubren eso, pero lo limpio es re-apuntar cada formulario a `/gracias/{carrera}/` en GHL.
+El WordPress viejo se borró (backup previo del cliente). El contenido de la rama `deploy` se subió a `public_html/landing/` vía la API del File Manager de Hostinger: 73 carpetas creadas y 125 archivos subidos, cero fallos.
 
-## El plan seguro (reversible, en este orden)
+## Cómo publicar cambios (hoy)
 
-### Paso 0 · Backup (innegociable, antes de tocar nada)
-En hPanel → el sitio `landing.tamaba.edu.ar` → **Copias de seguridad**: generar y descargar un backup completo (archivos + base de datos). Alternativamente, Administrador de archivos → comprimir `public_html` del subdominio y descargar, + exportar la base MySQL desde phpMyAdmin. Guardar en `data/backup/AAAA-MM-DD/`.
+1. Editás el contenido (`data/*.json`) o el código.
+2. `node build.mjs --check` y commit + push a `main`.
+3. GitHub Actions regenera automáticamente la rama **`deploy`** con el sitio construido.
+4. Subir esa rama al hosting: hoy es el único paso manual. Dos opciones:
+   - **Integración Git de Hostinger** (recomendada, ver abajo) → automático.
+   - **Manual**: hPanel → Administrador de archivos → `public_html/landing` → subir los archivos nuevos.
 
-### Paso 1 · Staging primero (reversible)
-En vez de pisar la landing viva, publicar el sitio nuevo en un subdominio de prueba — p. ej. `nuevo.landing.tamaba.edu.ar` o `beta.tamaba.edu.ar`:
-1. Crear el subdominio en hPanel (Dominios → Subdominios).
-2. Subir el contenido de `dist/` a su carpeta (Administrador de archivos, o FTP/SFTP con las credenciales de Hostinger).
-3. Revisar todo en producción real (formularios, WhatsApp, gracias, mobile).
+## Pendiente: activar la integración Git (deploys 100 % automáticos)
 
-### Paso 2 · Preparar el corte
-- Crear el contenedor GTM y poner el ID en `data/site.json` (`node build.mjs` de nuevo).
-- Re-apuntar los 15 formularios GHL a `https://landing.tamaba.edu.ar/gracias/{carrera}/`.
+Hostinger tiene **hPanel → Avanzado → GIT**, que clona un repo directamente al hosting. Con eso, publicar sería solo `git push`. Requiere **un click tuyo**: la pantalla pide conectar GitHub por OAuth y ese permiso solo lo puede otorgar el titular de la cuenta.
 
-### Paso 3 · Corte (la única parte irreversible)
-Con el backup hecho y el staging aprobado:
-- **Opción A (recomendada):** vaciar el `public_html` del subdominio `landing` y subir ahí el `dist/`. El sitio pasa a ser estático. WordPress queda respaldado en el backup del Paso 0.
-- **Opción B (más conservadora):** dejar WordPress intacto y solo cambiar el DNS/document-root del subdominio para que sirva la carpeta del sitio nuevo. Reversible cambiando el apuntamiento de vuelta.
+Pasos (2 minutos, una sola vez):
+1. hPanel → sitio `tamaba.edu.ar` → **Avanzado → GIT** → «Continúa con GitHub» → autorizar.
+2. Crear el repositorio con estos datos exactos:
+   - **Repositorio:** `https://github.com/emilianocobe/tamaba-landings`
+   - **Rama:** `deploy` ← importante, NO `main` (main tiene el código fuente; `deploy` tiene el sitio construido)
+   - **Directorio de destino:** `public_html/landing`
+3. Activar el **auto-deploy / webhook** para que cada push publique solo.
 
-### Paso 4 · Verificación post-corte
-- `curl -I https://landing.tamaba.edu.ar/` → 200.
-- Probar las URLs viejas de los anuncios activos → deben redirigir (las 46 páginas puente).
-- Enviar un lead de prueba por cada canal → verificar que llega a GHL y que la gracias dispara.
+Desde ese momento: `git push` a `main` → Actions construye → rama `deploy` se actualiza → Hostinger la despliega. Sin intervención manual.
 
-## Lo que necesito de vos para ejecutarlo
+## Notas técnicas
 
-Como es un sitio de producción con plata de pauta corriendo, sobre una cuenta con 34 sitios más, quiero tu OK explícito para el **Paso 3 (el corte)**. Los pasos 0, 1 y 2 son seguros y reversibles; puedo hacerlos apenas me confirmes que arranque, y frenar antes del corte para que revises el staging.
-
-Decime también cuál preferís:
-- **Reemplazo directo** de `landing.tamaba.edu.ar` (Opción A), o
-- **Staging + revisión + corte** cuando GTM y los redirects de GHL estén listos (recomendado).
+- El `.htaccess` lo genera `build.mjs` (HTTPS forzado, `ErrorDocument 404`, gzip, caché). No editarlo a mano en el servidor: se pisa en cada deploy.
+- GitHub Pages quedó **sin dominio propio** (se retiró el CNAME) y sigue disponible como preview en `emilianocobe.github.io/tamaba-landings/`.
+- El DNS en Route 53 no se modificó y no hace falta tocarlo mientras el hosting siga en Hostinger.
