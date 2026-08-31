@@ -40,6 +40,10 @@ rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 writeFileSync(join(DIST, '.nojekyll'), '');
 
+// Dominio propio de GitHub Pages: el sitio se sirve en la raíz de este host.
+// El CNAME viaja en el artefacto de Pages (deploy por Actions, no por rama).
+writeFileSync(join(DIST, 'CNAME'), new URL(site.dominio).hostname + '\n');
+
 // Assets
 cpSync(join(ROOT, 'src/assets'), join(DIST, 'assets'), { recursive: true });
 
