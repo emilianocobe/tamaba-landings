@@ -24,12 +24,14 @@ const carreras = readdirSync(join(ROOT, 'data/carreras'))
   .map(f => JSON.parse(readFileSync(join(ROOT, 'data/carreras', f), 'utf8')))
   .sort((a, b) => a.orden - b.orden);
 const beca = JSON.parse(readFileSync(join(ROOT, 'data/campanias/beca.json'), 'utf8'));
+const eventosGracias = JSON.parse(readFileSync(join(ROOT, 'data/eventos-gracias.json'), 'utf8'));
 
 // ── Plantillas ───────────────────────────────────────────────────────
 const { layout }   = await import('./src/templates/layout.mjs');
 const { landing }  = await import('./src/templates/landing.mjs');
 const { home }     = await import('./src/templates/home.mjs');
 const { gracias }  = await import('./src/templates/gracias.mjs');
+const { graciasEvento } = await import('./src/templates/graciasEvento.mjs');
 const { eventos }  = await import('./src/templates/eventos.mjs');
 const { becaPage } = await import('./src/templates/beca.mjs');
 const { legal }    = await import('./src/templates/legal.mjs');
@@ -74,6 +76,15 @@ page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de S
 for (const c of carreras) {
   page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, carreraNombre: c.nombre, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
+}
+
+// Gracias de reserva de evento (post-booking de GHL)
+for (const [clave, ev] of Object.entries(eventosGracias)) {
+  if (clave.startsWith('_')) continue;
+  page(`gracias-evento/${ev.slug}`, layout(graciasEvento({ ...ctx, ev }), { ...ctx, depth: 2,
+    titulo: `${ev.titulo} · TAMABA`, descripcion: ev.sub, noindex: true,
+    eventoReserva: ev.evento, ruta: `/gracias-evento/${ev.slug}/`,
+    cta: { href: '../../', texto: 'Ver carreras' } }));
 }
 
 page('eventos', layout(eventos(ctx), { ...ctx, depth: 1, titulo: 'Conocé TAMABA · Eventos', descripcion: 'Visita guiada presencial o encuentro informativo online: elegí cómo vivir tu primera experiencia con TAMABA.', ruta: '/eventos/', cta: { href: '#agenda', texto: 'Agendar ahora' } }));

@@ -168,6 +168,38 @@
     }
   }
 
+  /* ── 4.b · Reserva de evento (/gracias-evento/…) ───────────── */
+  /* La conversión de "agendó visita / encuentro online": el eslabón
+     más débil del embudo (solo 38 % asiste, según la encuesta). */
+  if (TB.eventoReserva) {
+    let yaContada = false;
+    try {
+      const clave = 'tb_reserva_' + TB.eventoReserva;
+      yaContada = sessionStorage.getItem(clave) === '1';
+      if (!yaContada) sessionStorage.setItem(clave, '1');
+    } catch (e) { /* sin storage: se cuenta igual */ }
+    if (!yaContada) {
+      const eventId = 'reserva-' + TB.eventoReserva + '-' + Date.now() + '-' +
+        Math.random().toString(36).slice(2, 10);
+      push({
+        event: 'reserva_evento',
+        tipo_evento: TB.eventoReserva,          // visita_presencial | encuentro_online
+        canal_pago: CANAL_PAGO,
+        utm_source: attr.utm_source || '(directo)',
+        utm_campaign: attr.utm_campaign || '(sin campaña)',
+        event_id: eventId
+      });
+      // Meta: evento estándar "Schedule" (en español, «Programar»)
+      if (window.fbq) {
+        fbq('track', 'Schedule', {
+          content_name: TB.eventoReserva,
+          content_category: 'evento'
+        }, { eventID: eventId });
+      }
+      push({ event: 'Schedule', tipo_evento: TB.eventoReserva, event_id: eventId });
+    }
+  }
+
   /* ── 5 · Clics medidos ────────────────────────────────────── */
   document.addEventListener('click', ev => {
     const a = ev.target.closest('a[data-tb], button[data-tb]');

@@ -33,7 +33,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${p}css/styles.css">
-<script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')}};</script>
+<script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')},eventoReserva:${JSON.stringify(o.eventoReserva || '')}};</script>
 <script src="${p}js/tracking.js" defer></script>
 <script src="${p}js/main.js" defer></script>
 ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</script>` : ''}

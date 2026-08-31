@@ -1,0 +1,35 @@
+{
+  "_comentario": "Páginas de agradecimiento de RESERVAS (post-booking de GoHighLevel). Distintas de /gracias/{carrera}/, que confirman una consulta por formulario. Acá la conversión es 'agendó un evento' — el eslabón más débil del embudo según la encuesta (solo 38 % asiste).",
+  "visita-presencial": {
+    "slug": "visita-presencial",
+    "titulo": "¡Listo! Tu visita está agendada",
+    "chip": "Visita confirmada",
+    "hero": "Nos vemos<br><em>en TAMABA</em>",
+    "sub": "Tu visita guiada quedó agendada. Vas a recibir un mail con la fecha, la hora y el recordatorio.",
+    "img": "sede-tamaba",
+    "imgAlt": "Sede de TAMABA en Adolfo Alsina 1994, CABA",
+    "evento": "visita_presencial",
+    "pasos": [
+      { "t": "Revisá tu mail", "d": "Te llega la confirmación con día y horario. Si no aparece, mirá spam o promociones." },
+      { "t": "Anotate la dirección", "d": "Adolfo Alsina 1994, CABA — a metros del Congreso. Llegá 10 minutos antes." },
+      { "t": "Traé tus preguntas", "d": "Vas a recorrer los estudios y hablar con el equipo de admisiones: es el momento de preguntar todo (aranceles, becas, horarios)." }
+    ],
+    "conMapa": true
+  },
+  "encuentro-online": {
+    "slug": "encuentro-online",
+    "titulo": "¡Listo! Tu lugar está reservado",
+    "chip": "Encuentro confirmado",
+    "hero": "Nos vemos<br><em>en el encuentro</em>",
+    "sub": "Reservaste tu lugar en el encuentro informativo online. Vas a recibir el link de la videollamada por mail.",
+    "img": "estudio-3d",
+    "imgAlt": "Estudio virtual 3D de TAMABA",
+    "evento": "encuentro_online",
+    "pasos": [
+      { "t": "Guardá el link", "d": "Te llega por mail junto con la invitación de calendario. Revisá spam o promociones si no lo ves." },
+      { "t": "Conectate desde donde estés", "d": "Solo necesitás internet. Podés entrar desde la computadora o el celular." },
+      { "t": "Participá en vivo", "d": "Contamos el plan de estudios, los aranceles y el sistema de becas, y respondemos todas tus preguntas." }
+    ],
+    "conMapa": false
+  }
+}
