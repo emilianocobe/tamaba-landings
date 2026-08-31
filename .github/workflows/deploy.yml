@@ -3,13 +3,13 @@ name: Build y publicar rama deploy
 # El sitio se sirve desde Hostinger, que clona la rama `deploy` (contenido
 # ya construido, index.html en la raíz). Cada push a main la regenera.
 
-# ⚠ DISPARO AUTOMÁTICO DESACTIVADO A PROPÓSITO.
-# El deploy de Git de Hostinger está apuntando a `public_html` (la raíz del
-# dominio institucional) en vez de `public_html/landing`. Mientras eso no se
-# corrija en hPanel, cada push a `deploy` pisa tamaba.edu.ar.
-# Reactivar el bloque `push:` SOLO después de verificar en
-# hPanel → Avanzado → GIT que el "Directorio root" dice public_html/landing.
+# La conexión de Git vive en el sitio `landing.tamaba.edu.ar` de hPanel,
+# no en el de `tamaba.edu.ar`. Esa distinción es la que importa: el deploy
+# aterriza en la carpeta del subdominio y no puede alcanzar la raíz del
+# institucional. Verificado en producción el 2026-08-31.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
