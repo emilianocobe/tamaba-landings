@@ -27,9 +27,17 @@
 /* Inversión de tema por sección: el corte claro/oscuro marca fronteras.
    El panel claro SEÑALA conversión y datos duros. */
 .seccion-clara {
+  /* Panni calibra el grano por fondo (0.055 sobre oscuro, 0.04 sobre
+     claro) en vez de apagarlo. Las superficies claras se pintan encima
+     de la capa fija, asi que llevan el suyo propio y mas tenue.
+     El shorthand va primero: si no, resetea la imagen de fondo. */
   background: var(--panel-fondo);
+  background-image: var(--grano);
+  background-blend-mode: multiply;
   color: var(--panel-tinta);
 }
+/* El unico lugar sin textura sigue siendo donde se completa el formulario. */
+.panel-conversion { background-image: none; }
 .seccion-clara .etiqueta { color: var(--rojo); }
 .seccion-clara p a { text-decoration-color: var(--rojo); }
 
@@ -99,7 +107,20 @@
 
 /* ── Pilares ── */
 .pilares { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--esp-3); }
+/* Numeracion editorial: el indice como pieza grafica, no como adorno.
+   Va en el fondo del bloque, en negativo, y no se lee en voz alta. */
+.pilares { counter-reset: pilar; }
+.pilar { counter-increment: pilar; }
+.pilar::before {
+  content: counter(pilar, decimal-leading-zero);
+  position: absolute; right: 14px; top: 4px;
+  font-family: var(--f-display); font-size: 4.2rem; line-height: 1;
+  color: var(--acento); opacity: 0.10;
+  pointer-events: none;
+}
+
 .pilar {
+  position: relative; overflow: hidden;
   border: 1px solid var(--linea); border-radius: var(--radio-panel);
   padding: var(--esp-3) var(--esp-3);
   background: var(--superficie-grad); box-shadow: var(--sombra-oscura);
@@ -533,9 +554,12 @@
 .lista-404 a { color: var(--tinta-2); }
 
 /* ── Revelado por scroll (sutil, una sola vez) ── */
-.revela { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-media) var(--curva), transform var(--dur-media) var(--curva); }
-.revela.visto { opacity: 1; transform: none; }
-html.sin-js .revela { opacity: 1; transform: none; }
+/* Nada se oculta salvo que main.js confirme que hay un observador que lo
+   va a mostrar (html.anima). Sin JS, con JS a medias o con el observador
+   roto, el contenido se ve: el efecto es aditivo, nunca una condicion. */
+html.anima .revela { opacity: 0; transform: translateY(18px); transition: opacity var(--dur-media) var(--curva), transform var(--dur-media) var(--curva); }
+html.anima .revela.visto { opacity: 1; transform: none; }
+
 
 /* ══════════ teléfono ══════════ */
 @media (max-width: 640px) {

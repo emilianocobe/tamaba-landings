@@ -41,10 +41,62 @@ document.documentElement.classList.remove('sin-js');
 (function () {
   const els = document.querySelectorAll('.revela');
   if (!els.length) return;
-  if (RM || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visto')); return; }
+  const todos = () => els.forEach(e => e.classList.add('visto'));
+  if (RM || !('IntersectionObserver' in window)) { todos(); return; }
+
+  // El ocultamiento previo al revelado SOLO existe si esta clase esta
+  // puesta. Se pone desde aca, es decir: unicamente cuando de verdad hay
+  // un observador que va a volver a mostrarlo.
+  document.documentElement.classList.add('anima');
+
+  let vistos = 0;
   const io = new IntersectionObserver(entries => {
-    for (const en of entries) if (en.isIntersecting) { en.target.classList.add('visto'); io.unobserve(en.target); }
+    for (const en of entries) if (en.isIntersecting) { en.target.classList.add('visto'); vistos++; io.unobserve(en.target); }
   }, { rootMargin: '0px 0px -8% 0px' });
+  els.forEach(e => io.observe(e));
+
+  // Red de seguridad: si a los 2,5 s el observador no reporto ni un solo
+  // elemento, se lo da por roto y se muestra todo. Un efecto de entrada
+  // no puede ser la razon por la que alguien no ve el contenido.
+  setTimeout(() => { if (!vistos) { io.disconnect(); todos(); } }, 2500);
+})();
+
+/* ── Scramble en las etiquetas de seccion ──
+   Panni, Catalogo #20: los caracteres se resuelven desde ruido, una sola
+   vez por elemento, disparado por IntersectionObserver. El charset es de
+   esta marca: simbolos de consola y medidor, no katakana.
+   El texto final ya esta en el DOM — el efecto solo lo desordena y lo
+   vuelve a armar, asi que sin JS o con RM se lee igual. */
+(function () {
+  if (RM || !('IntersectionObserver' in window)) return;
+  const CHARSET = '▮▯│┤├┼╫≡=+*·:.0123456789';
+  const els = document.querySelectorAll('.etiqueta, .franja-alianzas-titulo');
+  if (!els.length) return;
+
+  const revolver = el => {
+    const fin = el.textContent;
+    const n = fin.length;
+    let paso = 0;
+    // ~3 cuadros por caracter: la palabra se resuelve de izquierda a derecha
+    const total = n * 3;
+    const tic = () => {
+      const listos = Math.floor(paso / 3);
+      let salida = '';
+      for (let i = 0; i < n; i++) {
+        const c = fin[i];
+        if (i < listos || c === ' ') salida += c;
+        else salida += CHARSET[(Math.random() * CHARSET.length) | 0];
+      }
+      el.textContent = salida;
+      if (paso++ < total) requestAnimationFrame(tic);
+      else el.textContent = fin;
+    };
+    tic();
+  };
+
+  const io = new IntersectionObserver(es => {
+    for (const e of es) if (e.isIntersecting) { io.unobserve(e.target); revolver(e.target); }
+  }, { rootMargin: '0px 0px -15% 0px' });
   els.forEach(e => io.observe(e));
 })();
 
