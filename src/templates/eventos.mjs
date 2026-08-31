@@ -49,6 +49,6 @@ export function eventos({ site }) {
 <section class="cierre">
   <h2 class="cierre-titulo">¿Preferís escribirnos<br>directamente?</h2>
   <p class="cierre-sub">Contanos qué carrera te interesa y te respondemos con toda la información.</p>
-  <a class="boton boton-rojo boton-grande" href="https://wa.me/${site.telefonoHref.replace('+', '')}?text=${encodeURIComponent('Hola, quiero información sobre las carreras de TAMABA')}" target="_blank" rel="noopener" data-tb="whatsapp-eventos">Escribinos por WhatsApp</a>
+  <a class="boton boton-rojo boton-grande" href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, quiero información sobre las carreras de TAMABA')}" target="_blank" rel="noopener" data-tb="whatsapp-eventos">Escribinos por WhatsApp</a>
 </section>`;
 }

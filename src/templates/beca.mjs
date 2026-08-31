@@ -19,7 +19,7 @@ export function becaPage({ site, beca, carreras }) {
     <p class="hero-sub">${beca.cierreTexto}</p>
     <div class="hero-ctas">
       <a class="boton boton-rojo boton-grande" href="${p}eventos/" data-tb="cta-beca-cerrada">Conocer TAMABA igual</a>
-      <a class="boton boton-borde" href="https://wa.me/${site.telefonoHref.replace('+', '')}?text=${encodeURIComponent('Hola, quiero que me avisen cuando abra el próximo sorteo de becas')}" target="_blank" rel="noopener" data-tb="whatsapp-beca">Avisame de la próxima</a>
+      <a class="boton boton-borde" href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, quiero que me avisen cuando abra el próximo sorteo de becas')}" target="_blank" rel="noopener" data-tb="whatsapp-beca">Avisame de la próxima</a>
     </div>
   </div>
 </section>

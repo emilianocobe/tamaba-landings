@@ -66,7 +66,7 @@ ${c.ghlForms ? `    <div class="ghl-form" id="ghl-form" data-gads="${c.ghlForms.
       </noscript>
     </div>` : `    <div class="contacto-directo">
       <p class="contacto-directo-titulo">Escribinos y te contamos todo:</p>
-      <a class="boton boton-rojo boton-grande" href="https://wa.me/${site.telefonoHref.replace('+', '')}?text=${encodeURIComponent('Hola, quiero información sobre ' + c.nombre)}" target="_blank" rel="noopener" data-tb="whatsapp-form">Consultar por WhatsApp</a>
+      <a class="boton boton-rojo boton-grande" href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, quiero información sobre ' + c.nombre)}" target="_blank" rel="noopener" data-tb="whatsapp-form">Consultar por WhatsApp</a>
       <a class="boton boton-borde-oscuro" href="mailto:${site.emails.info}?subject=${encodeURIComponent('Consulta: ' + c.nombre)}" data-tb="mail-form">Escribir por mail</a>
       <p class="contacto-directo-nota">También podés llamarnos al <a href="tel:${site.telefonoHref}">${site.telefono}</a>.</p>
     </div>`}

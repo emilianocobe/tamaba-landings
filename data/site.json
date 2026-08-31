@@ -12,7 +12,7 @@
   "mapaQuery": "TAMABA+Adolfo+Alsina+1994+CABA",
   "telefono": "+54 11 4952-9803",
   "telefonoHref": "+541149529803",
-  "whatsapp": "+54 9 11 4952-9803",
+  "whatsapp": "+54 9 11 7856-3203",
   "emails": {
     "info": "info@tamaba.edu.ar",
     "admisiones": "admisiones@tamaba.edu.ar",
@@ -46,5 +46,6 @@
       "meta": "mads",
       "pmax": "pmax"
     }
-  }
+  },
+  "whatsappHref": "5491178563203"
 }
