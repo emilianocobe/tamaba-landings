@@ -51,6 +51,8 @@ Paleta **cerrada y enumerada** (`src/css/tokens.css`). Prohibido cualquier color
 | `--hueso` | #F5F2EF | **Panel claro** (zonas de conversión) y texto principal sobre oscuro |
 | `--blanco` | #FFFFFF | Tarjetas sobre panel claro, texto de botones rojos |
 
+**Excepción de marca externa**: el botón flotante de WhatsApp usa el verde oficial #25D366. Es un activo de una marca ajena (como el logo de AVID o el de Cubase): el reconocimiento instantáneo del canal vale más que la pureza de paleta. Es la ÚNICA excepción; no habilita otros colores.
+
 ### La regla de los dos mundos
 El sitio es **oscuro por defecto** (el mundo del estudio). Las secciones **claras** (`--hueso`) señalan una cosa: *acá se decide* — el formulario, los datos duros del plan, las FAQ. La inversión de tema es semántica, no decorativa. **El bloque del formulario no lleva ningún efecto**: fondo claro, estático, cero motion.
 

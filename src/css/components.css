@@ -3,17 +3,14 @@
    tarjetas, rutas, FAQ, quiz, gracias, mapa, legal
    ============================================================ */
 
-/* ── Secciones ── */
+/* ── Secciones ──
+   El padding lateral centra la columna de 1160px EN LA SECCIÓN MISMA:
+   así todos los hijos —título, grillas y bloques angostos— comparten
+   el mismo borde izquierdo, sin margins auto por hijo que desalineen. */
 .seccion {
-  padding: var(--esp-6) var(--margen-x);
+  padding: var(--esp-6) max(var(--margen-x), calc((100% - var(--ancho-max)) / 2));
 }
-.seccion > * { max-width: var(--ancho-max); margin-left: auto; margin-right: auto; }
 .seccion > .titulo-display { margin-bottom: var(--esp-4); }
-/* Los bloques angostos se alinean a la izquierda con su título,
-   no al centro del contenedor (colisión detectada en revisión). */
-.seccion > .quiz, .seccion > .faq, .seccion > .ruta, .seccion > .video-marco,
-.seccion > .premios, .seccion > .condiciones, .seccion > .temario,
-.seccion > .parrafo-ancho, .seccion > .cita-oscura { margin-left: 0; }
 
 /* Inversión de tema por sección: el corte claro/oscuro marca fronteras.
    El panel claro SEÑALA conversión y datos duros. */

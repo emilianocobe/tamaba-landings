@@ -212,6 +212,20 @@ h1, h2, h3 { text-wrap: balance; }
 }
 .cta-movil .boton { width: 100%; }
 
+/* ── WhatsApp flotante ──
+   Único color fuera de la paleta: el verde oficial de WhatsApp.
+   Es un activo de marca externa (como el logo de AVID) — el
+   reconocimiento instantáneo del canal vale más que la pureza. */
+.wa-flotante {
+  position: fixed; right: 18px; bottom: 18px; z-index: var(--z-sticky-cta);
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25D366; color: #FFFFFF;
+  display: grid; place-items: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,.35), 0 10px 28px -12px rgba(0,0,0,.5);
+  transition: transform var(--dur-micro) ease;
+}
+.wa-flotante svg { width: 30px; height: 30px; }
+
 /* ══════════ reduced motion ══════════ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -222,6 +236,7 @@ h1, h2, h3 { text-wrap: balance; }
 
 /* ══════════ hover fino ══════════ */
 @media (hover: hover) and (pointer: fine) {
+  .wa-flotante:hover { transform: scale(1.08); }
   .boton-rojo:hover { background: var(--rojo-hover); transform: translateY(-2px); }
   .boton-borde:hover { border-color: var(--acento); color: var(--acento); }
   .boton-borde-oscuro:hover { background: var(--panel-tinta); color: var(--hueso); }
@@ -247,6 +262,10 @@ h1, h2, h3 { text-wrap: balance; }
   .hero-ctas .boton { width: 100%; }
   .pie-columnas { grid-template-columns: 1fr; gap: var(--esp-3); }
   .cta-movil[data-visible] { display: block; }
+  .wa-flotante { width: 52px; height: 52px; right: 14px; bottom: 14px; }
+  .wa-flotante svg { width: 27px; height: 27px; }
+  /* Cuando la barra CTA fija está visible, WhatsApp sube para no taparla */
+  .cta-movil[data-visible] ~ .wa-flotante { bottom: calc(76px + env(safe-area-inset-bottom)); }
 }
 
 /* ══════════ tablet ══════════ */
