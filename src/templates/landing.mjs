@@ -21,7 +21,7 @@ function icono(d) {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 }
 
-export function landing({ site, c, dim }) {
+export function landing({ site, c, dim, medir }) {
   const p = '../';
   const esCarrera = c.tipo === 'carrera';
 
@@ -215,7 +215,7 @@ ${c.faq.map(f => `    <details class="faq-item" data-tb-faq="${f.p.replaceAll('"
   </div>
 </section>` : ''}
 
-${franjaAlianzas(site, p, dim)}
+${franjaAlianzas(site, p, dim, medir)}
 
 ${onda()}
 

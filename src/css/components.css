@@ -335,45 +335,56 @@
 .tarjeta-clara p { color: var(--panel-tinta-2); }
 .tarjeta-clara .tarjeta-cta { color: var(--rojo); }
 
-/* ── Alianzas y certificaciones ──
-   Ocho marcas con fondos incompatibles entre sí (siete claros, RVD.AI
-   azul sólido). Cada logo va en su propia chapa clara de altura fija:
-   la franja se lee pareja aunque las marcas no lo sean. A color, porque
-   son credenciales — el gris de "logo de partner" les quita autoridad. */
+/* ── Alianzas y certificaciones (marquesina) ──
+   Panel claro, no oscuro: es una franja de confianza, y las credenciales
+   se leen mejor sobre blanco. Ocho marcas con fondos incompatibles entre
+   si (siete claros, RVD.AI azul solido); la escala de grises las empareja
+   y el hover devuelve el color — patron probado en Panni. */
+.franja-alianzas {
+  background: var(--blanco);
+  color: var(--panel-tinta);
+  padding: var(--esp-4) 0;
+  position: relative; z-index: 2;   /* por encima del grano de sala */
+  overflow: hidden;
+  /* La franja va en blanco puro y las secciones claras en hueso: las
+     lineas hacen que ese medio tono se lea como una banda deliberada y
+     no como una suciedad de color. */
+  border-block: 1px solid var(--panel-linea);
+}
+.franja-alianzas-titulo {
+  font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
+  letter-spacing: var(--track-etiqueta); text-transform: uppercase;
+  color: var(--panel-tinta-2); text-align: center;
+  margin-bottom: var(--esp-4);
+}
+
+/* La mascara difumina los extremos: los logos entran y salen del plano
+   en vez de cortarse contra el borde de la ventana. */
+.alianzas-pista {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
 .alianzas {
-  list-style: none;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: var(--esp-3);
+  display: flex; align-items: center; gap: var(--esp-5);
+  list-style: none; width: max-content;
+  animation: desfile 46s linear infinite;
 }
-.alianza { display: flex; flex-direction: column; gap: 10px; }
-.alianza-chapa {
-  /* Bloque, no grid: contra una fila de grid de altura auto el height:100%
-     de la imagen queda indefinido y el logo se dimensiona por su propia
-     proporcion (wwise desbordaba 210px en una chapa de 96). Contra un
-     bloque de altura fija el porcentaje si resuelve. */
-  display: block;
-  height: 96px; padding: 14px var(--esp-2);
-  background: var(--hueso); border-radius: var(--radio);
-  border: 1px solid transparent;
-  transition: border-color var(--dur-micro) ease, transform var(--dur-corta) var(--curva);
+/* El set esta duplicado en el HTML: a -50% el segundo queda donde
+   arrancaba el primero y el salto es invisible. */
+@keyframes desfile { to { transform: translateX(-50%); } }
+.alianzas-pista:hover .alianzas { animation-play-state: paused; }
+
+.alianza { flex: 0 0 auto; }
+.alianza img {
+  /* Altura pareja y ancho por proporcion. Los atributos width/height del
+     HTML dan el aspect-ratio, asi que la caja es correcta ANTES de que la
+     imagen cargue: sin eso, un ancho 0 impide que loading=lazy la pida. */
+  height: var(--alto, 52px); width: auto;
+  border-radius: 3px;
+  filter: grayscale(1) contrast(0.85) opacity(0.62);
+  transition: filter var(--dur-corta) ease;
 }
-.alianza-chapa img {
-  /* La caja la define la chapa, NO la imagen: con width:auto el ancho
-     computado es 0 hasta que el archivo carga, y con loading=lazy eso
-     es un circulo — nunca se pide y el logo no aparece nunca.
-     object-fit:contain deja cada logo completo y sin deformar. */
-  width: 100%; height: 100%; object-fit: contain;
-  /* Baja un punto la saturación: conviven con el rojo de la marca
-     sin pelearle la atención. */
-  filter: saturate(0.9);
-}
-.alianza-nota {
-  font-family: var(--f-dato); font-weight: 600; font-size: var(--t-xs);
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--tinta-3); line-height: 1.4;
-}
-.seccion-clara .alianza-nota { color: var(--panel-tinta-2); }
-.seccion-clara .alianza-chapa { border-color: var(--panel-linea); }
 
 /* ── Firma de aniversario ── */
 .sello-30 { width: 113px; height: auto; margin: var(--esp-4) auto 0; opacity: 0.75; }
@@ -533,8 +544,8 @@ html.sin-js .revela { opacity: 1; transform: none; }
 /* ══════════ teléfono ══════════ */
 @media (max-width: 640px) {
   .franja-confianza { grid-template-columns: repeat(2, 1fr); }
-  .alianzas { grid-template-columns: repeat(2, 1fr); gap: var(--esp-2); }
-  .alianza-chapa { height: 74px; padding: 10px; }
+  .alianzas { gap: var(--esp-4); }
+  .alianza img { height: calc(var(--alto, 52px) * 0.76); }
   .onda svg { height: 24px; }
   .dato-numero { border-bottom: 1px solid var(--linea); }
   .dato-numero:nth-child(2n) { border-right: 0; }
@@ -555,7 +566,6 @@ html.sin-js .revela { opacity: 1; transform: none; }
 /* ══════════ tablet ══════════ */
 @media (min-width: 641px) and (max-width: 1024px) {
   .ficha { grid-template-columns: repeat(2, 1fr); }
-  .alianzas { grid-template-columns: repeat(3, 1fr); }
   .tarjetas-compactas { grid-template-columns: repeat(2, 1fr); }
   .panel-conversion { grid-template-columns: 1fr; }
   .conversion-texto { margin-left: 0; max-width: 640px; }

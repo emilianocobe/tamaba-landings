@@ -1,22 +1,38 @@
 /** Piezas compartidas entre plantillas.
  *  `p` es siempre el prefijo de ruta que calcula layout.mjs ('' o '../'). */
 
-/** Franja de credenciales. Los ocho logos son fondos heterogéneos
- *  (siete claros, uno azul sólido), así que cada uno vive en su propia
- *  chapa clara de altura fija: la franja se lee pareja aunque las marcas
- *  no lo sean. Van a color: son credenciales, no decoración. */
-export function franjaAlianzas(site, p, dim, { claro = false } = {}) {
+/** Franja de credenciales, en marquesina.
+ *  Patron de Panni (Catalogo de efectos #19 / METODO seccion 5.1):
+ *  el set se duplica y la pista corre a translateX(-50%) en loop; pausa
+ *  al pasar el cursor; con reduced-motion la animacion muere y queda una
+ *  fila legible. Los logos van en grises y recuperan color al hover
+ *  ("grises que recuperan color en hover", metodo Panni) — eso ademas
+ *  empareja ocho marcas con fondos incompatibles entre si.
+ *  Panel claro: es una franja de confianza, no una pieza de atmosfera. */
+export function franjaAlianzas(site, p, dim, medir) {
+  /* Normalizacion optica: a altura constante un logo apaisado (Cubase,
+     3.6:1) pesa el triple que uno cuadrado (AES, 1:1) y la fila se lee
+     despareja. Se iguala el AREA aparente — h = sqrt(area / proporcion) —
+     acotada para que la franja no se deforme. Sale de las medidas reales
+     del archivo, asi que un logo nuevo se acomoda solo. */
+  const AREA = 5200, MIN = 38, MAX = 68;
+  const alto = a => {
+    const { w, h } = medir(`img/${a.img}.webp`);
+    return Math.round(Math.min(MAX, Math.max(MIN, Math.sqrt(AREA / (w / h)))));
+  };
+  const logo = (a, copia) => `<li class="alianza" style="--alto:${alto(a)}px"${copia ? ' aria-hidden="true"' : ''}>` +
+    `<img src="${p}assets/img/${a.img}.webp" alt="${copia ? '' : a.alt}" loading="lazy" ${dim(`img/${a.img}.webp`)}>` +
+    `</li>`;
+  const set = site.alianzas.map(a => logo(a, false)).join('');
+  const copia = site.alianzas.map(a => logo(a, true)).join('');
+
   return `
 <!-- ══ ALIANZAS Y CERTIFICACIONES ══ -->
-<section class="seccion${claro ? ' seccion-clara' : ''} seccion-alianzas" aria-labelledby="tit-alianzas">
-  <p class="etiqueta">Certificaciones y alianzas</p>
-  <h2 class="titulo-display" id="tit-alianzas">No lo decimos solo nosotros.<br><em>Está certificado.</em></h2>
-  <ul class="alianzas">
-${site.alianzas.map(a => `    <li class="alianza revela">
-      <span class="alianza-chapa"><img src="${p}assets/img/${a.img}.webp" alt="${a.alt}" loading="lazy" ${dim(`img/${a.img}.webp`)}></span>
-      <span class="alianza-nota">${a.nota}</span>
-    </li>`).join('\n')}
-  </ul>
+<section class="franja-alianzas" aria-labelledby="tit-alianzas">
+  <h2 class="franja-alianzas-titulo" id="tit-alianzas">Certificaciones y alianzas</h2>
+  <div class="alianzas-pista">
+    <ul class="alianzas">${set}${copia}</ul>
+  </div>
 </section>`;
 }
 

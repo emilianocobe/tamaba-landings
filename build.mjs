@@ -122,7 +122,7 @@ function page(path, html) {
   pages.push(path === '' ? '/' : `/${path}/`);
 }
 
-const ctx = { site, carreras, beca, dim };
+const ctx = { site, carreras, beca, dim, medir };
 
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 

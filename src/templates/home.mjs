@@ -2,7 +2,7 @@
 
 import { franjaAlianzas, onda, sello30 } from './partes.mjs';
 
-export function home({ site, carreras, dim }) {
+export function home({ site, carreras, dim, medir }) {
   const carrerasPrincipales = carreras.filter(c => c.tipo === 'carrera');
   const cursos = carreras.filter(c => c.tipo !== 'carrera');
 
@@ -51,9 +51,7 @@ ${carrerasPrincipales.map(c => `    <a class="tarjeta revela" href="${c.slug}/" 
   </div>
 </section>
 
-${onda()}
-
-${franjaAlianzas(site, '', dim)}
+${franjaAlianzas(site, '', dim, medir)}
 
 <!-- ══ CURSOS ══ -->
 <section class="seccion seccion-clara">
