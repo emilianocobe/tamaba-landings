@@ -40,10 +40,6 @@ rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 writeFileSync(join(DIST, '.nojekyll'), '');
 
-// Dominio propio de GitHub Pages: el sitio se sirve en la raíz de este host.
-// El CNAME viaja en el artefacto de Pages (deploy por Actions, no por rama).
-writeFileSync(join(DIST, 'CNAME'), new URL(site.dominio).hostname + '\n');
-
 // Assets
 cpSync(join(ROOT, 'src/assets'), join(DIST, 'assets'), { recursive: true });
 
@@ -108,6 +104,51 @@ for (const [viejo, nuevo] of Object.entries(redirects)) {
   nRedir++;
 }
 console.log(`✔ ${nRedir} redirecciones de URLs viejas`);
+
+// ── .htaccess (Hostinger = Apache/LiteSpeed) ─────────────────────────
+// HTTPS forzado, 404 propia, compresión y caché de assets inmutables.
+writeFileSync(join(DIST, '.htaccess'), `# TAMABA · generado por build.mjs — no editar a mano
+Options -Indexes
+DirectoryIndex index.html
+
+# HTTPS obligatorio
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# Página 404 propia
+ErrorDocument 404 /404.html
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+# Caché: assets con hash de contenido estable, HTML siempre fresco
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\\.(css|js|webp|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+`);
 
 // ── robots.txt + sitemap.xml ─────────────────────────────────────────
 const base = site.dominio;
