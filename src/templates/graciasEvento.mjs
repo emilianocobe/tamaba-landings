@@ -2,7 +2,7 @@
  *  Distinta de gracias.mjs, que confirma una consulta por formulario.
  *  Acá la conversión es "agendó un evento" — la fuga #1 del embudo. */
 
-export function graciasEvento({ site, ev }) {
+export function graciasEvento({ site, ev, dim }) {
   const p = '../../';
   return `
 <section class="gracias">
@@ -16,7 +16,7 @@ ${ev.pasos.map((s, i) => `      <li><span class="ruta-numero">${String(i + 1).pa
     </ol>
 
     <figure class="gracias-imagen">
-      <img src="${p}assets/img/${ev.img}.webp" alt="${ev.imgAlt}" loading="lazy" width="1280" height="720">
+      <img src="${p}assets/img/${ev.img}.webp" alt="${ev.imgAlt}" loading="lazy" ${dim(`img/${ev.img}.webp`)}>
     </figure>
 
 ${ev.opuesto ? `

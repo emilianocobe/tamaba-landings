@@ -1,6 +1,8 @@
 /** Home: selector de carreras + test vocacional + confianza. */
 
-export function home({ site, carreras }) {
+import { franjaAlianzas, onda, sello30 } from './partes.mjs';
+
+export function home({ site, carreras, dim }) {
   const carrerasPrincipales = carreras.filter(c => c.tipo === 'carrera');
   const cursos = carreras.filter(c => c.tipo !== 'carrera');
 
@@ -8,7 +10,7 @@ export function home({ site, carreras }) {
 <!-- ══ HERO ══ -->
 <section class="hero hero-home">
   <div class="hero-fondo" aria-hidden="true">
-    <img src="assets/img/hero-consola.webp" alt="" fetchpriority="high">
+    <img src="assets/img/hero-consola.webp" alt="" fetchpriority="high" ${dim('img/hero-consola.webp')}>
   </div>
   <div class="hero-cuerpo">
     <p class="chip chip-rojo">Terciario oficial · A-1441</p>
@@ -38,7 +40,7 @@ export function home({ site, carreras }) {
   <h2 class="titulo-display">Título oficial.<br><em>Elegí tu camino.</em></h2>
   <div class="tarjetas">
 ${carrerasPrincipales.map(c => `    <a class="tarjeta revela" href="${c.slug}/" data-tb="tarjeta-carrera" data-carrera="${c.slug}">
-      <figure><img src="assets/img/${c.heroImg}.webp" alt="${c.heroImgAlt}" loading="lazy" width="700" height="460"></figure>
+      <figure><img src="assets/img/${c.heroImg}.webp" alt="${c.heroImgAlt}" loading="lazy" ${dim(`img/${c.heroImg}.webp`)}></figure>
       <div class="tarjeta-cuerpo">
         <h3>${c.nombreCorto}</h3>
         <p>${c.cardTexto || c.heroSub.split('.')[0] + '.'}</p>
@@ -48,6 +50,10 @@ ${carrerasPrincipales.map(c => `    <a class="tarjeta revela" href="${c.slug}/" 
     </a>`).join('\n')}
   </div>
 </section>
+
+${onda()}
+
+${franjaAlianzas(site, '', dim)}
 
 <!-- ══ CURSOS ══ -->
 <section class="seccion seccion-clara">

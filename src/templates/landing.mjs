@@ -2,6 +2,8 @@
  *  el canal (gads/mads/pmax) se resuelve por UTM en tracking.js.
  *  Un solo formulario por página (#inscripcion) — la CTA final vuelve a él. */
 
+import { franjaAlianzas, onda, sello30 } from './partes.mjs';
+
 const FICHA_ICONOS = {
   modalidad: 'M4 6h16M4 12h16M4 18h10',
   duracion: 'M12 6v6l4 2M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z',
@@ -19,7 +21,7 @@ function icono(d) {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
 }
 
-export function landing({ site, c }) {
+export function landing({ site, c, dim }) {
   const p = '../';
   const esCarrera = c.tipo === 'carrera';
 
@@ -27,7 +29,7 @@ export function landing({ site, c }) {
 <!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-fondo" aria-hidden="true">
-    <img src="${p}assets/img/${c.heroImg}.webp" alt="" fetchpriority="high">
+    <img src="${p}assets/img/${c.heroImg}.webp" alt="" fetchpriority="high" ${dim(`img/${c.heroImg}.webp`)}>
   </div>
   <div class="hero-cuerpo">
     <p class="chip chip-rojo">${c.eyebrow}</p>
@@ -152,7 +154,7 @@ ${c.tecnologia ? `
   <h2 class="titulo-display">Máxima tecnología<br><em>de apoyo al aprendizaje</em></h2>
   <div class="alternadas">
 ${c.tecnologia.map((t, i) => `    <article class="alternada revela${i % 2 ? ' alternada-inversa' : ''}">
-      <figure><img src="${p}assets/img/${t.img}.webp" alt="${t.alt}" loading="lazy" width="1100" height="620"></figure>
+      <figure><img src="${p}assets/img/${t.img}.webp" alt="${t.alt}" loading="lazy" ${dim(`img/${t.img}.webp`)}></figure>
       <div class="alternada-texto"><h3>${t.titulo}</h3><p>${t.texto}</p></div>
     </article>`).join('\n')}
   </div>
@@ -163,13 +165,13 @@ ${c.practicas ? `
   <p class="etiqueta">${c.practicas.eyebrow}</p>
   <h2 class="titulo-display">${c.practicas.titulo}</h2>
   <div class="practicas">
-    <figure class="revela"><img src="${p}assets/img/${c.practicas.img}.webp" alt="${c.practicas.imgAlt}" loading="lazy" width="1400" height="1000"></figure>
+    <figure class="revela"><img src="${p}assets/img/${c.practicas.img}.webp" alt="${c.practicas.imgAlt}" loading="lazy" ${dim(`img/${c.practicas.img}.webp`)}></figure>
     <div class="practicas-texto revela">
       <p>${c.practicas.texto}</p>
       <blockquote class="cita"><p>${c.practicas.destacado}</p></blockquote>
       <p>${c.practicas.textoDestacado}</p>
     </div>
-    <figure class="revela practicas-img2"><img src="${p}assets/img/${c.practicas.img2}.webp" alt="${c.practicas.img2Alt}" loading="lazy" width="1200" height="675"></figure>
+    <figure class="revela practicas-img2"><img src="${p}assets/img/${c.practicas.img2}.webp" alt="${c.practicas.img2Alt}" loading="lazy" ${dim(`img/${c.practicas.img2}.webp`)}></figure>
   </div>
 </section>` : ''}
 ${c.convenios ? `
@@ -213,12 +215,17 @@ ${c.faq.map(f => `    <details class="faq-item" data-tb-faq="${f.p.replaceAll('"
   </div>
 </section>` : ''}
 
+${franjaAlianzas(site, p, dim)}
+
+${onda()}
+
 <!-- ══ CTA FINAL ══ -->
 <section class="cierre">
   <h2 class="cierre-titulo">Tu carrera empieza<br>con una consulta</h2>
   <p class="cierre-sub">Sin compromiso. Te contamos aranceles, horarios y cómo inscribirte.</p>
   <a class="boton boton-rojo boton-grande" href="#inscripcion" data-tb="cta-final">Quiero más información</a>
   <p class="cierre-alternativa">¿Preferís verlo con tus propios ojos? <a href="${p}eventos/">Agendá una visita o un encuentro online</a>.</p>
+  ${sello30(p, dim)}
 </section>
 
 <!-- ══ MAPA ══ -->

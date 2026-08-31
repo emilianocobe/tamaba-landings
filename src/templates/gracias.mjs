@@ -1,7 +1,7 @@
 /** Página de gracias: confirmación + próximos pasos + booking + QR.
  *  noindex. Acá se dispara el evento de conversión (tracking.js). */
 
-export function gracias({ site, c }) {
+export function gracias({ site, c, dim }) {
   const p = '../../';
   return `
 <section class="gracias">

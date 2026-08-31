@@ -63,7 +63,7 @@ ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</sc
 <header class="cabecera" id="cabecera">
   <div class="cabecera-interior">
     <a class="cabecera-logo" href="${p || './'}" aria-label="TAMABA — inicio">
-      <img src="${p}assets/logos/logo-tamaba-blanco.png" alt="TAMABA · Instituto Terciario A-1441" width="126" height="57">
+      <img src="${p}assets/logos/logo-tamaba-blanco.png" alt="TAMABA · Instituto Terciario A-1441" ${o.dim('logos/logo-tamaba-blanco.png')}>
     </a>
     <div class="cabecera-datos" aria-hidden="true">
       <span class="cabecera-anios">30 AÑOS</span>
@@ -79,7 +79,7 @@ ${contenido}
 
 <footer class="pie">
   <div class="pie-marca">
-    <img src="${p}assets/logos/logo-tamaba-rojo.png" alt="TAMABA · Instituto Terciario A-1441" width="180" height="99" loading="lazy">
+    <img src="${p}assets/logos/logo-tamaba-rojo.png" alt="TAMABA · Instituto Terciario A-1441" ${o.dim('logos/logo-tamaba-rojo.png')} loading="lazy">
     <p class="pie-lema">30 años formando profesionales del sonido y la música.</p>
   </div>
   <div class="pie-columnas">

@@ -50,5 +50,47 @@
       "pmax": "pmax"
     }
   },
-  "whatsappHref": "5491178563203"
+  "whatsappHref": "5491178563203",
+  "alianzas": [
+    {
+      "img": "alianza-avid",
+      "alt": "Avid Certified User · Pro Tools",
+      "nota": "Certificación oficial Pro Tools"
+    },
+    {
+      "img": "alianza-training",
+      "alt": "Steinberg Certified Training Center",
+      "nota": "Centro de formación certificado"
+    },
+    {
+      "img": "alianza-cubase",
+      "alt": "Cubase · Steinberg",
+      "nota": "Software de producción musical"
+    },
+    {
+      "img": "alianza-wwise",
+      "alt": "Wwise Licensed School · Audiokinetic",
+      "nota": "Audio para videojuegos"
+    },
+    {
+      "img": "alianza-aes",
+      "alt": "Sección Estudiantil AES TAMABA · Audio Engineering Society Argentina",
+      "nota": "Sección estudiantil propia"
+    },
+    {
+      "img": "alianza-rivadavia",
+      "alt": "RVD.AI · Rivadavia",
+      "nota": "Plataforma de IA en el campus"
+    },
+    {
+      "img": "alianza-exosound",
+      "alt": "Grupo Exosound",
+      "nota": "Prácticas profesionales"
+    },
+    {
+      "img": "alianza-kemuel",
+      "alt": "Kemuel · Casa de Músicos",
+      "nota": "Prácticas profesionales"
+    }
+  ]
 }

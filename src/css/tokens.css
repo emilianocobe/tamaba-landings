@@ -64,6 +64,9 @@
   --track-hero:     -0.008em;         /* Bebas gigante: cierra el paso */
   --track-display:  0.012em;
   --track-display-chico: 0.03em;      /* Bebas chico: pide aire */
+  /* El contorno del hero escala con la tipografia: 2px fijos se ven
+     gruesos a 3.4rem y anemicos a 8.5rem. */
+  --stroke-hero: clamp(1.6px, 0.42vw, 4px);
 
   /* -- Espaciado -------------------------------------------- */
   --esp-1: 0.5rem;
@@ -92,6 +95,9 @@
   /* Corte del paralelogramo del logo: motivo recurrente de la marca */
   --corte-logo: polygon(0 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
   --sombra-claro: 0 1px 3px rgba(20,18,15,.08), 0 16px 44px -24px rgba(20,18,15,.28);
+  /* Grano de sala: la textura de una cabina tratada, no papel negro.
+     Se apaga en los paneles de conversion (ver .panel-conversion). */
+  --grano: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
 
   /* -- Movimiento (presupuesto decreciente hacia el form) --- */
   --dur-micro: 160ms;

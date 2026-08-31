@@ -1,10 +1,10 @@
 /** Eventos: visita presencial + encuentro online (bookings de GHL como enlaces). */
 
-export function eventos({ site }) {
+export function eventos({ site, dim }) {
   const p = '../';
   return `
 <section class="hero hero-compacto">
-  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high"></div>
+  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high" ${dim('img/sede-tamaba.webp')}></div>
   <div class="hero-cuerpo">
     <p class="chip chip-rojo">Vamos a conocernos</p>
     <h1 class="hero-titulo">Tu primera experiencia<br><em>con TAMABA</em></h1>

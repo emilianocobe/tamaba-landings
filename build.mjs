@@ -26,6 +26,36 @@ const carreras = readdirSync(join(ROOT, 'data/carreras'))
 const beca = JSON.parse(readFileSync(join(ROOT, 'data/campanias/beca.json'), 'utf8'));
 const eventosGracias = JSON.parse(readFileSync(join(ROOT, 'data/eventos-gracias.json'), 'utf8'));
 
+
+// ── Medidor de imágenes ──────────────────────────────────────────────
+// Las dimensiones de cada <img> se leen del archivo, nunca se escriben a
+// mano: un width/height desincronizado del asset real es CLS y deforma
+// la caja. Soporta los dos formatos que usa el sitio (WebP y PNG).
+const _medidas = new Map();
+function medir(rutaRel) {
+  if (_medidas.has(rutaRel)) return _medidas.get(rutaRel);
+  const abs = join(ROOT, 'src/assets', rutaRel);
+  if (!existsSync(abs)) throw new Error(`medir(): no existe src/assets/${rutaRel}`);
+  const d = readFileSync(abs);
+  let m = null;
+  if (d.subarray(0, 4).toString('latin1') === 'PNG') {
+    m = { w: d.readUInt32BE(16), h: d.readUInt32BE(20) };
+  } else if (d.subarray(0, 4).toString('latin1') === 'RIFF' && d.subarray(8, 12).toString('latin1') === 'WEBP') {
+    const fmt = d.subarray(12, 16).toString('latin1');
+    if (fmt === 'VP8X') m = { w: d.readUIntLE(24, 3) + 1, h: d.readUIntLE(27, 3) + 1 };
+    else if (fmt === 'VP8 ') m = { w: d.readUInt16LE(26) & 0x3fff, h: d.readUInt16LE(28) & 0x3fff };
+    else if (fmt === 'VP8L') { const n = d.readUInt32LE(21); m = { w: (n & 0x3fff) + 1, h: ((n >> 14) & 0x3fff) + 1 }; }
+  }
+  if (!m || !m.w || !m.h) throw new Error(`medir(): formato no reconocido en ${rutaRel}`);
+  _medidas.set(rutaRel, m);
+  return m;
+}
+/** Atributos listos para pegar en una <img>. */
+function dim(rutaRel) {
+  const { w, h } = medir(rutaRel);
+  return `width="${w}" height="${h}"`;
+}
+
 // ── Plantillas ───────────────────────────────────────────────────────
 const { layout }   = await import('./src/templates/layout.mjs');
 const { landing }  = await import('./src/templates/landing.mjs');
@@ -92,7 +122,7 @@ function page(path, html) {
   pages.push(path === '' ? '/' : `/${path}/`);
 }
 
-const ctx = { site, carreras, beca };
+const ctx = { site, carreras, beca, dim };
 
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 
@@ -150,12 +180,19 @@ page('bases-sorteo-beca', layout(legal(ctx, 'bases'), { ...ctx, depth: 1, titulo
 writeFileSync(join(DIST, '404.html'), layout(e404(ctx), { ...ctx, depth: 0, absoluto: true, titulo: 'Página no encontrada · TAMABA', descripcion: 'La página que buscás no existe.', noindex: true, ruta: '/404', cta: { href: '/', texto: 'Ir al inicio' } }));
 
 // ── Redirecciones desde las URLs del sitio viejo ─────────────────────
-// GitHub Pages no hace 301 de servidor: se generan páginas mínimas con
-// meta refresh + JS que preserva la query string (los UTM sobreviven).
+// Doble red, a proposito:
+//  1) 301 reales en .htaccess — lo que se sirve en Hostinger (Apache).
+//  2) paginas stub con meta refresh + JS — respaldo si mod_rewrite no
+//     estuviera activo, y lo unico que funcionaria en un host estatico.
+// Con el 301 activo la stub nunca llega a servirse; no compiten.
 const redirects = JSON.parse(readFileSync(join(ROOT, 'data/redirects.json'), 'utf8'));
 let nRedir = 0;
+const reglas301 = [];
 for (const [viejo, nuevo] of Object.entries(redirects)) {
   if (viejo.startsWith('_')) continue;
+  // Regla de servidor: es la que realmente se sirve en Hostinger (Apache).
+  // Apache arrastra la query string sola, asi que los UTM sobreviven.
+  reglas301.push(`RewriteRule ^${viejo}/?$ ${nuevo} [R=301,L]`);
   const dir = join(DIST, viejo);
   mkdirSync(dir, { recursive: true });
   writeFileSync(join(dir, 'index.html'), `<!DOCTYPE html>
@@ -176,12 +213,17 @@ writeFileSync(join(DIST, '.htaccess'), `# TAMABA · generado por build.mjs — n
 Options -Indexes
 DirectoryIndex index.html
 
-# HTTPS obligatorio
+# HTTPS obligatorio + 301 de las URLs del sitio viejo
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
   RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Las ${reglas301.length} URLs del WordPress viejo. 301 de servidor: transfieren
+  # autoridad y no gastan una carga de pagina. Apache arrastra la query
+  # string, asi que los UTM de los anuncios activos sobreviven al salto.
+${reglas301.map(r => '  ' + r).join('\n')}
 </IfModule>
 
 # Página 404 propia
@@ -212,6 +254,15 @@ ErrorDocument 404 /404.html
   </FilesMatch>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # El sitio no se embebe en ningun lado; si embebe (GHL, Maps), que es
+  # otra cosa y no la afecta esta cabecera.
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()"
+  # HSTS con despliegue gradual (recomendacion OWASP): un dia primero.
+  # Subir a 31536000 recien despues de verificar que el certificado
+  # renueva solo — un max-age largo con el cert vencido deja el sitio
+  # inaccesible y no hay forma de revertirlo del lado del visitante.
+  Header always set Strict-Transport-Security "max-age=86400"
 </IfModule>
 `);
 
@@ -270,6 +321,24 @@ if (process.argv.includes('--check')) {
     for (const m of html.matchAll(/<a[^>]*target="_blank"(?![^>]*noopener)[^>]*>/g)) { console.error(`✘ ${ruta}: _blank sin noopener → ${m[0].slice(0, 80)}`); errores++; }
     // http:// inseguro
     for (const m of html.matchAll(/(?:href|src)="http:\/\/[^"]*"/g)) { console.error(`✘ ${ruta}: URL http insegura → ${m[0].slice(0, 90)}`); errores++; }
+    // Toda imagen local debe declarar width/height, y esos numeros deben
+    // ser los del archivo. Un width/height inventado reserva la caja
+    // equivocada: es CLS garantizado y deforma la figura.
+    for (const m of html.matchAll(/<img [^>]*>/g)) {
+      const tag = m[0];
+      const src = (tag.match(/src="([^"]+)"/) || [])[1] || '';
+      if (!src || /^https?:/.test(src)) continue;              // remotas: fuera de nuestro control
+      const rel = src.replace(/^(?:\.\.\/)+|^\//, '').replace(/^assets\//, '');
+      if (/\.svg$/.test(rel)) continue;                        // el SVG escala solo
+      const w = +((tag.match(/width="(\d+)"/) || [])[1] || 0);
+      const h = +((tag.match(/height="(\d+)"/) || [])[1] || 0);
+      if (!w || !h) { console.error(`✘ ${ruta}: <img> sin width/height → ${src}`); errores++; continue; }
+      let real;
+      try { real = medir(rel); } catch { console.error(`✘ ${ruta}: no se pudo medir → ${rel}`); errores++; continue; }
+      if (real.w !== w || real.h !== h) {
+        console.error(`✘ ${ruta}: ${src} declara ${w}x${h} pero el archivo es ${real.w}x${real.h}`); errores++;
+      }
+    }
   }
   // Los woff2 que referencia el CSS deben existir (una @font-face rota
   // no da error de build por sí sola)
@@ -278,5 +347,5 @@ if (process.argv.includes('--check')) {
     if (!existsSync(join(DIST, 'css', m[1]))) { console.error(`✘ css/styles.css: fuente inexistente → ${m[1]}`); errores++; }
   }
   if (errores) { console.error(`\n✘ ${errores} problema(s).`); process.exit(1); }
-  console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, noopener, https, fuentes — todo OK');
+  console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, dimensiones reales, noopener, https, fuentes — todo OK');
 }

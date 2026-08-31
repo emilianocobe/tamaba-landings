@@ -4,7 +4,7 @@
 
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 
-export function becaPage({ site, beca, carreras }) {
+export function becaPage({ site, beca, carreras, dim }) {
   const p = '../';
   const [anio, mes] = beca.fechaFin.split('-');
   const edicion = `${MESES[+mes - 1]} ${anio}`;
@@ -12,7 +12,7 @@ export function becaPage({ site, beca, carreras }) {
   if (!beca.activa) {
     return `
 <section class="hero hero-compacto">
-  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high"></div>
+  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high" ${dim('img/sede-tamaba.webp')}></div>
   <div class="hero-cuerpo">
     <p class="chip chip-neutro">Edición ${edicion} · cerrada</p>
     <h1 class="hero-titulo">El sorteo de becas<br><em>ya cerró</em></h1>
@@ -28,7 +28,7 @@ export function becaPage({ site, beca, carreras }) {
   <h2 class="titulo-display">Las carreras siguen<br><em>con inscripción abierta</em></h2>
   <div class="tarjetas">
 ${carreras.filter(c => c.tipo === 'carrera').map(c => `    <a class="tarjeta revela" href="${p}${c.slug}/" data-tb="tarjeta-carrera" data-carrera="${c.slug}">
-      <figure><img src="${p}assets/img/${c.heroImg}.webp" alt="${c.heroImgAlt}" loading="lazy" width="700" height="460"></figure>
+      <figure><img src="${p}assets/img/${c.heroImg}.webp" alt="${c.heroImgAlt}" loading="lazy" ${dim(`img/${c.heroImg}.webp`)}></figure>
       <div class="tarjeta-cuerpo"><h3>${c.nombreCorto}</h3><span class="tarjeta-cta">Conocer la carrera →</span></div>
     </a>`).join('\n')}
   </div>
@@ -37,7 +37,7 @@ ${carreras.filter(c => c.tipo === 'carrera').map(c => `    <a class="tarjeta rev
 
   return `
 <section class="hero">
-  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high"></div>
+  <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high" ${dim('img/sede-tamaba.webp')}></div>
   <div class="hero-cuerpo">
     <p class="chip chip-rojo">${beca.nombre}</p>
     <h1 class="hero-titulo">Ganá tu beca<br><em>del ${beca.premios[0].pct}</em></h1>
