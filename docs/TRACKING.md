@@ -20,7 +20,7 @@ El sitio viejo trackeaba el canal **por URL**: cada carrera existía tres veces 
 
 ### 2.1 Una URL por carrera, canal por UTM
 - `/{carrera}/?utm_source=google&utm_medium=cpc&utm_campaign=…` reemplaza a `/gads-{carrera}`.
-- `tracking.js` resuelve el canal (`gads` | `mads` | `pmax`) desde `utm_source`/`utm_campaign`/`gclid`/`fbclid` (mapa configurable en `data/site.json → tracking.canales`).
+- `tracking.js` resuelve el canal (`gads` | `mads` | `pmax`) desde `utm_source`/`utm_campaign`/`gclid`/`fbclid` (mapa configurable en `data/site.json → tracking.canales`). **Sin señales de pago, el canal se reporta como `directo`** — nunca se inventa atribución de pago; en ese caso el formulario embebido es el de Gads (hay que mostrar alguno) pero sin UTMs inyectados.
 - **Los 15 formularios GHL existentes se preservan**: cada carrera lleva sus tres IDs (`ghlForms.gads/mads/pmax`) y el script monta el iframe del canal correcto. Los pipelines y automatizaciones de GHL siguen intactos; el día que quieran unificar a un formulario por carrera, es borrar dos claves del JSON.
 
 ### 2.2 Persistencia de atribución (primer y último toque)
@@ -38,12 +38,12 @@ Eventos tipados que ya emite el sitio, listos para enrutar desde un único conte
 | `page_view_landing` | Cada carga | `canal_pago`, `carrera`, `utm_source`, `utm_campaign` |
 | `form_cargado` | El iframe GHL se monta | `form_id`, `canal_pago` |
 | `form_visible` | ≥40 % del form en pantalla | `form_id`, `canal_pago` |
-| `cta_click` | Cualquier elemento `data-tb` | `elemento`, `tipo` (whatsapp/telefono/email/booking), `carrera` |
-| `scroll_depth` | 25/50/75/100 % | `profundidad` |
+| `cta_click` | Enlaces y botones con `data-tb` | `elemento`, `tipo` (whatsapp/telefono/email/booking), `carrera`, `canal_pago` |
+| `scroll_depth` | 25/50/75/100 % | `profundidad`, `canal_pago` |
 | `faq_abierta` | Se abre una pregunta | `faq_pregunta` |
 | `video_play` | Play del video | `video_id` |
 | `quiz_completado` | Test vocacional | `quiz_q1..q3`, `quiz_resultado` |
-| **`generate_lead`** | **Carga de `/gracias/{carrera}/`** | `carrera`, `canal_pago`, `utm_source`, `utm_campaign` |
+| **`generate_lead`** | **Carga de `/gracias/{carrera}/`** — deduplicado por sesión (recargas y botón «atrás» no cuentan dos veces) | `carrera`, `canal_pago`, `utm_source`, `utm_campaign` |
 
 ### 2.5 La conversión: `/gracias/{carrera}/`
 - **Una** página de gracias por carrera (plantilla única), `noindex`, que dispara `generate_lead`.

@@ -51,7 +51,7 @@ ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</sc
     <span class="cabecera-anios">30 AÑOS</span>
     <span class="cabecera-reloj" id="reloj-sede" hidden></span>
   </div>
-  <a class="boton boton-rojo cabecera-cta" href="${o.cta ? o.cta.href : '#inscripcion'}" data-tb="cta-header">${o.cta ? o.cta.texto : 'Quiero inscribirme'}</a>
+  <a class="boton boton-rojo cabecera-cta" href="${o.cta ? o.cta.href : '#inscripcion'}" data-tb="cta-header">${o.cta ? o.cta.texto : 'Consultar ahora'}</a>
 </header>
 
 <main id="contenido">

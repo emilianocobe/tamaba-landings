@@ -1,5 +1,5 @@
 /* TAMABA · main.js — interacción de la página.
-   Guards del método: RM (reduced motion), FINE (puntero fino).
+   Guard del método: RM (reduced motion) desactiva toda animación.
    Cada módulo es una IIFE independiente con guard propio. */
 'use strict';
 
@@ -131,7 +131,6 @@ document.documentElement.classList.remove('sin-js');
       ifr.title = 'Video de TAMABA';
       ifr.allow = 'autoplay; encrypted-media; picture-in-picture';
       ifr.allowFullscreen = true;
-      ifr.tabIndex = -1;
       marco.replaceChild(ifr, btn);
       ifr.focus();
       if (window.tbEvento) tbEvento('video_play', { video_id: id });
@@ -203,12 +202,12 @@ document.documentElement.classList.remove('sin-js');
   function pinta() {
     const d = fin - Date.now();
     el.hidden = false;
-    if (d <= 0) { el.textContent = 'La participación cerró.'; clearInterval(timer); return; }
+    if (d <= 0) { el.textContent = 'La participación cerró.'; if (timer) clearInterval(timer); return false; }
     const dias = Math.floor(d / 86400000), h = Math.floor(d / 3600000) % 24, m = Math.floor(d / 60000) % 60;
     el.textContent = `Quedan ${dias} día${dias === 1 ? '' : 's'}, ${h} h ${String(m).padStart(2, '0')} min para participar`;
+    return true;
   }
-  pinta();
-  timer = setInterval(pinta, 30000);
+  if (pinta()) timer = setInterval(pinta, 30000);
 })();
 
 /* ── FAQ: evento al abrir cada pregunta ── */

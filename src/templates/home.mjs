@@ -28,7 +28,7 @@ export function home({ site, carreras }) {
 <section class="franja-confianza" aria-label="TAMABA en números">
   <div class="dato-numero"><strong class="contador" data-hasta="30">30</strong><span>años de trayectoria</span></div>
   <div class="dato-numero"><strong>A-1441</strong><span>instituto oficial</span></div>
-  <div class="dato-numero"><strong class="contador" data-hasta="${carrerasPrincipales.length}" >${carrerasPrincipales.length}</strong><span>carreras oficiales</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="${carrerasPrincipales.length}">${carrerasPrincipales.length}</strong><span>carreras oficiales</span></div>
   <div class="dato-numero"><strong>CABA + online</strong><span>presencial y a distancia</span></div>
 </section>
 

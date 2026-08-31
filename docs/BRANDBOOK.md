@@ -46,7 +46,7 @@ Paleta **cerrada y enumerada** (`src/css/tokens.css`). Prohibido cualquier color
 | `--carbon` | #161514 | Superficies (tarjetas, paneles oscuros) |
 | `--humo` | #201E1D | Superficie elevada |
 | `--grafito` | #2C2A28 | Chips neutros |
-| `--ceniza` | #6E6864 | Texto terciario sobre oscuro |
+| `--ceniza` | #8B8580 | Texto terciario sobre oscuro (5.4:1 sobre negro, AA) |
 | `--niebla` | #A9A4A0 | Texto secundario sobre oscuro |
 | `--hueso` | #F5F2EF | **Panel claro** (zonas de conversión) y texto principal sobre oscuro |
 | `--blanco` | #FFFFFF | Tarjetas sobre panel claro, texto de botones rojos |
