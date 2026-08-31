@@ -84,6 +84,27 @@ page('bases-sorteo-beca', layout(legal(ctx, 'bases'), { ...ctx, depth: 1, titulo
 // 404 (GitHub Pages la sirve automáticamente)
 writeFileSync(join(DIST, '404.html'), layout(e404(ctx), { ...ctx, depth: 0, titulo: 'Página no encontrada · TAMABA', descripcion: 'La página que buscás no existe.', noindex: true, ruta: '/404', cta: { href: './', texto: 'Ir al inicio' } }));
 
+// ── Redirecciones desde las URLs del sitio viejo ─────────────────────
+// GitHub Pages no hace 301 de servidor: se generan páginas mínimas con
+// meta refresh + JS que preserva la query string (los UTM sobreviven).
+const redirects = JSON.parse(readFileSync(join(ROOT, 'data/redirects.json'), 'utf8'));
+let nRedir = 0;
+for (const [viejo, nuevo] of Object.entries(redirects)) {
+  if (viejo.startsWith('_')) continue;
+  const dir = join(DIST, viejo);
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(join(dir, 'index.html'), `<!DOCTYPE html>
+<html lang="es-AR"><head><meta charset="UTF-8">
+<title>Redirigiendo…</title>
+<meta name="robots" content="noindex">
+<link rel="canonical" href="${site.dominio}${nuevo}">
+<meta http-equiv="refresh" content="0; url=${nuevo}">
+<script>location.replace(${JSON.stringify(nuevo)} + location.search + location.hash);</script>
+</head><body><p>Esta página se mudó. <a href="${nuevo}">Continuar</a></p></body></html>\n`);
+  nRedir++;
+}
+console.log(`✔ ${nRedir} redirecciones de URLs viejas`);
+
 // ── robots.txt + sitemap.xml ─────────────────────────────────────────
 const base = site.dominio;
 writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /gracias/\nSitemap: ${base}/sitemap.xml\n`);
@@ -107,11 +128,14 @@ if (process.argv.includes('--check')) {
   })(DIST, '/');
 
   for (const [ruta, html] of todosHtml) {
-    // enlaces internos relativos → deben resolver a una página o asset existente
+    const esRedirect = html.includes('http-equiv="refresh"');
+    // enlaces internos → deben resolver a una página o asset existente
     for (const m of html.matchAll(/(?:href|src)="([^"#][^"]*)"/g)) {
       const url = m[1];
       if (/^(https?:|mailto:|tel:|data:)/.test(url)) continue;
-      const abs = join(DIST, dirname(ruta), url.split('?')[0]);
+      const abs = url.startsWith('/')
+        ? join(DIST, url.split('?')[0])
+        : join(DIST, dirname(ruta), url.split('?')[0]);
       const candidatos = [abs, join(abs, 'index.html')];
       if (!candidatos.some(existsSync)) { console.error(`✘ ${ruta}: enlace roto → ${url}`); errores++; }
     }
@@ -120,9 +144,9 @@ if (process.argv.includes('--check')) {
     for (const m of html.matchAll(/href="#([^"]+)"/g)) {
       if (!ids.has(m[1])) { console.error(`✘ ${ruta}: ancla sin destino → #${m[1]}`); errores++; }
     }
-    // exactamente un h1
+    // exactamente un h1 (las páginas de redirección quedan exentas)
     const h1s = (html.match(/<h1[\s>]/g) || []).length;
-    if (h1s !== 1) { console.error(`✘ ${ruta}: ${h1s} <h1> (debe haber exactamente 1)`); errores++; }
+    if (h1s !== 1 && !esRedirect) { console.error(`✘ ${ruta}: ${h1s} <h1> (debe haber exactamente 1)`); errores++; }
     // imágenes sin alt
     for (const m of html.matchAll(/<img(?![^>]*\balt=)[^>]*>/g)) { console.error(`✘ ${ruta}: <img> sin alt → ${m[0].slice(0, 80)}`); errores++; }
     // target=_blank sin noopener
