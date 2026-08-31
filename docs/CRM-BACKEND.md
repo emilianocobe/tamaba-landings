@@ -103,9 +103,30 @@ Los contactos históricos viven en GHL. Antes de cortar:
 3. `INSERT` en la tabla `leads` mapeando por la clave GHL de §2 del audit.
 4. Guardar el CSV con fecha en `data/backup/AAAA-MM-DD/` del repo.
 
-## 7 · Qué falta relevar para completar esto (pendientes)
+## 7 · Diccionario de valores (constraints de la base)
 
-- **Las opciones exactas de los 7 desplegables** (no se transcribieron campo por campo en la auditoría).
-- **El volumen de contactos** en GHL (la UI no lo expone por texto; se obtiene del export CSV).
-- **Los detalles de los calendarios** (disponibilidad, duración, notificaciones) si se quieren replicar.
-- **Las integraciones de Ads** que hoy dan «Error al cargar datos» — decidir si se reconectan en GHL o se resuelven directo desde el back-end propio.
+Las opciones exactas están relevadas en [GHL-AUDIT §2.1.b](GHL-AUDIT.md). Traducidas a `CHECK` / enums:
+
+```sql
+carrera_interes   IN ('cantante-profesional','musico-profesional',
+                     'sonido-presencial','sonido-distancia')
+nivel_estudios    IN ('secundario_completo','faltan_materias',
+                     'ultimo_anio','cursando_secundario')
+es_alumno         boolean                       -- Si / No
+instrumento       IN ('bajo','bandoneon','flauta','guitarra','piano','saxo','teclado')
+nivel_instrumento IN ('mas_de_un_anio','tutoriales','sin_estudios')
+nivel_canto       IN ('mas_de_un_anio','tutoriales','sin_estudios')
+tiempo_canto      IN ('mas_de_un_anio','menos_de_un_anio','no_canta')
+```
+
+**Mejora detectada:** el desplegable «Carrera de interés» de GHL solo tiene 4 valores, pero el sitio tiene 8 productos (faltan MDQ, Curso de Sonido, Mediciones Acústicas y Pro Tools). En el CRM propio el campo debe cubrir los 8 slugs; si no, los leads de esos cursos quedan sin carrera asignada.
+
+## 8 · Qué queda pendiente (y cómo obtenerlo)
+
+| Pendiente | Cómo obtenerlo |
+|-----------|----------------|
+| **Volumen y contenido de contactos** | GHL → Contactos → Exportar CSV. Trae los 7 campos custom con valores reales y es el insumo de migración. |
+| **Detalle de calendarios** (duración, disponibilidad, notificaciones) | GHL → Calendarios. Los IDs de booking ya están relevados. |
+| **Workflows / automatizaciones** | GHL → Automatización. Inventariarlos antes de cortar GHL para no perder secuencias de seguimiento. |
+| **Redirección actual de cada formulario** | GHL → Sitios → Formularios. Los campos ya se conocen; falta confirmar a dónde redirige cada uno hoy. |
+| **Integraciones de Ads** («Error al cargar datos») | Reconectar en GHL o resolver desde el back-end propio (§4). |

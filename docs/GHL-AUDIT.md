@@ -36,11 +36,44 @@ Estos son los que definen el negocio y **deben existir en el CRM propio**. Todos
 | 6 | ¿Qué nivel de estudio de canto tenés? | `contact.qu_nivel_de_estudio_de_canto_tens` | Perfilado para Cantante Profesional |
 | 7 | ¿Cuál es tu nivel de estudios actual? | `contact.cul_es_tu_nivel_de_estudios_actual` | Secundario completo / en curso — requisito de ingreso |
 
-> Nota: las **opciones** de cada desplegable no se transcribieron una por una (requiere abrir cada campo). Para el CRM propio se recomienda exportarlas desde GHL (Configuración → Campos personalizados → editar cada campo) o inferirlas del sitio nuevo, donde ya están modeladas (ej. nivel de estudios en el formulario del borrador de Sonido a Distancia).
+### 2.1.b Opciones exactas de cada desplegable
 
-### 2.2 Campos estándar de Contacto (los que todo CRM necesita)
+Capturadas una por una abriendo cada campo en GHL. **Este es el diccionario de valores que el CRM propio debe replicar.**
 
-`first_name`, `last_name`, `email`, `phone` (implícitos — el core de GHL), más: `company_name`, `address1`, `city`, `state`, `country` (desplegable), `postal_code`, `website`, `timezone` (desplegable). Carpeta «General Info» / «Contact».
+**`carrera_de_inters` — Carrera de interés** (4 opciones)
+- Cantante Profesional
+- Músico Profesional
+- Sonido y Producción Musical Presencial
+- Sonido y Producción Musical a Distancia
+
+> Ojo: no incluye MDQ, Curso de Sonido, Mediciones Acústicas ni Pro Tools, que sí existen como landings. Los leads de esos productos no tienen valor propio en este campo.
+
+**`cul_es_tu_nivel_de_estudios_actual` — ¿Cuál es tu nivel de estudios actual?** (4)
+- Secundario completo o grado superior
+- Me faltan rendir materias del secundario
+- Estoy en el último año de cursada del secundario
+- Estoy cursando el secundario (Aún no llegué al último año)
+
+**`sos_alumno_de_tamaba` — ¿Sos Alumno de Tamaba?** (2)
+- Si · No
+
+**`qu_instrumento_te_interesa` — ¿Qué instrumento te interesa?** (7)
+- Bajo · Bandoneón · Flauta · Guitarra · Piano · Saxo · Teclado
+
+**`qu_nivel_de_estudio_del_instrumento_tens` — Nivel de instrumento** (3)
+- Más de un año · Solo he visto tutoriales · No tengo ningún estudio
+
+**`qu_nivel_de_estudio_de_canto_tens` — Nivel de canto** (3)
+- Más de un año de estudio · Solo he visto tutoriales · No tengo ningún estudio
+
+**`cunto_tiempo_hace_que_cants_de_forma_aficionada` — Tiempo cantando** (3)
+- Más de un año · Menos de un año · No canto
+
+### 2.2 Campos estándar de Contacto (los 15 restantes)
+
+`first_name`, `last_name`, `email`, `phone` (el core de GHL), más: `company_name`, `address1`, `city`, `state`, `country` (desplegable), `postal_code`, `website`, `timezone` (desplegable), **`contact.source`** (Fuente de contacto) y **`contact.type`**. Carpetas «General Info» / «Contact».
+
+> `contact.source` es relevante para el CRM: hoy es el campo donde GHL deja la procedencia del lead. En el modelo propio se reemplaza por los campos de atribución (`canal_pago`, `utm_*`, `gclid`, `fbclid`).
 
 ### 2.3 Campos de Oportunidad (8) — TODOS estándar
 
