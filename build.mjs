@@ -51,13 +51,36 @@ const css = ['tokens.css', 'base.css', 'components.css']
   .join('\n');
 const fontsCss = readFileSync(join(ROOT, 'src/assets/fonts/fonts.css'), 'utf8')
   .replaceAll('./fonts/', '../assets/fonts/');
+
+/* Minificador conservador: quita comentarios y espacio sobrante sin
+   tocar el contenido de strings ni romper la cascada. */
+function minCss(s) {
+  return s
+    .replace(/\/\*[\s\S]*?\*\//g, '')          // comentarios
+    .replace(/\s*([{}:;,>~])\s*/g, '$1')       // espacio alrededor de símbolos
+    .replace(/;}/g, '}')                        // punto y coma final
+    .replace(/\s+/g, ' ')                       // espacios múltiples
+    .replace(/\s*!important/g, '!important')
+    .trim();
+}
+function minJs(s) {
+  return s
+    .split('\n')
+    .map(l => l.replace(/(^|[^:'"\\])\/\/(?![^'"]*['"]\s*[;,)]).*$/, '$1')) // // comentarios de línea
+    .join('\n')
+    .replace(/\/\*[\s\S]*?\*\//g, '')          // bloques /* */
+    .replace(/\n\s*\n/g, '\n')                  // líneas vacías
+    .replace(/^[ \t]+/gm, '')                   // indentación
+    .trim();
+}
+
 mkdirSync(join(DIST, 'css'), { recursive: true });
-writeFileSync(join(DIST, 'css/styles.css'), fontsCss + '\n' + css);
+writeFileSync(join(DIST, 'css/styles.css'), minCss(fontsCss + '\n' + css) + '\n');
 
 // JS
 mkdirSync(join(DIST, 'js'), { recursive: true });
 for (const f of readdirSync(join(ROOT, 'src/js'))) {
-  cpSync(join(ROOT, 'src/js', f), join(DIST, 'js', f));
+  writeFileSync(join(DIST, 'js', f), minJs(readFileSync(join(ROOT, 'src/js', f), 'utf8')) + '\n');
 }
 
 // ── Escritura de páginas ─────────────────────────────────────────────
@@ -74,7 +97,38 @@ const ctx = { site, carreras, beca };
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 
 for (const c of carreras) {
-  page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
+  // Datos estructurados por carrera: Course + FAQPage + Breadcrumb
+  const jsonLdCarrera = [
+    {
+      '@context': 'https://schema.org', '@type': 'Course',
+      name: c.nombre, description: c.metaDescripcion,
+      url: `${site.dominio}/${c.slug}/`,
+      inLanguage: 'es-AR',
+      educationalCredentialAwarded: c.tituloOficial,
+      provider: { '@type': 'EducationalOrganization', name: 'Instituto Terciario TAMABA', url: site.dominio, sameAs: [site.redes.instagram, site.redes.youtube] },
+      hasCourseInstance: {
+        '@type': 'CourseInstance',
+        courseMode: /distancia/i.test(c.ficha.modalidad) ? 'online' : 'onsite',
+        courseWorkload: c.ficha.duracion,
+        location: { '@type': 'Place', name: 'TAMABA', address: { '@type': 'PostalAddress', streetAddress: 'Adolfo Alsina 1994', addressLocality: 'Ciudad Autónoma de Buenos Aires', addressCountry: 'AR' } }
+      }
+    },
+    {
+      '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: site.dominio + '/' },
+        { '@type': 'ListItem', position: 2, name: c.nombreCorto, item: `${site.dominio}/${c.slug}/` }
+      ]
+    }
+  ];
+  if (c.faq && c.faq.length) jsonLdCarrera.push({
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: c.faq.map(f => ({
+      '@type': 'Question', name: f.p,
+      acceptedAnswer: { '@type': 'Answer', text: f.r }
+    }))
+  });
+  page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ogImgAlt: c.heroImgAlt, jsonLd: jsonLdCarrera, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, carreraNombre: c.nombre, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
 }
 
@@ -169,7 +223,7 @@ writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${bas
 const indexables = pages.filter(p => !p.startsWith('/gracias') && p !== '/privacidad/' && p !== '/bases-sorteo-beca/' && (beca.activa || p !== '/beca/'));
 writeFileSync(join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  indexables.map(p => `  <url><loc>${base}${p}</loc></url>`).join('\n') + '\n</urlset>\n');
+  indexables.map(p => `  <url><loc>${base}${p}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : p === '/eventos/' ? '0.9' : '0.8'}</priority></url>`).join('\n') + '\n</urlset>\n');
 
 console.log(`✔ ${pages.length + 1} páginas generadas en dist/`);
 

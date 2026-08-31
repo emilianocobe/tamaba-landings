@@ -23,12 +23,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="description" content="${esc(o.descripcion)}">
 ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="canonical" href="${canonical}">`}
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="TAMABA · Instituto Terciario">
 <meta property="og:title" content="${esc(o.titulo)}">
 <meta property="og:description" content="${esc(o.descripcion)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${site.dominio}/${o.ogImg || 'assets/img/sede-tamaba.webp'}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(o.ogImgAlt || 'Instituto Terciario TAMABA · 30 años formando profesionales del sonido y la música')}">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(o.titulo)}">
+<meta name="twitter:description" content="${esc(o.descripcion)}">
+<meta name="twitter:image" content="${site.dominio}/${o.ogImg || 'assets/img/sede-tamaba.webp'}">
+<meta name="theme-color" content="#0D0C0C">
+<link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="${p}assets/favicon.svg">
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
