@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "tamaba-landings",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["tools/servir.mjs", "4321"],
+      "port": 4321
+    }
+  ]
+}
