@@ -1,0 +1,36 @@
+{
+  "slug": "mediciones-acusticas",
+  "orden": 7,
+  "nombre": "Taller de Mediciones Acústicas",
+  "nombreCorto": "Mediciones Acústicas",
+  "tituloOficial": "Taller de Mediciones Acústicas",
+  "tipo": "taller",
+  "eyebrow": "Taller virtual",
+  "heroTitulo": "Taller de<br><em>Mediciones Acústicas</em>",
+  "heroSub": "Cuatro clases virtuales para aprender a evaluar y mejorar la calidad acústica de cualquier espacio. Hardware, software, ruido, tiempo de reverberación y espectro.",
+  "heroImg": "mediciones",
+  "heroImgAlt": "Equipamiento de medición acústica del taller de TAMABA",
+  "metaDescripcion": "Taller virtual de Mediciones Acústicas en TAMABA: 4 clases sobre hardware, software, ruido, reverberación y espectro. Para estudiantes, profesionales, arquitectos e ingenieros.",
+  "ficha": {
+    "modalidad": "100 % virtual",
+    "duracion": "4 clases",
+    "cursada": "Jueves 18:20 (hora argentina)",
+    "requisitos": "Abierto a estudiantes, profesionales, arquitectos e ingenieros"
+  },
+  "temario": {
+    "titulo": "Más información sobre el taller",
+    "temas": "Mediciones acústicas, hardware, software, ruido, tiempo de reverberación y espectro.",
+    "orientado": "Estudiantes, profesionales del sonido, arquitectos e ingenieros que buscan profundizar en acústica aplicada y aprender a evaluar y mejorar la calidad del sonido de un espacio."
+  },
+  "video": "GRUQsreYYG8",
+  "faq": [
+    { "p": "¿Es totalmente virtual?", "r": "Sí, las cuatro clases se cursan online, los jueves a las 18:20 (hora argentina)." },
+    { "p": "¿Para quién es?", "r": "Para estudiantes y profesionales del sonido, arquitectos e ingenieros que quieran aprender a medir y mejorar la acústica de un espacio." },
+    { "p": "¿Necesito equipamiento propio?", "r": "No es excluyente: el taller cubre el hardware y el software de medición, y podés empezar con herramientas accesibles. Consultanos al inscribirte." }
+  ],
+  "ghlForms": null,
+  "ghlFormNombre": "Mediciones Acústicas",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para saber más sobre el taller",
+  "formNota": "La inscripción está abierta hasta el inicio del taller."
+}

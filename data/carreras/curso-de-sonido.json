@@ -1,0 +1,54 @@
+{
+  "slug": "curso-de-sonido",
+  "orden": 6,
+  "nombre": "Curso de Sonido y Grabación",
+  "nombreCorto": "Curso de Sonido",
+  "tituloOficial": "Curso de Sonido y Grabación · Triple certificación",
+  "tipo": "curso",
+  "eyebrow": "Curso intensivo",
+  "heroTitulo": "Curso de Sonido<br><em>y Grabación</em>",
+  "heroSub": "Cinco meses, modalidad mixta y triple certificación. Mezcla, grabación, acústica, micrófonos, edición, masterización y MIDI.",
+  "heroImg": "control-room",
+  "heroImgAlt": "Sala de control del estudio de TAMABA",
+  "metaDescripcion": "Curso intensivo de Sonido y Grabación en TAMABA: 5 meses, modalidad mixta, triple certificación oficial. Mezcla, grabación, acústica, edición y masterización.",
+  "ficha": {
+    "modalidad": "Mixta: teoría a distancia · práctica presencial o a distancia",
+    "duracion": "5 meses",
+    "cursada": "Lunes (teoría) y miércoles (práctica), de 20 a 22 h (hora argentina)",
+    "titulo": "Triple certificación",
+    "requisitos": "Sin requisitos previos · abierto a músicos, productores y estudiantes"
+  },
+  "temario": {
+    "titulo": "Más información sobre el curso",
+    "temas": "Mezcla, grabación, acústica, micrófonos, ecualizadores, efectos, edición, masterización y MIDI.",
+    "orientado": "Músicos, productores, estudiantes y cualquier persona que quiera dar sus primeros pasos profesionales en el sonido."
+  },
+  "certificaciones": [
+    "Dirección General de Educación: Disposición Oficial 9/DGEGP/2019 – Técnicas de Sonido y Grabación DI-2019-01069305 – DGEGP",
+    "Diploma Latinoamericano de Escuelas Vinculadas a ALAEMUS",
+    "Certificado TAMABA · 30 años de trayectoria"
+  ],
+  "practicas": {
+    "titulo": "Grabá y mezclá desde tu PC o en nuestros estudios",
+    "eyebrow": "Prácticas remotas o presenciales",
+    "texto": "Usamos nuestros estudios como salas de grabación con soluciones como Zoom Rooms, Audiomovers, Soundtrap, AnyDesk, Reaper, Cubase y Pro Tools.",
+    "img": "estudio-hibrido",
+    "imgAlt": "Estudio híbrido de TAMABA para prácticas remotas y presenciales",
+    "destacado": "Realizá conciertos por streaming",
+    "textoDestacado": "Con los músicos juntos en escenario o distribuidos en distintos lugares.",
+    "img2": "concierto-streaming",
+    "img2Alt": "Concierto por streaming producido en TAMABA"
+  },
+  "video": "GRUQsreYYG8",
+  "faq": [
+    { "p": "¿Necesito conocimientos previos?", "r": "No. El curso está pensado para dar los primeros pasos profesionales en sonido, tanto para músicos como para cualquier persona interesada." },
+    { "p": "¿Cómo es la modalidad mixta?", "r": "La teoría se cursa a distancia (lunes) y la práctica se puede hacer presencial en nuestros estudios o a distancia (miércoles), de 20 a 22 h." },
+    { "p": "¿Qué certificados recibo?", "r": "Tres: la certificación oficial de la Dirección General de Educación (Disposición 9/DGEGP/2019), el Diploma Latinoamericano ALAEMUS y el certificado TAMABA." },
+    { "p": "¿Sirve como puerta de entrada a la carrera?", "r": "Sí: muchos estudiantes continúan luego la Tecnicatura Superior en Sonido y Producción Musical. Consultanos por equivalencias." }
+  ],
+  "ghlForms": null,
+  "ghlFormNombre": "Curso de Sonido",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para saber más sobre el curso",
+  "formNota": "La inscripción está abierta hasta el inicio de la cursada."
+}

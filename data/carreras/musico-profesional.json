@@ -1,0 +1,57 @@
+{
+  "slug": "musico-profesional",
+  "orden": 3,
+  "nombre": "Músico Profesional",
+  "nombreCorto": "Músico Profesional",
+  "tituloOficial": "Músico Profesional · Título terciario oficial",
+  "tipo": "carrera",
+  "eyebrow": "Inscripción abierta",
+  "heroTitulo": "Músico<br><em>Profesional</em>",
+  "heroSub": "Título terciario oficial emitido por el Ministerio de Educación de la República Argentina. Instrumento, composición, arreglos y producción.",
+  "heroImg": "musico",
+  "heroImgAlt": "Músico trabajando en una producción con guitarra y computadora",
+  "metaDescripcion": "Carrera de Músico Profesional con título terciario oficial en Buenos Aires. Instrumento, ensamble, composición, arreglos y práctica profesionalizante. TAMABA, 30 años.",
+  "ficha": {
+    "modalidad": "Presencial · CABA",
+    "duracion": "3 años",
+    "certificados": "Certificaciones intermedias en 1.º y 2.º año",
+    "titulo": "Título oficial · válido en Sudamérica, El Salvador, Panamá, México, España e Italia",
+    "requisitos": "Secundario completo · se recomiendan conocimientos previos de música",
+    "cursada": "Turnos mañana, tarde y noche, de 9 a 23 h, de lunes a viernes"
+  },
+  "planAreas": [
+    { "area": "Área de Instrumento", "materias": "Instrumento, Instrumento Grupal, Ensamble, Composición, Arreglos y Orquestación" },
+    { "area": "Área de Música", "materias": "Audioperceptiva, Armonía, Apreciación Musical, Acústica y Tecnología Aplicada a la Música" },
+    { "area": "Área de Formación General", "materias": "Historia de la Música Mundial, Americana y Argentina, EDI, Problemáticas de la Cultura y la Educación, Psicología, Ética y Deontología Profesional" },
+    { "area": "Área de Práctica Profesionalizante", "materias": "Técnicas de Grabación y Mezcla, Producción Musical, Comercialización, Proyecto Profesional" }
+  ],
+  "convenios": {
+    "titulo": "Convenios internacionales",
+    "texto": "TAMABA pertenece a la Asociación Latinoamericana de Escuelas de Música (ALAEMUS) y a la International Association of Schools of Jazz (IASJ), que ofrece actividades promovidas por Berklee College of Music (Boston, USA).",
+    "profesores": "Entre nuestro staff de profesores se encuentran Juan Raffo, Germán Martínez, Alejandro Demogli, Fernando Martínez, Mariano Martos, Marian Fossati y Alejandro Santos, entre otros."
+  },
+  "beneficios": [
+    "Títulos oficiales con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia",
+    "Prácticas en estudio desde el primer día",
+    "Formación musical integral",
+    "Plan «Todo incluido» en el valor de la cuota (10 cuotas por año)",
+    "Todo el material impreso, en audio y a través del campus virtual",
+    "Programa de clínicas, seminarios y workshops internacionales",
+    "Programa de visitas y actividades extracurriculares",
+    "Todos los permisos de examen del año",
+    "Pasantías y prácticas profesionalizantes durante el tercer año"
+  ],
+  "video": "Yp9_uxDB7gw",
+  "faq": [
+    { "p": "¿Necesito saber música para entrar?", "r": "Se recomienda contar con conocimientos previos, pero no es excluyente: el requisito formal es el secundario completo. Consultanos por el curso de nivelación." },
+    { "p": "¿Qué instrumentos se pueden estudiar?", "r": "La carrera tiene un área de instrumento con cursada individual y grupal, ensamble, composición, arreglos y orquestación. Contanos qué instrumento tocás al consultar." },
+    { "p": "¿Cómo son los horarios?", "r": "Hay tres turnos —mañana, tarde y noche— entre las 9 y las 23 h de lunes a viernes, con posibilidad de combinar horarios. En primer año la cursada es de ocho horas semanales." },
+    { "p": "¿El título es oficial?", "r": "Sí, con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia. TAMABA es el instituto A-1441, con 30 años de trayectoria." },
+    { "p": "¿Qué salida laboral tiene?", "r": "Músico de sesión o en vivo, compositor, arreglador, productor y docente. El área de práctica profesionalizante incluye producción musical, comercialización y proyecto profesional propio." }
+  ],
+  "ghlForms": { "gads": "yYofFCXvb09pTsXKh0Tk", "mads": "Nj2ubdhcVCWF6nTntJBl", "pmax": "JkBrGuNbzDaE0y4pVoVX" },
+  "ghlFormNombre": "Músico",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para conocer los detalles de la carrera",
+  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases."
+}

@@ -1,0 +1,101 @@
+/* ============================================================
+   TAMABA · Sistema de tokens
+   Identidad: rojo #E30613 sobre estudio oscuro. Dark-first:
+   el mundo de la marca es la sala de grabación. Las zonas de
+   conversión (formularios) viven en paneles claros: cero ruido
+   entre la persona y el envío.
+   ============================================================ */
+
+:root {
+  /* -- Marca ------------------------------------------------ */
+  --rojo:          #E30613;
+  --rojo-hover:    #C00511;
+  --rojo-profundo: #8E040D;
+  --rojo-neon:     #FF2B36;   /* acento sobre fondos muy oscuros */
+
+  /* -- Escala de grises (sesgo cálido, cabina de estudio) --- */
+  --negro:   #0D0C0C;
+  --carbon:  #161514;
+  --humo:    #201E1D;
+  --grafito: #2C2A28;
+  --niebla:  #A9A4A0;
+  --ceniza:  #6E6864;
+  --hueso:   #F5F2EF;
+  --blanco:  #FFFFFF;
+
+  /* -- Semánticos (tema oscuro por defecto) ----------------- */
+  --fondo:          var(--negro);
+  --superficie:     var(--carbon);
+  --superficie-2:   var(--humo);
+  --tinta:          var(--hueso);
+  --tinta-2:        var(--niebla);
+  --tinta-3:        var(--ceniza);
+  --linea:          rgba(245, 242, 239, 0.12);
+  --linea-fuerte:   rgba(245, 242, 239, 0.25);
+  --acento:         var(--rojo-neon);
+  --acento-solido:  var(--rojo);
+
+  /* -- Panel claro (zonas de conversión, secciones invertidas) */
+  --panel-fondo:  var(--hueso);
+  --panel-tinta:  #14120F;
+  --panel-tinta-2:#57524D;
+  --panel-linea:  rgba(20, 18, 15, 0.14);
+
+  /* -- Tipografía ------------------------------------------- */
+  --f-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --f-cuerpo:  'Barlow', 'Segoe UI', system-ui, sans-serif;
+  --f-dato:    'Barlow Condensed', 'Arial Narrow', sans-serif;
+
+  /* Escala modular (~1.25, con display libre) */
+  --t-xs:   0.8rem;      /* 12.8px  etiquetas */
+  --t-sm:   0.9rem;      /* 14.4px  notas     */
+  --t-base: 1.0625rem;   /* 17px    cuerpo    */
+  --t-md:   1.25rem;     /* 20px    lead      */
+  --t-lg:   1.625rem;    /* 26px    h3        */
+  --t-xl:   clamp(1.9rem, 3.5vw, 2.6rem);      /* h2 */
+  --t-2xl:  clamp(2.6rem, 6vw, 4.4rem);        /* h2 display */
+  --t-hero: clamp(3.4rem, 10vw, 8.5rem);       /* h1 hero    */
+
+  --lh-compacto: 1.06;
+  --lh-titulo:   1.12;
+  --lh-cuerpo:   1.65;
+
+  --track-etiqueta: 0.14em;
+  --track-display:  0.015em;
+
+  /* -- Espaciado -------------------------------------------- */
+  --esp-1: 0.5rem;
+  --esp-2: 1rem;
+  --esp-3: 1.5rem;
+  --esp-4: 2.5rem;
+  --esp-5: 4rem;
+  --esp-6: clamp(4rem, 9vw, 7.5rem);   /* respiración entre secciones */
+
+  --ancho-max: 1160px;
+  --ancho-texto: 68ch;
+  --margen-x: clamp(1.125rem, 4vw, 2.5rem);
+
+  /* -- Forma y sombra --------------------------------------- */
+  --radio: 6px;
+  --radio-panel: 14px;
+  --sombra-panel: 0 2px 6px rgba(0,0,0,.25), 0 24px 60px -30px rgba(0,0,0,.55);
+  --sombra-claro: 0 1px 3px rgba(20,18,15,.08), 0 16px 44px -24px rgba(20,18,15,.28);
+
+  /* -- Movimiento (presupuesto decreciente hacia el form) --- */
+  --dur-micro: 160ms;
+  --dur-corta: 320ms;
+  --dur-media: 640ms;
+  --curva: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* -- Capas ------------------------------------------------ */
+  --z-nav: 100;
+  --z-sticky-cta: 90;
+  --z-progreso: 110;
+
+  accent-color: var(--rojo);
+  color-scheme: dark;
+}
+
+/* Nota deliberada: este sitio comete un único mundo visual
+   (estudio oscuro + paneles claros de conversión). No hay tema
+   claro alternativo: los paneles claros SON el contraste. */

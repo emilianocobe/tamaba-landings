@@ -1,0 +1,59 @@
+{
+  "slug": "sonido-distancia-mdq",
+  "orden": 5,
+  "nombre": "Sonido y Producción Musical a Distancia · Mar del Plata",
+  "nombreCorto": "Sonido a Distancia · MDQ",
+  "tituloOficial": "Técnico Superior en Sonido y Producción Musical",
+  "tipo": "carrera",
+  "eyebrow": "Con prácticas en Mar del Plata",
+  "heroTitulo": "Sonido y Producción Musical<br><em>a Distancia · MDQ</em>",
+  "heroSub": "La primera y única carrera oficializada en Argentina: cursá la teoría a distancia, hacé las prácticas en Dadson Studios (Mar del Plata) y obtené tu título terciario oficial.",
+  "heroImg": "dadson-mdq",
+  "heroImgAlt": "Sala de control de Dadson Studios en Mar del Plata",
+  "metaDescripcion": "Estudiá Sonido y Producción Musical a distancia con prácticas presenciales en Dadson Studios, Mar del Plata. Título terciario oficial. TAMABA, 30 años de trayectoria.",
+  "ficha": {
+    "modalidad": "A distancia · prácticas en Mar del Plata",
+    "duracion": "3 años",
+    "certificados": "Certificaciones intermedias en 1.º y 2.º año",
+    "titulo": "Título terciario oficial · válido en Sudamérica, Panamá, México, Italia y España",
+    "requisitos": "Mayores de 17 años con secundario completo (o rindiendo las últimas materias)",
+    "cursada": "Clases en vivo de lunes a viernes · prácticas en Dadson Studios"
+  },
+  "practicas": {
+    "titulo": "Grabá y mezclá en Dadson Studios",
+    "eyebrow": "Prácticas presenciales en Mar del Plata",
+    "texto": "Gracias al convenio TAMABA – U. C. Dadson Studios, cursás las materias Técnicas de Grabación, Práctica Profesionalizante de Técnicas de Mezcla y Proyecto de Producción en un estudio profesional marplatense.",
+    "img": "dadson-mdq-2",
+    "imgAlt": "Estudio de grabación Dadson Studios, Mar del Plata",
+    "destacado": "Prácticas de sonido en vivo en Mar del Plata y conciertos por streaming",
+    "textoDestacado": "Con los músicos juntos en escenario o distribuidos en distintos lugares. Con compañeros técnicos presenciales y remotos.",
+    "img2": "concierto-streaming",
+    "img2Alt": "Concierto por streaming producido por estudiantes de TAMABA"
+  },
+  "beneficios": [
+    "Título Superior Oficial de nivel terciario: válido en toda Sudamérica, Panamá, México, Italia y España",
+    "Teoría 100 % a distancia con clases en vivo",
+    "Prácticas presenciales en Dadson Studios (Mar del Plata)",
+    "Simulaciones en nuestro Estudio Virtual 3D",
+    "Formación musical completa",
+    "Prácticas de conciertos por streaming",
+    "Plan «Todo incluido» en el valor de la cuota",
+    "Todo el material a través del campus virtual",
+    "Clínicas, seminarios y workshops internacionales",
+    "Todos los permisos de examen del año",
+    "Prácticas profesionalizantes desde el primer año",
+    "Certificado oficial de Steinberg en software Cubase"
+  ],
+  "video": "GRUQsreYYG8",
+  "faq": [
+    { "p": "¿Dónde se hacen las prácticas?", "r": "En U. C. Dadson Studios, Mar del Plata, gracias al convenio con TAMABA. Ahí cursás las materias prácticas de grabación, mezcla y producción." },
+    { "p": "¿La teoría es totalmente a distancia?", "r": "Sí: clases en vivo y materias asincrónicas, igual que la carrera a distancia. Solo las prácticas de estudio son presenciales en Mar del Plata." },
+    { "p": "¿El título es el mismo que en Buenos Aires?", "r": "Sí, exactamente el mismo: Técnico Superior en Sonido y Producción Musical, título terciario oficial con validez internacional." },
+    { "p": "¿Qué necesito para inscribirme?", "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias." }
+  ],
+  "ghlForms": { "gads": "1IXyyW6m9XkvUqOYuQKw", "mads": "aDvzkXf4Iy1PHBMmilzV", "pmax": "RF6ze343O7r1J4YJvUgJ" },
+  "ghlFormNombre": "Sonido MDQ",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para saber más acerca de la carrera",
+  "formNota": "La inscripción para la próxima cursada ya está abierta."
+}

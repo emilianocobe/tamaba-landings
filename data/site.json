@@ -1,0 +1,50 @@
+{
+  "nombre": "TAMABA",
+  "nombreLegal": "TAMABA SRL",
+  "cuit": "33-70882297-9",
+  "registro": "A-1441",
+  "aniversario": "30 años",
+  "fundacion": 1996,
+  "dominio": "https://landing.tamaba.edu.ar",
+  "baseUrl": "",
+  "descripcion": "Instituto Terciario Oficial de Sonido y Música · Buenos Aires",
+  "direccion": "Adolfo Alsina 1994, CABA, Argentina",
+  "mapaQuery": "TAMABA+Adolfo+Alsina+1994+CABA",
+  "telefono": "+54 11 4952-9803",
+  "telefonoHref": "+541149529803",
+  "whatsapp": "+54 9 11 4952-9803",
+  "emails": {
+    "info": "info@tamaba.edu.ar",
+    "admisiones": "admisiones@tamaba.edu.ar",
+    "alumnos": "alumnos@tamaba.edu.ar"
+  },
+  "redes": {
+    "instagram": "https://www.instagram.com/terciariotamaba/",
+    "youtube": "https://www.youtube.com/@tamabaterciario"
+  },
+  "videos": {
+    "institucional": "GRUQsreYYG8",
+    "estudioVirtual": "Yp9_uxDB7gw",
+    "streaming": "1MTkZPys7mU"
+  },
+  "ghl": {
+    "embedScript": "https://link.msgsndr.com/js/form_embed.js",
+    "formBase": "https://api.leadconnectorhq.com/widget/form/",
+    "bookingBase": "https://api.leadconnectorhq.com/widget/booking/",
+    "bookings": {
+      "visitaPresencial": "B32S9qH8gZ9pOZ5q3Fcm",
+      "encuentroOnline": "QpZjHqnAWdW0HvH5nKsO"
+    }
+  },
+  "tracking": {
+    "gtmId": "GTM-XXXXXXX",
+    "nota": "Reemplazar GTM-XXXXXXX por el contenedor real antes de publicar. Ver docs/TRACKING.md",
+    "canales": {
+      "google": "gads",
+      "facebook": "mads",
+      "instagram": "mads",
+      "meta": "mads",
+      "pmax": "pmax"
+    }
+  }
+}

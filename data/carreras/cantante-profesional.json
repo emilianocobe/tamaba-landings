@@ -1,0 +1,57 @@
+{
+  "slug": "cantante-profesional",
+  "orden": 4,
+  "nombre": "Cantante Profesional",
+  "nombreCorto": "Cantante Profesional",
+  "tituloOficial": "Cantante Profesional · Título terciario oficial",
+  "tipo": "carrera",
+  "eyebrow": "Inscripción abierta",
+  "heroTitulo": "Cantante<br><em>Profesional</em>",
+  "heroSub": "Título terciario oficial emitido por el Ministerio de Educación de la República Argentina. Canto, ensamble, composición y producción.",
+  "heroImg": "cantante",
+  "heroImgAlt": "Cantante ensayando con letra en el teléfono en un estudio",
+  "metaDescripcion": "Carrera de Cantante Profesional con título terciario oficial en Buenos Aires. Canto individual y grupal, ensamble, composición y práctica profesionalizante. TAMABA, 30 años.",
+  "ficha": {
+    "modalidad": "Presencial · CABA",
+    "duracion": "3 años",
+    "certificados": "Certificaciones intermedias en 1.º y 2.º año",
+    "titulo": "Título oficial · válido en Sudamérica, El Salvador, Panamá, México, España e Italia",
+    "requisitos": "Secundario completo · se recomiendan conocimientos previos de música",
+    "cursada": "Turnos mañana, tarde y noche, de 9 a 23 h, de lunes a viernes"
+  },
+  "planAreas": [
+    { "area": "Área de Canto", "materias": "Canto, Canto Grupal, Ensamble, Composición, Arreglos y Orquestación" },
+    { "area": "Área de Música", "materias": "Audioperceptiva, Armonía, Apreciación Musical, Acústica y Tecnología Aplicada a la Música" },
+    { "area": "Área de Formación General", "materias": "Historia de la Música Mundial, Americana y Argentina, EDI, Problemáticas de la Cultura y la Educación, Psicología, Ética y Deontología Profesional" },
+    { "area": "Área de Práctica Profesionalizante", "materias": "Técnicas de Grabación y Mezcla, Producción Musical, Comercialización, Proyecto Profesional" }
+  ],
+  "convenios": {
+    "titulo": "Convenios internacionales",
+    "texto": "TAMABA pertenece a la Asociación Latinoamericana de Escuelas de Música (ALAEMUS) y a la International Association of Schools of Jazz (IASJ), que ofrece actividades promovidas por Berklee College of Music (Boston, USA).",
+    "profesores": "Entre nuestro staff de profesores se encuentran Juan Raffo, Germán Martínez, Alejandro Demogli, Fernando Martínez, Mariano Martos, Marian Fossati y Alejandro Santos, entre otros."
+  },
+  "beneficios": [
+    "Títulos oficiales con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia",
+    "Prácticas en estudio desde el primer día",
+    "Formación musical integral",
+    "Plan «Todo incluido» en el valor de la cuota (10 cuotas por año)",
+    "Todo el material impreso, en audio y a través del campus virtual",
+    "Programa de clínicas, seminarios y workshops internacionales",
+    "Programa de visitas y actividades extracurriculares",
+    "Todos los permisos de examen del año",
+    "Pasantías y prácticas profesionalizantes durante el tercer año"
+  ],
+  "video": "Yp9_uxDB7gw",
+  "faq": [
+    { "p": "¿Necesito formación previa en canto?", "r": "Se recomienda contar con conocimientos previos de música, pero no es excluyente: el requisito formal es el secundario completo. Consultanos por el curso de nivelación." },
+    { "p": "¿Qué estilos se trabajan?", "r": "La formación es transversal: canto individual y grupal, ensamble, composición y arreglos, con historia de la música mundial, americana y argentina. El estilo lo elegís vos." },
+    { "p": "¿Cómo son los horarios?", "r": "Hay tres turnos —mañana, tarde y noche— entre las 9 y las 23 h de lunes a viernes, con posibilidad de combinar horarios. En primer año la cursada es de ocho horas semanales." },
+    { "p": "¿El título es oficial?", "r": "Sí, con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia. TAMABA es el instituto A-1441, con 30 años de trayectoria." },
+    { "p": "¿Voy a grabar en estudio?", "r": "Sí. El área de práctica profesionalizante incluye técnicas de grabación y mezcla, producción musical y un proyecto profesional propio, con prácticas en nuestros estudios." }
+  ],
+  "ghlForms": { "gads": "NJYRnusRZwy9gQFBzaNy", "mads": "kKH6VTuUiYSUyeRwNLnb", "pmax": "23UrjewAZo0BbGvrF9vy" },
+  "ghlFormNombre": "Cantante",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para saber más acerca de la carrera",
+  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases."
+}

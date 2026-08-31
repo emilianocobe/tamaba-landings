@@ -1,0 +1,48 @@
+{
+  "slug": "pro-tools",
+  "orden": 8,
+  "nombre": "Certificación Oficial AVID Pro Tools",
+  "nombreCorto": "Pro Tools · AVID",
+  "tituloOficial": "PT101 + PT110 · Certificación oficial AVID",
+  "tipo": "curso",
+  "eyebrow": "Certificación oficial AVID",
+  "heroTitulo": "Pro Tools<br><em>PT101 + PT110</em>",
+  "heroSub": "La certificación oficial AVID en dos cursos: Fundamentos de Pro Tools I y II. Aprobás ambos y obtenés la credencial Pro Tools User reconocida en toda la industria.",
+  "heroImg": "control-room",
+  "heroImgAlt": "Estación de trabajo con Pro Tools en el estudio de TAMABA",
+  "metaDescripcion": "Certificación oficial AVID Pro Tools en Buenos Aires: cursos PT101 y PT110 en TAMABA, AVID Learning Partner. Obtené la credencial Pro Tools User.",
+  "ficha": {
+    "modalidad": "Presencial · CABA",
+    "duracion": "2 cursos de 15 h + examen cada uno",
+    "titulo": "Credencial oficial AVID Pro Tools User",
+    "requisitos": "PT101: sin requisitos · PT110: PT101 aprobado o experiencia equivalente"
+  },
+  "modulos": [
+    {
+      "codigo": "PT101",
+      "nombre": "Fundamentos de Pro Tools I",
+      "texto": "Introduce los conceptos y principios fundamentales de Pro Tools: todo lo que necesitás para completar un proyecto básico, de la grabación a la mezcla.",
+      "publico": "Usuarios nuevos o autodidactas que buscan una base sólida y formal del software.",
+      "detalle": "15 horas de capacitación + examen."
+    },
+    {
+      "codigo": "PT110",
+      "nombre": "Fundamentos de Pro Tools II",
+      "texto": "Amplía los principios del PT101 e introduce las técnicas clave para operar Pro Tools en entornos de producción profesional.",
+      "publico": "Músicos, ingenieros de audio y editores de sonido para cine o televisión.",
+      "detalle": "15 horas de capacitación + examen. Requisito: PT101 aprobado o experiencia equivalente."
+    }
+  ],
+  "notaCertificacion": "La certificación oficial está dividida en dos partes: solo se obtiene una vez cursadas y aprobadas ambas.",
+  "video": "GRUQsreYYG8",
+  "faq": [
+    { "p": "¿Qué valor tiene la certificación AVID?", "r": "Es la credencial oficial del fabricante de Pro Tools, el estándar de la industria en estudios de grabación y postproducción de todo el mundo." },
+    { "p": "¿Puedo hacer solo el PT101?", "r": "Sí, y recibís la formación completa de ese nivel. Pero la credencial oficial AVID se obtiene únicamente al aprobar ambos cursos." },
+    { "p": "¿Necesito experiencia previa?", "r": "Para el PT101, no. Para el PT110 necesitás el PT101 aprobado o experiencia equivalente en Pro Tools." }
+  ],
+  "ghlForms": null,
+  "ghlFormNombre": "Pro Tools",
+  "formTitulo": "Hablemos",
+  "formSub": "Completá el formulario para conocer fechas y aranceles",
+  "formNota": "Los cupos de cada cohorte son limitados."
+}
