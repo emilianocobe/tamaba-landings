@@ -53,13 +53,17 @@
   const CANAL = canal();                 // null = sin canal de pago
   const CANAL_PAGO = CANAL || 'directo'; // lo que se reporta en eventos
 
-  /* ── 2 · Google Tag Manager (contenedor único para todo) ───── */
-  if (TB.gtmId && /^GTM-[A-Z0-9]+$/.test(TB.gtmId) && !/XXXXXXX/.test(TB.gtmId)) {
-    push({ 'gtm.start': Date.now(), event: 'gtm.js' });
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + TB.gtmId;
-    document.head.appendChild(s);
+  /* ── 2 · GTM ya se carga desde el <head> del layout ────────── */
+  /* Meta Pixel: solo si se declaró un ID en site.json. Lo normal es
+     dejar que GTM lo dispare; esta vía directa es el respaldo. */
+  if (TB.metaPixelId && /^\d{10,20}$/.test(TB.metaPixelId) && !window.fbq) {
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', TB.metaPixelId);
+    fbq('track', 'PageView');
   }
 
   /* Contexto base de la página */
@@ -128,13 +132,39 @@
       if (!yaContada) sessionStorage.setItem(clave, '1');
     } catch (e) { /* sin storage: se cuenta igual */ }
     if (!yaContada) {
+      // Identificador único de la conversión: deduplica navegador ↔ CAPI
+      // (Meta une el evento del pixel con el de la API de Conversiones si
+      //  ambos llevan el mismo event_id).
+      const eventId = 'lead-' + TB.slug + '-' + Date.now() + '-' +
+        Math.random().toString(36).slice(2, 10);
+
+      // GA4 / Google Ads: el evento estándar de lead
       push({
         event: 'generate_lead',
         carrera: TB.slug,
+        carrera_nombre: TB.carreraNombre || TB.slug,
         canal_pago: CANAL_PAGO,
         utm_source: attr.utm_source || '(directo)',
-        utm_campaign: attr.utm_campaign || '(sin campaña)'
+        utm_campaign: attr.utm_campaign || '(sin campaña)',
+        event_id: eventId,
+        value: 1,
+        currency: 'ARS'
       });
+
+      // Meta: evento estándar "Lead" (la interfaz en español lo muestra
+      // como «Cliente potencial»).
+      if (window.fbq) {
+        fbq('track', 'Lead', {
+          content_name: TB.carreraNombre || TB.slug,
+          content_category: 'carrera',
+          content_type: 'product',
+          value: 1,
+          currency: 'ARS'
+        }, { eventID: eventId });
+      }
+
+      // Espejo para quien prefiera enrutar por nombre de evento en GTM
+      push({ event: 'Lead', carrera: TB.slug, event_id: eventId });
     }
   }
 

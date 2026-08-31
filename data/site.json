@@ -37,8 +37,11 @@
     }
   },
   "tracking": {
-    "gtmId": "GTM-XXXXXXX",
-    "nota": "Reemplazar GTM-XXXXXXX por el contenedor real antes de publicar. Ver docs/TRACKING.md",
+    "gtmId": "GTM-KTLTXJZ",
+    "ga4Id": "G-LCTZBVD2L6",
+    "googleAdsId": "AW-11075909129",
+    "metaPixelId": "",
+    "nota": "GTM es el orquestador: carga GA4, Google Ads y Meta Pixel. El token de la API de Conversiones de Meta NO va aca (es server-side). Ver docs/TRACKING.md",
     "canales": {
       "google": "gads",
       "facebook": "mads",

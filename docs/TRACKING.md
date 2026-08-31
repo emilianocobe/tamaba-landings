@@ -49,12 +49,40 @@ Eventos tipados que ya emite el sitio, listos para enrutar desde un único conte
 - **Una** página de gracias por carrera (plantilla única), `noindex`, que dispara `generate_lead`.
 - **Acción requerida en GHL**: configurar la redirección post-envío de cada formulario hacia `https://{dominio}/gracias/{carrera}/`. Es un campo por formulario en el editor de GHL.
 
+## 2.6 · IDs configurados (agosto 2026)
+
+| Servicio | ID | Dónde vive |
+|----------|----|-----------|
+| Google Tag Manager | **GTM-KTLTXJZ** | Cargado en el `<head>` de todas las páginas + `<noscript>` |
+| Google Analytics 4 | **G-LCTZBVD2L6** | Se dispara **desde GTM** |
+| Google Ads | **AW-11075909129** | Se dispara **desde GTM** |
+| Meta Pixel | *(pendiente el ID numérico)* | Preferentemente desde GTM; el sitio soporta carga directa si se completa `metaPixelId` en `site.json` |
+
+> **El token de la API de Conversiones de Meta NO va en el sitio.** Es una credencial secreta: si se pone en el navegador queda expuesta a cualquiera (y este repo es público). Va del lado del servidor — lo natural acá es cargarlo en **GoHighLevel** (que tiene integración nativa con Meta CAPI y ya tiene los datos del contacto) o en un endpoint propio del back-end (ver `CRM-BACKEND.md`).
+
+## 2.7 · El evento de conversión: «Cliente potencial» / Lead
+
+En las páginas `/gracias/{carrera}/` se dispara, una sola vez por sesión:
+
+| Plataforma | Nombre del evento | Notas |
+|-----------|-------------------|-------|
+| GA4 / Google Ads | `generate_lead` | Con `carrera`, `carrera_nombre`, `canal_pago`, `utm_*`, `value: 1`, `currency: ARS` |
+| Meta | **`Lead`** | La interfaz en español lo muestra como **«Cliente potencial»**. Se envía con `content_name` (la carrera), `content_category`, `content_type`, `value` y `currency` |
+| dataLayer (espejo) | `Lead` | Por si preferís enrutar en GTM por ese nombre |
+
+**Deduplicación navegador ↔ servidor:** cada conversión genera un `event_id` único que viaja tanto en el `dataLayer` como en el `eventID` del pixel. Si además enviás el evento por la API de Conversiones con **ese mismo `event_id`**, Meta une ambos y no cuenta doble. Es la razón por la que el `event_id` existe.
+
 ## 3 · Mapa de etiquetas a crear en GTM (checklist de implementación)
 
-1. **Crear contenedor GTM** → copiar el ID a `data/site.json → tracking.gtmId` (hoy `GTM-XXXXXXX`; el script no inyecta nada hasta que haya un ID real).
-2. **GA4**: etiqueta de configuración + eventos `generate_lead`, `cta_click`, `form_visible`, `quiz_completado` como eventos clave.
-3. **Google Ads**: conversión «Lead» disparada por `generate_lead`, con `carrera` como variable de conversión. Importar también la conversión desde GA4 como respaldo. Activar **Enhanced Conversions** (GHL puede enviar email/teléfono hasheados vía su integración nativa con Google Ads — configurarlo en GHL).
-4. **Meta Píxel + API de Conversiones**: `Lead` en `generate_lead`. La CAPI conviene resolverla **desde GoHighLevel** (integración nativa con Meta), que tiene el dato del contacto; el píxel del sitio queda como señal de navegador.
+El contenedor **GTM-KTLTXJZ** ya está instalado en el sitio y recibiendo el `dataLayer`. Falta crear dentro de GTM estas etiquetas (todo se configura en GTM, no hace falta tocar el sitio):
+
+1. **Variables de capa de datos** (Variables → Nueva → Variable de capa de datos), una por cada uno: `carrera`, `carrera_nombre`, `canal_pago`, `utm_source`, `utm_campaign`, `event_id`, `elemento`, `tipo`, `profundidad`.
+2. **Activadores** (Activadores → Nuevo → Evento personalizado), con el nombre exacto del evento: `generate_lead`, `form_visible`, `cta_click`, `quiz_completado`, `scroll_depth`.
+3. **GA4 — Configuración**: etiqueta «Google Tag» con ID `G-LCTZBVD2L6`, activador *Todas las páginas*.
+4. **GA4 — Evento de conversión**: etiqueta «Evento de GA4», nombre `generate_lead`, con los parámetros `carrera`, `canal_pago`, `utm_source`, `utm_campaign`, `value`, `currency`; activador: evento personalizado `generate_lead`. Después marcarlo como **evento clave** en GA4.
+5. **Google Ads — Conversión**: etiqueta «Conversión de Google Ads» con ID `AW-11075909129` y la etiqueta de conversión de «Cliente potencial»; activador: `generate_lead`. Activar **Conversiones mejoradas** (los datos hasheados los puede aportar GHL).
+6. **Meta Pixel**: etiqueta HTML personalizada con el `fbq('init', <ID>)` en *Todas las páginas*, y otra con `fbq('track','Lead', {...}, {eventID: {{event_id}}})` en el activador `generate_lead`. **Usar la variable `event_id`** para que deduplique contra la API de Conversiones.
+7. **Consent Mode v2** en GTM (deja el sitio listo para tráfico internacional; el hero mismo dice «desde cualquier lugar del mundo»).
 5. **Conversiones secundarias (micro)**: `cta_click` con `tipo=whatsapp|booking|telefono` como conversiones «blandas» en Ads (observación, no puja) — son el proxy del evento informativo, la fuga #1 según la encuesta.
 6. **Consent Mode v2** en GTM (región AR no lo exige aún, pero deja el sitio listo para campañas internacionales — hay estudiantes de «cualquier lugar del mundo» según el propio hero).
 
