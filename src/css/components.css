@@ -358,13 +358,9 @@
   margin-bottom: var(--esp-4);
 }
 
-/* La mascara difumina los extremos: los logos entran y salen del plano
-   en vez de cortarse contra el borde de la ventana. */
-.alianzas-pista {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
+/* Corte seco contra las lineas de la banda, como la marquesina de Panni
+   en produccion: sin degradado en los extremos. */
+.alianzas-pista { overflow: hidden; }
 .alianzas {
   display: flex; align-items: center; gap: var(--esp-5);
   list-style: none; width: max-content;

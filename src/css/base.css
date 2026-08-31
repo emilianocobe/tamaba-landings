@@ -253,7 +253,6 @@ h1, h2, h3 { text-wrap: balance; }
   /* Sin movimiento la pista no puede seguir siendo una cinta: se vuelve
      una fila centrada y la copia del set (aria-hidden) sobra. */
   .alianzas { flex-wrap: wrap; width: auto; justify-content: center; gap: var(--esp-4); }
-  .alianzas-pista { -webkit-mask-image: none; mask-image: none; }
   .alianza[aria-hidden="true"] { display: none; }
   .alianza img { filter: grayscale(1) contrast(0.85) opacity(0.75); }
   .revela { opacity: 1 !important; transform: none !important; }
