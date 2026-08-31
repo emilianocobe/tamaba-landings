@@ -1,7 +1,10 @@
 /** Cáscara de página: head, header, footer, CTA móvil, scripts. */
 
+const esc = s => String(s).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
+
 export function layout(contenido, o) {
-  const p = '../'.repeat(o.depth);            // prefijo relativo a la raíz
+  // o.absoluto: rutas desde la raíz (la 404 se sirve en cualquier URL)
+  const p = o.absoluto ? '/' : '../'.repeat(o.depth);
   const { site } = o;
   const canonical = site.dominio + (o.ruta || '/');
   return `<!DOCTYPE html>
@@ -9,12 +12,12 @@ export function layout(contenido, o) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${o.titulo}</title>
-<meta name="description" content="${o.descripcion}">
+<title>${esc(o.titulo)}</title>
+<meta name="description" content="${esc(o.descripcion)}">
 ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="canonical" href="${canonical}">`}
 <meta property="og:type" content="website">
-<meta property="og:title" content="${o.titulo}">
-<meta property="og:description" content="${o.descripcion}">
+<meta property="og:title" content="${esc(o.titulo)}">
+<meta property="og:description" content="${esc(o.descripcion)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${site.dominio}/${o.ogImg || 'assets/img/sede-tamaba.webp'}">
 <meta property="og:locale" content="es_AR">
@@ -91,7 +94,7 @@ ${o.carreras.map(c => `        <li><a href="${p}${c.slug}/">${c.nombreCorto}</a>
 </footer>
 
 ${o.conStickyCta ? `<div class="cta-movil" id="cta-movil" hidden>
-  <a class="boton boton-rojo" href="#inscripcion" data-tb="cta-sticky">Quiero inscribirme</a>
+  <a class="boton boton-rojo" href="#inscripcion" data-tb="cta-sticky">Consultar ahora</a>
 </div>` : ''}
 </body>
 </html>`;

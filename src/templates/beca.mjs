@@ -2,15 +2,19 @@
  *  al vencer la campaña se cambia "activa" a false y el sitio muestra el cierre
  *  — nunca más una promo vencida captando participantes (hallazgo LEG-01). */
 
+const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
 export function becaPage({ site, beca, carreras }) {
   const p = '../';
+  const [anio, mes] = beca.fechaFin.split('-');
+  const edicion = `${MESES[+mes - 1]} ${anio}`;
 
   if (!beca.activa) {
     return `
 <section class="hero hero-compacto">
   <div class="hero-fondo" aria-hidden="true"><img src="${p}assets/img/sede-tamaba.webp" alt="" fetchpriority="high"></div>
   <div class="hero-cuerpo">
-    <p class="chip chip-neutro">Edición ${beca.fechaFin.slice(0, 7)} · cerrada</p>
+    <p class="chip chip-neutro">Edición ${edicion} · cerrada</p>
     <h1 class="hero-titulo">El sorteo de becas<br><em>ya cerró</em></h1>
     <p class="hero-sub">${beca.cierreTexto}</p>
     <div class="hero-ctas">

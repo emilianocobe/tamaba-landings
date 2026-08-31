@@ -40,9 +40,10 @@ export function eventos({ site }) {
 </section>
 
 <section class="franja-confianza" aria-label="TAMABA en números">
-  <div class="dato-numero"><strong class="contador" data-hasta="30">0</strong><span>años de trayectoria</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="30">30</strong><span>años de trayectoria</span></div>
   <div class="dato-numero"><strong>A-1441</strong><span>instituto oficial</span></div>
   <div class="dato-numero"><strong>Gratis</strong><span>las dos opciones</span></div>
+  <div class="dato-numero"><strong>${site.fundacion}</strong><span>año de fundación</span></div>
 </section>
 
 <section class="cierre">

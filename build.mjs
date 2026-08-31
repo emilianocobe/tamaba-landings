@@ -72,7 +72,7 @@ const ctx = { site, carreras, beca };
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 
 for (const c of carreras) {
-  page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Quiero inscribirme' }, conStickyCta: true }));
+  page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
 }
 
@@ -82,7 +82,7 @@ page('privacidad', layout(legal(ctx, 'privacidad'), { ...ctx, depth: 1, titulo: 
 page('bases-sorteo-beca', layout(legal(ctx, 'bases'), { ...ctx, depth: 1, titulo: 'Bases y Condiciones · Sorteo de Becas · TAMABA', descripcion: 'Bases y condiciones del sorteo de becas TAMABA.', noindex: true, ruta: '/bases-sorteo-beca/', cta: { href: '../', texto: 'Ver carreras' } }));
 
 // 404 (GitHub Pages la sirve automáticamente)
-writeFileSync(join(DIST, '404.html'), layout(e404(ctx), { ...ctx, depth: 0, titulo: 'Página no encontrada · TAMABA', descripcion: 'La página que buscás no existe.', noindex: true, ruta: '/404', cta: { href: './', texto: 'Ir al inicio' } }));
+writeFileSync(join(DIST, '404.html'), layout(e404(ctx), { ...ctx, depth: 0, absoluto: true, titulo: 'Página no encontrada · TAMABA', descripcion: 'La página que buscás no existe.', noindex: true, ruta: '/404', cta: { href: '/', texto: 'Ir al inicio' } }));
 
 // ── Redirecciones desde las URLs del sitio viejo ─────────────────────
 // GitHub Pages no hace 301 de servidor: se generan páginas mínimas con
@@ -107,7 +107,9 @@ console.log(`✔ ${nRedir} redirecciones de URLs viejas`);
 
 // ── robots.txt + sitemap.xml ─────────────────────────────────────────
 const base = site.dominio;
-writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nDisallow: /gracias/\nSitemap: ${base}/sitemap.xml\n`);
+// Sin Disallow de /gracias/: esas páginas llevan noindex, y bloquear el
+// crawl impediría que los buscadores lo lean.
+writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
 const indexables = pages.filter(p => !p.startsWith('/gracias') && p !== '/privacidad/' && p !== '/bases-sorteo-beca/' && (beca.activa || p !== '/beca/'));
 writeFileSync(join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -118,7 +120,6 @@ console.log(`✔ ${pages.length + 1} páginas generadas en dist/`);
 // ── Verificaciones (--check) ─────────────────────────────────────────
 if (process.argv.includes('--check')) {
   let errores = 0;
-  const rutas = new Set(pages.map(p => p === '/' ? '/' : p));
   const todosHtml = [];
   (function walk(dir, rel) {
     for (const f of readdirSync(dir, { withFileTypes: true })) {
@@ -144,6 +145,12 @@ if (process.argv.includes('--check')) {
     for (const m of html.matchAll(/href="#([^"]+)"/g)) {
       if (!ids.has(m[1])) { console.error(`✘ ${ruta}: ancla sin destino → #${m[1]}`); errores++; }
     }
+    // IDs duplicados
+    const vistosIds = new Set();
+    for (const m of html.matchAll(/ id="([^"]+)"/g)) {
+      if (vistosIds.has(m[1])) { console.error(`✘ ${ruta}: id duplicado → #${m[1]}`); errores++; }
+      vistosIds.add(m[1]);
+    }
     // exactamente un h1 (las páginas de redirección quedan exentas)
     const h1s = (html.match(/<h1[\s>]/g) || []).length;
     if (h1s !== 1 && !esRedirect) { console.error(`✘ ${ruta}: ${h1s} <h1> (debe haber exactamente 1)`); errores++; }
@@ -154,6 +161,12 @@ if (process.argv.includes('--check')) {
     // http:// inseguro
     for (const m of html.matchAll(/(?:href|src)="http:\/\/[^"]*"/g)) { console.error(`✘ ${ruta}: URL http insegura → ${m[0].slice(0, 90)}`); errores++; }
   }
+  // Los woff2 que referencia el CSS deben existir (una @font-face rota
+  // no da error de build por sí sola)
+  const cssFinal = readFileSync(join(DIST, 'css/styles.css'), 'utf8');
+  for (const m of cssFinal.matchAll(/url\('([^']+\.woff2)'\)/g)) {
+    if (!existsSync(join(DIST, 'css', m[1]))) { console.error(`✘ css/styles.css: fuente inexistente → ${m[1]}`); errores++; }
+  }
   if (errores) { console.error(`\n✘ ${errores} problema(s).`); process.exit(1); }
-  console.log('✔ Verificaciones: enlaces, anclas, h1 único, alt, noopener, https — todo OK');
+  console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, noopener, https, fuentes — todo OK');
 }

@@ -61,6 +61,7 @@ h1, h2, h3 { text-wrap: balance; }
   position: fixed; top: 0; left: 0; right: 0; z-index: var(--z-nav);
   display: flex; align-items: center; gap: var(--esp-3);
   padding: 12px var(--margen-x);
+  background: rgba(13, 12, 12, 0.85); /* respaldo sin color-mix */
   background: color-mix(in srgb, var(--negro) 82%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -202,6 +203,7 @@ h1, h2, h3 { text-wrap: balance; }
 .cta-movil {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-sticky-cta);
   padding: 10px var(--margen-x) calc(10px + env(safe-area-inset-bottom));
+  background: rgba(13, 12, 12, 0.9); /* respaldo sin color-mix */
   background: color-mix(in srgb, var(--negro) 88%, transparent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -214,7 +216,7 @@ h1, h2, h3 { text-wrap: balance; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .cinta-pista { animation: none; flex-wrap: wrap; }
+  .cinta-pista { animation: none; flex-wrap: wrap; width: auto; }
   .revela { opacity: 1 !important; transform: none !important; }
 }
 

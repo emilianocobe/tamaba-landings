@@ -20,10 +20,22 @@
     "cursada": "Turnos mañana, tarde y noche, de 9 a 23 h, de lunes a viernes"
   },
   "planAreas": [
-    { "area": "Área de Instrumento", "materias": "Instrumento, Instrumento Grupal, Ensamble, Composición, Arreglos y Orquestación" },
-    { "area": "Área de Música", "materias": "Audioperceptiva, Armonía, Apreciación Musical, Acústica y Tecnología Aplicada a la Música" },
-    { "area": "Área de Formación General", "materias": "Historia de la Música Mundial, Americana y Argentina, EDI, Problemáticas de la Cultura y la Educación, Psicología, Ética y Deontología Profesional" },
-    { "area": "Área de Práctica Profesionalizante", "materias": "Técnicas de Grabación y Mezcla, Producción Musical, Comercialización, Proyecto Profesional" }
+    {
+      "area": "Área de Instrumento",
+      "materias": "Instrumento, Instrumento Grupal, Ensamble, Composición, Arreglos y Orquestación"
+    },
+    {
+      "area": "Área de Música",
+      "materias": "Audioperceptiva, Armonía, Apreciación Musical, Acústica y Tecnología Aplicada a la Música"
+    },
+    {
+      "area": "Área de Formación General",
+      "materias": "Historia de la Música Mundial, Americana y Argentina, EDI, Problemáticas de la Cultura y la Educación, Psicología, Ética y Deontología Profesional"
+    },
+    {
+      "area": "Área de Práctica Profesionalizante",
+      "materias": "Técnicas de Grabación y Mezcla, Producción Musical, Comercialización, Proyecto Profesional"
+    }
   ],
   "convenios": {
     "titulo": "Convenios internacionales",
@@ -43,15 +55,35 @@
   ],
   "video": "Yp9_uxDB7gw",
   "faq": [
-    { "p": "¿Necesito saber música para entrar?", "r": "Se recomienda contar con conocimientos previos, pero no es excluyente: el requisito formal es el secundario completo. Consultanos por el curso de nivelación." },
-    { "p": "¿Qué instrumentos se pueden estudiar?", "r": "La carrera tiene un área de instrumento con cursada individual y grupal, ensamble, composición, arreglos y orquestación. Contanos qué instrumento tocás al consultar." },
-    { "p": "¿Cómo son los horarios?", "r": "Hay tres turnos —mañana, tarde y noche— entre las 9 y las 23 h de lunes a viernes, con posibilidad de combinar horarios. En primer año la cursada es de ocho horas semanales." },
-    { "p": "¿El título es oficial?", "r": "Sí, con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia. TAMABA es el instituto A-1441, con 30 años de trayectoria." },
-    { "p": "¿Qué salida laboral tiene?", "r": "Músico de sesión o en vivo, compositor, arreglador, productor y docente. El área de práctica profesionalizante incluye producción musical, comercialización y proyecto profesional propio." }
+    {
+      "p": "¿Necesito saber música para entrar?",
+      "r": "Se recomienda contar con conocimientos previos, pero no es excluyente: el requisito formal es el secundario completo. Consultanos por el curso de nivelación."
+    },
+    {
+      "p": "¿Qué instrumentos se pueden estudiar?",
+      "r": "La carrera tiene un área de instrumento con cursada individual y grupal, ensamble, composición, arreglos y orquestación. Contanos qué instrumento tocás al consultar."
+    },
+    {
+      "p": "¿Cómo son los horarios?",
+      "r": "Hay tres turnos —mañana, tarde y noche— entre las 9 y las 23 h de lunes a viernes, combinables con tus ensayos y trabajos. En primer año, la cursada de instrumento y materias comunes suma ocho horas semanales."
+    },
+    {
+      "p": "¿El título es oficial?",
+      "r": "Sí, con validez nacional e internacional: Sudamérica, El Salvador, Panamá, México, España e Italia. TAMABA es el instituto A-1441, con 30 años de trayectoria."
+    },
+    {
+      "p": "¿Qué salida laboral tiene?",
+      "r": "Músico de sesión o en vivo, compositor, arreglador, productor y docente. El área de práctica profesionalizante incluye producción musical, comercialización y proyecto profesional propio."
+    }
   ],
-  "ghlForms": { "gads": "yYofFCXvb09pTsXKh0Tk", "mads": "Nj2ubdhcVCWF6nTntJBl", "pmax": "JkBrGuNbzDaE0y4pVoVX" },
+  "ghlForms": {
+    "gads": "yYofFCXvb09pTsXKh0Tk",
+    "mads": "Nj2ubdhcVCWF6nTntJBl",
+    "pmax": "JkBrGuNbzDaE0y4pVoVX"
+  },
   "ghlFormNombre": "Músico",
   "formTitulo": "Hablemos",
   "formSub": "Completá el formulario para conocer los detalles de la carrera",
-  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases."
+  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases.",
+  "cardTexto": "Instrumento, ensamble, composición y arreglos, con salida profesional y título oficial."
 }

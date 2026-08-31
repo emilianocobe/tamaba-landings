@@ -4,7 +4,6 @@
 'use strict';
 
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const PHONE = matchMedia('(max-width: 640px)').matches;
 
 document.documentElement.classList.remove('sin-js');
 
@@ -49,7 +48,9 @@ document.documentElement.classList.remove('sin-js');
   els.forEach(e => io.observe(e));
 })();
 
-/* ── Contadores animados (confianza) ── */
+/* ── Contadores animados (confianza) ──
+   El HTML trae el valor final como texto (sin JS se ve el dato real);
+   la animación arranca desde data-desde recién al entrar al viewport. */
 (function () {
   const els = document.querySelectorAll('.contador');
   if (!els.length) return;
@@ -77,11 +78,12 @@ document.documentElement.classList.remove('sin-js');
   if (!reloj && !estado) return;
   function pinta() {
     try {
-      const f = new Intl.DateTimeFormat('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', weekday: 'short', hour12: false });
+      const f = new Intl.DateTimeFormat('es-AR', { timeZone: 'America/Argentina/Buenos_Aires', hour: '2-digit', minute: '2-digit', hour12: false });
       const partes = Object.fromEntries(f.formatToParts(new Date()).map(p => [p.type, p.value]));
       const h = +partes.hour;
-      const dia = partes.weekday.toLowerCase();
-      const abierto = !['sáb', 'dom'].some(d => dia.startsWith(d)) && h >= 9 && h < 23;
+      // Día de la semana en inglés: independiente de cómo cada ICU abrevie "sáb."
+      const dia = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Argentina/Buenos_Aires', weekday: 'short' }).format(new Date());
+      const abierto = dia !== 'Sat' && dia !== 'Sun' && h >= 9 && h < 23;
       if (reloj) { reloj.textContent = `BS AS ${partes.hour}:${partes.minute}`; reloj.hidden = false; }
       if (estado) {
         estado.textContent = abierto ? '● Sede abierta ahora · L a V de 9 a 23 h' : '○ Sede cerrada · L a V de 9 a 23 h';
@@ -104,15 +106,18 @@ document.documentElement.classList.remove('sin-js');
   const visible = v => { if (v) cta.dataset.visible = ''; else delete cta.dataset.visible; };
   if (!('IntersectionObserver' in window)) { visible(true); return; }
   let pasoHero = false, enForm = false;
-  const io = new IntersectionObserver(es => {
-    for (const en of es) {
-      if (en.target === hero) pasoHero = !en.isIntersecting;
-      if (en.target === form) enForm = en.isIntersecting;
-    }
-    visible(pasoHero && !enForm);
+  const pinta = () => visible(pasoHero && !enForm);
+  const ioHero = new IntersectionObserver(es => {
+    pasoHero = !es[es.length - 1].isIntersecting; pinta();
   }, { threshold: 0.15 });
-  io.observe(hero);
-  if (form) io.observe(form);
+  ioHero.observe(hero);
+  if (form) {
+    // threshold 0: un form más alto que el viewport también apaga la CTA
+    const ioForm = new IntersectionObserver(es => {
+      enForm = es[es.length - 1].isIntersecting; pinta();
+    }, { threshold: 0 });
+    ioForm.observe(form);
+  }
 })();
 
 /* ── Video facade: el iframe de YouTube se crea recién al clic ── */
@@ -126,7 +131,9 @@ document.documentElement.classList.remove('sin-js');
       ifr.title = 'Video de TAMABA';
       ifr.allow = 'autoplay; encrypted-media; picture-in-picture';
       ifr.allowFullscreen = true;
+      ifr.tabIndex = -1;
       marco.replaceChild(ifr, btn);
+      ifr.focus();
       if (window.tbEvento) tbEvento('video_play', { video_id: id });
     });
   });
@@ -143,10 +150,8 @@ document.documentElement.classList.remove('sin-js');
   let actual = 0;
 
   const RUTAS = {
-    // q1 → destino base; q2/q3 refinan
-    produccion: { distancia: 'sonido-distancia', presencial: 'sonido-presencial' },
-    tocar: 'musico-profesional',
-    cantar: 'cantante-profesional'
+    // q1 = produccion → la modalidad (q2) decide la variante
+    produccion: { distancia: 'sonido-distancia', presencial: 'sonido-presencial' }
   };
 
   btn.addEventListener('click', () => {
@@ -170,12 +175,20 @@ document.documentElement.classList.remove('sin-js');
     else if (q1 === 'tocar') { slug = 'musico-profesional'; nombre = 'Músico Profesional'; }
     else { slug = 'cantante-profesional'; nombre = 'Cantante Profesional'; }
 
+    // Aviso honesto cuando la modalidad pedida no coincide con la carrera
+    const soloPresencial = ['musico-profesional', 'cantante-profesional', 'sonido-presencial'];
+    let nota = '';
+    if (q2 === 'distancia' && soloPresencial.includes(slug)) {
+      nota = `<p class="quiz-nota">Ojo: esta carrera se cursa presencial en CABA. Si necesitás cursar 100 % a distancia, mirá también <a href="sonido-distancia/">Sonido y Producción Musical a Distancia</a> o <a href="eventos/">consultanos en un encuentro online</a>.</p>`;
+    }
+
     form.hidden = true;
     resultado.hidden = false;
     resultado.innerHTML = `
       <h3>Tu carrera: ${nombre}</h3>
-      <p>Por lo que respondiste, este es el camino que mejor encaja con vos. Mirá el plan de estudios, la modalidad y todo lo que incluye.</p>
+      <p>Por lo que respondiste, este es el camino que mejor encaja con vos. Mirá el plan de estudios, la modalidad y todo lo que incluye.</p>${nota}
       <a class="boton boton-rojo boton-grande" href="${slug}/" data-tb="quiz-resultado" data-carrera="${slug}">Conocer ${nombre} →</a>`;
+    resultado.focus?.();
     if (window.tbEvento) tbEvento('quiz_completado', { quiz_q1: q1, quiz_q2: q2, quiz_q3: q3, quiz_resultado: slug });
   });
 })();
@@ -186,15 +199,16 @@ document.documentElement.classList.remove('sin-js');
   if (!el) return;
   const fin = new Date(el.dataset.fin).getTime();
   if (isNaN(fin)) return;
+  let timer;
   function pinta() {
     const d = fin - Date.now();
-    if (d <= 0) { el.textContent = 'La participación cerró.'; return; }
+    el.hidden = false;
+    if (d <= 0) { el.textContent = 'La participación cerró.'; clearInterval(timer); return; }
     const dias = Math.floor(d / 86400000), h = Math.floor(d / 3600000) % 24, m = Math.floor(d / 60000) % 60;
     el.textContent = `Quedan ${dias} día${dias === 1 ? '' : 's'}, ${h} h ${String(m).padStart(2, '0')} min para participar`;
-    el.hidden = false;
   }
   pinta();
-  setInterval(pinta, 30000);
+  timer = setInterval(pinta, 30000);
 })();
 
 /* ── FAQ: evento al abrir cada pregunta ── */

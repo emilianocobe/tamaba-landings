@@ -45,9 +45,9 @@ export function landing({ site, c }) {
 
 <!-- ══ CONFIANZA ══ -->
 <section class="franja-confianza" aria-label="TAMABA en números">
-  <div class="dato-numero"><strong class="contador" data-hasta="30">0</strong><span>años de trayectoria</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="30">30</strong><span>años de trayectoria</span></div>
   <div class="dato-numero"><strong>A-1441</strong><span>instituto oficial</span></div>
-  <div class="dato-numero"><strong class="contador" data-hasta="${site.fundacion}" data-desde="1990">1990</strong><span>año de fundación</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="${site.fundacion}" data-desde="1990">${site.fundacion}</strong><span>año de fundación</span></div>
   <div class="dato-numero"><strong>${esCarrera ? 'Terciario' : 'Certificado'}</strong><span>${esCarrera ? 'título oficial' : 'con respaldo oficial'}</span></div>
 </section>
 
@@ -200,6 +200,7 @@ ${c.video ? `
       <img src="https://i.ytimg.com/vi/${c.video}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
       <span class="video-play" aria-hidden="true">▶</span>
     </button>
+    <noscript><p><a href="https://www.youtube.com/watch?v=${c.video}" target="_blank" rel="noopener">Ver el video en YouTube</a></p></noscript>
   </div>
 </section>` : ''}
 ${c.faq ? `
@@ -208,7 +209,7 @@ ${c.faq ? `
   <p class="etiqueta">Preguntas frecuentes</p>
   <h2 class="titulo-display">Lo que todos preguntan<br><em>antes de decidir</em></h2>
   <div class="faq">
-${c.faq.map(f => `    <details class="faq-item" data-tb-faq="${f.p}"><summary>${f.p}</summary><p>${f.r}</p></details>`).join('\n')}
+${c.faq.map(f => `    <details class="faq-item" data-tb-faq="${f.p.replaceAll('"', '&quot;')}"><summary>${f.p}</summary><p>${f.r}</p></details>`).join('\n')}
   </div>
 </section>` : ''}
 

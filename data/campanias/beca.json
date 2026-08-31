@@ -3,16 +3,41 @@
   "activa": false,
   "fechaInicio": "2026-07-16",
   "fechaFin": "2026-08-14",
-  "cierreTexto": "El sorteo de becas de agosto 2026 ya cerró. Dejanos tu consulta y te avisamos primero cuando abra la próxima edición.",
+  "cierreTexto": "El sorteo de becas de agosto 2026 ya cerró. Escribinos por WhatsApp y te avisamos primero cuando abra la próxima edición.",
   "premios": [
-    { "pct": "50 %", "detalle": "de descuento sobre el valor de tus cuotas durante el primer año (1 o 2 cuatrimestres), en cualquiera de las carreras de TAMABA.", "cantidad": 1 },
-    { "pct": "30 %", "detalle": "de descuento sobre el valor de tus cuotas durante el primer año (1 o 2 cuatrimestres), para las mismas carreras.", "cantidad": 5 }
+    {
+      "pct": "50 %",
+      "detalle": "de descuento sobre el valor de tus cuotas durante el primer año (1 o 2 cuatrimestres), en cualquiera de las carreras de TAMABA.",
+      "cantidad": 1
+    },
+    {
+      "pct": "30 %",
+      "detalle": "de descuento sobre el valor de tus cuotas durante el primer año (1 o 2 cuatrimestres), para las mismas carreras.",
+      "cantidad": 5
+    }
   ],
   "pasos": [
-    { "cuando": "Ahora", "titulo": "Completá la encuesta", "texto": "Respondé la encuesta de perfil de estudiante. Es el primer requisito para participar y te toma solo unos minutos." },
-    { "cuando": "Esta semana", "titulo": "Esperá nuestro mail", "texto": "Vas a recibir por mail los links con las instrucciones para agendar tu lugar en el encuentro." },
-    { "cuando": "En el encuentro", "titulo": "Participá en vivo", "texto": "Conectate al encuentro informativo online. Solo quienes participan en vivo quedan habilitados para el sorteo." }
+    {
+      "cuando": "Ahora",
+      "titulo": "Completá la encuesta",
+      "texto": "Respondé la encuesta de perfil de estudiante. Es el primer requisito para participar y te toma solo unos minutos."
+    },
+    {
+      "cuando": "Esta semana",
+      "titulo": "Esperá nuestro mail",
+      "texto": "Vas a recibir por mail los links con las instrucciones para agendar tu lugar en el encuentro."
+    },
+    {
+      "cuando": "En el encuentro",
+      "titulo": "Participá en vivo",
+      "texto": "Conectate al encuentro informativo online. Solo quienes participan en vivo quedan habilitados para el sorteo."
+    }
   ],
   "encuestaUrl": "https://es.surveymonkey.com/r/BPPL8VZ",
-  "condiciones": ["Participación libre y gratuita", "Mayores de 18 años", "Residentes en Argentina", "Hay que participar en vivo del encuentro"]
+  "condiciones": [
+    "Participación libre y gratuita",
+    "Mayores de 18 años",
+    "Residentes en Argentina",
+    "Hay que participar en vivo del encuentro"
+  ]
 }

@@ -17,26 +17,74 @@
     "certificados": "Certificaciones intermedias en 1.º y 2.º año",
     "titulo": "Título terciario oficial · válido en Sudamérica, Panamá, México, Italia y España",
     "requisitos": "Mayores de 17 años con secundario completo (o rindiendo las últimas materias)",
-    "cursada": "Clases en vivo de lunes a viernes, turnos mañana o noche"
+    "cursada": "Clases en vivo 3 o 4 veces por semana (lunes a viernes), turnos mañana o noche"
   },
   "planPractico": {
     "titulo": "Carrera focalizada en la práctica",
     "sub": "Las materias prácticas tienen doble carga horaria",
-    "items": ["Preproducción", "Técnicas de Grabación", "Técnicas de Mezcla", "Práctica Profesionalizante de Mezcla", "Proyecto Profesional de Producción Musical"]
+    "items": [
+      "Preproducción",
+      "Técnicas de Grabación",
+      "Técnicas de Mezcla",
+      "Práctica Profesionalizante de Mezcla",
+      "Proyecto Profesional de Producción Musical"
+    ]
   },
   "pilares": [
-    { "titulo": "Materias sincrónicas y asincrónicas", "texto": "Para que organices tu estudio a tu propio ritmo." },
-    { "titulo": "Encuentros presenciales opcionales", "texto": "Eventos y prácticas en CABA y Mar del Plata." },
-    { "titulo": "Plan de estudios", "texto": "El más completo del país en producción musical de nivel superior." },
-    { "titulo": "Carrera funcional", "texto": "Importante carga horaria de materias musicales, pensadas para el productor." }
+    {
+      "titulo": "Materias sincrónicas y asincrónicas",
+      "texto": "Para que organices tu estudio a tu propio ritmo."
+    },
+    {
+      "titulo": "Encuentros presenciales opcionales",
+      "texto": "Eventos y prácticas en CABA y Mar del Plata."
+    },
+    {
+      "titulo": "Plan de estudios",
+      "texto": "El más completo del país en producción musical de nivel superior."
+    },
+    {
+      "titulo": "Carrera funcional",
+      "texto": "Importante carga horaria de materias musicales, pensadas para el productor."
+    }
   ],
   "tecnologia": [
-    { "img": "estudio-3d", "alt": "Simulación del estudio virtual 3D de TAMABA", "titulo": "Estudio virtual 3D", "texto": "Practicá en una simulación de estudio como si estuvieras ahí." },
-    { "img": "ia-educativa", "alt": "Plataforma Rivadavia de inteligencia artificial educativa", "titulo": "IA educativa", "texto": "Plataforma segura y exclusiva que potencia el trabajo docente y personaliza tu aprendizaje con inteligencia artificial." },
-    { "img": "streaming-360", "alt": "Transmisión 360° desde el estudio de grabación", "titulo": "Streaming 360° en vivo", "texto": "Transmitimos prácticas desde estudios y escenarios con cámaras 360°: vivilas con casco de realidad virtual, TV, PC o celular." },
-    { "img": "realidad-aumentada", "alt": "Aplicación de realidad aumentada con micrófonos virtuales", "titulo": "Realidad aumentada en tu casa", "texto": "Aplicaciones para smartphones, Google Cardboard y Meta Quest para practicar con micrófonos y equipamiento profesional." },
-    { "img": "grabacion-remota", "alt": "Sesión de grabación operada de forma remota", "titulo": "Grabá y operá desde tu casa", "texto": "Grabá y operá en vivo a bandas y solistas que tocan en nuestro estudio, de manera remota desde tu PC." },
-    { "img": "app-campus", "alt": "Campus virtual y aplicación móvil de TAMABA", "titulo": "Seguimiento permanente", "texto": "Atención por WhatsApp y una plataforma integral con campus virtual y app para gestionar toda tu carrera." }
+    {
+      "img": "estudio-3d",
+      "alt": "Simulación del estudio virtual 3D de TAMABA",
+      "titulo": "Estudio virtual 3D",
+      "texto": "Practicá en una simulación de estudio como si estuvieras ahí."
+    },
+    {
+      "img": "ia-educativa",
+      "alt": "Plataforma Rivadavia de inteligencia artificial educativa",
+      "titulo": "IA educativa",
+      "texto": "Plataforma segura y exclusiva que potencia el trabajo docente y personaliza tu aprendizaje con inteligencia artificial."
+    },
+    {
+      "img": "streaming-360",
+      "alt": "Transmisión 360° desde el estudio de grabación",
+      "titulo": "Streaming 360° en vivo",
+      "texto": "Transmitimos prácticas desde estudios y escenarios con cámaras 360°: vivilas con casco de realidad virtual, TV, PC o celular."
+    },
+    {
+      "img": "realidad-aumentada",
+      "alt": "Aplicación de realidad aumentada con micrófonos virtuales",
+      "titulo": "Realidad aumentada en tu casa",
+      "texto": "Aplicaciones para smartphones, Google Cardboard y Meta Quest para practicar con micrófonos y equipamiento profesional."
+    },
+    {
+      "img": "grabacion-remota",
+      "alt": "Sesión de grabación operada de forma remota",
+      "titulo": "Grabá y operá desde tu casa",
+      "texto": "Grabá y operá en vivo a bandas y solistas que tocan en nuestro estudio, de manera remota desde tu PC."
+    },
+    {
+      "img": "app-campus",
+      "alt": "Campus virtual y aplicación móvil de TAMABA",
+      "titulo": "Seguimiento permanente",
+      "texto": "Atención por WhatsApp y una plataforma integral con campus virtual y app para gestionar toda tu carrera."
+    }
   ],
   "practicas": {
     "titulo": "Grabá y mezclá desde tu PC",
@@ -59,7 +107,7 @@
     "Prácticas de conciertos por streaming",
     "Prácticas de grabación con los músicos en nuestro estudio y el control en tu PC",
     "Grabaciones colaborativas de proyectos en la nube",
-    "Plan «Todo incluido» en el valor de la cuota",
+    "Plan «Todo incluido» en el valor de la cuota (10 cuotas por año)",
     "Todo el material, audios, videos y cuestionarios a través del campus virtual",
     "Clínicas, seminarios y workshops internacionales transmitidos en vivo",
     "Programa de visitas y actividades intensivas presenciales en Buenos Aires",
@@ -74,15 +122,35 @@
   "notaBeneficios": "*Sujeto al compromiso y participación del estudiante.",
   "video": "GRUQsreYYG8",
   "faq": [
-    { "p": "¿El título es oficial?", "r": "Sí. Es un título terciario oficial de Técnico Superior en Sonido y Producción Musical, emitido con validez en toda Sudamérica, Panamá, México, Italia y España. TAMABA es el instituto A-1441, con 30 años de trayectoria." },
-    { "p": "¿Puedo cursar desde otra provincia u otro país?", "r": "Sí. La cursada es 100 % a distancia, con clases en vivo y materias asincrónicas. Las prácticas presenciales en Buenos Aires y Mar del Plata son opcionales." },
-    { "p": "¿Cuánto dura y cómo es la cursada?", "r": "Tres años, con certificaciones intermedias en primero y segundo año. Las clases en vivo son de lunes a viernes, entre tres y cuatro veces por semana, en turno mañana o noche." },
-    { "p": "¿Qué necesito para inscribirme?", "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias. No necesitás conocimientos previos: hay un curso de nivelación opcional." },
-    { "p": "¿Qué incluye la cuota?", "r": "El plan es «Todo incluido»: material de estudio, permisos de examen, campus virtual, clínicas y workshops. Consultanos por formas de pago y el programa de becas." }
+    {
+      "p": "¿El título es oficial?",
+      "r": "Sí. Es un título terciario oficial de Técnico Superior en Sonido y Producción Musical, emitido con validez en toda Sudamérica, Panamá, México, Italia y España. TAMABA es el instituto A-1441, con 30 años de trayectoria."
+    },
+    {
+      "p": "¿Puedo cursar desde otra provincia u otro país?",
+      "r": "Sí. La cursada es 100 % a distancia, con clases en vivo y materias asincrónicas. Las prácticas presenciales en Buenos Aires y Mar del Plata son opcionales."
+    },
+    {
+      "p": "¿Cuánto dura y cómo es la cursada?",
+      "r": "Tres años, con certificaciones intermedias en primero y segundo año. Las clases en vivo son de lunes a viernes, entre tres y cuatro veces por semana, en turno mañana o noche."
+    },
+    {
+      "p": "¿Qué necesito para inscribirme?",
+      "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias. No necesitás conocimientos previos: hay un curso de nivelación opcional."
+    },
+    {
+      "p": "¿Qué incluye la cuota?",
+      "r": "El plan es «Todo incluido»: material de estudio, permisos de examen, campus virtual, clínicas y workshops. Consultanos por formas de pago y el programa de becas."
+    }
   ],
-  "ghlForms": { "gads": "WXYBDJYAFGG8xlRJhZlw", "mads": "NjfOWmICeOeELPxF30in", "pmax": "vfgt61jPBGIghkYzYaKb" },
+  "ghlForms": {
+    "gads": "WXYBDJYAFGG8xlRJhZlw",
+    "mads": "NjfOWmICeOeELPxF30in",
+    "pmax": "vfgt61jPBGIghkYzYaKb"
+  },
   "ghlFormNombre": "Sonido Distancia",
   "formTitulo": "Hablemos",
   "formSub": "Completá el formulario para saber más acerca de la carrera",
-  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases."
+  "formNota": "La inscripción para la próxima cursada ya está abierta: podés anotarte hasta el inicio de clases.",
+  "cardTexto": "Producción y sonido 100 % online, con clases en vivo y título terciario oficial. La única carrera de este tipo oficializada en Argentina."
 }

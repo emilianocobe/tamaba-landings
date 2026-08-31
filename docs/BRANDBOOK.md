@@ -11,7 +11,8 @@
 - **Rioplatense y directa**: voseo siempre («Completá», «Conocé», «Estudiá»). Nada de «tú».
 - **Datos antes que adjetivos**: «título oficial válido en Sudamérica, Panamá, México, Italia y España» le gana a «excelencia educativa».
 - **Sin instrucciones de interfaz** («hacé clic», «scrolleá»): los CTAs dicen qué se obtiene («Quiero más información»), no cómo operar la página.
-- Términos que se escriben SIEMPRE igual: **TAMABA** (mayúsculas), **A-1441**, **30 años**, **Técnico Superior en Sonido y Producción Musical** (título oficial completo), **Adolfo Alsina 1994, CABA**.
+- Términos que se escriben SIEMPRE igual: **TAMABA** (mayúsculas), **A-1441**, **30 años**, **Técnico Superior en Sonido y Producción Musical** (título oficial completo), **Adolfo Alsina 1994, CABA, Argentina** (la forma completa, porque el público a distancia es internacional; en contexto local puede omitirse «Argentina»).
+- **Validez internacional de los títulos**: el sitio heredado enuncia listas de países distintas según el título (Sonido: «Sudamérica, Panamá, México, Italia y España»; Músico/Cantante agrega «El Salvador»). Se conservan tal cual hasta que Secretaría Académica confirme la lista real de cada título — **pendiente de verificación institucional**; al confirmarse, unificar redacción y orden en `data/carreras/*.json`.
 
 ## 2 · Logo
 

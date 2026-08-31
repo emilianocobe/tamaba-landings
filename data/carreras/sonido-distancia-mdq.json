@@ -37,7 +37,7 @@
     "Simulaciones en nuestro Estudio Virtual 3D",
     "Formación musical completa",
     "Prácticas de conciertos por streaming",
-    "Plan «Todo incluido» en el valor de la cuota",
+    "Plan «Todo incluido» en el valor de la cuota (10 cuotas por año)",
     "Todo el material a través del campus virtual",
     "Clínicas, seminarios y workshops internacionales",
     "Todos los permisos de examen del año",
@@ -46,14 +46,31 @@
   ],
   "video": "GRUQsreYYG8",
   "faq": [
-    { "p": "¿Dónde se hacen las prácticas?", "r": "En U. C. Dadson Studios, Mar del Plata, gracias al convenio con TAMABA. Ahí cursás las materias prácticas de grabación, mezcla y producción." },
-    { "p": "¿La teoría es totalmente a distancia?", "r": "Sí: clases en vivo y materias asincrónicas, igual que la carrera a distancia. Solo las prácticas de estudio son presenciales en Mar del Plata." },
-    { "p": "¿El título es el mismo que en Buenos Aires?", "r": "Sí, exactamente el mismo: Técnico Superior en Sonido y Producción Musical, título terciario oficial con validez internacional." },
-    { "p": "¿Qué necesito para inscribirme?", "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias." }
+    {
+      "p": "¿Dónde se hacen las prácticas?",
+      "r": "En U. C. Dadson Studios, Mar del Plata, gracias al convenio con TAMABA. Ahí cursás las materias prácticas de grabación, mezcla y producción."
+    },
+    {
+      "p": "¿La teoría es totalmente a distancia?",
+      "r": "Sí: clases en vivo y materias asincrónicas, igual que la carrera a distancia. Solo las prácticas de estudio son presenciales en Mar del Plata."
+    },
+    {
+      "p": "¿El título es el mismo que en Buenos Aires?",
+      "r": "Sí, exactamente el mismo: Técnico Superior en Sonido y Producción Musical, título terciario oficial con validez internacional."
+    },
+    {
+      "p": "¿Qué necesito para inscribirme?",
+      "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias."
+    }
   ],
-  "ghlForms": { "gads": "1IXyyW6m9XkvUqOYuQKw", "mads": "aDvzkXf4Iy1PHBMmilzV", "pmax": "RF6ze343O7r1J4YJvUgJ" },
+  "ghlForms": {
+    "gads": "1IXyyW6m9XkvUqOYuQKw",
+    "mads": "aDvzkXf4Iy1PHBMmilzV",
+    "pmax": "RF6ze343O7r1J4YJvUgJ"
+  },
   "ghlFormNombre": "Sonido MDQ",
   "formTitulo": "Hablemos",
   "formSub": "Completá el formulario para saber más acerca de la carrera",
-  "formNota": "La inscripción para la próxima cursada ya está abierta."
+  "formNota": "La inscripción para la próxima cursada ya está abierta.",
+  "cardTexto": "La teoría a distancia y las prácticas en Dadson Studios, Mar del Plata. Mismo título oficial."
 }

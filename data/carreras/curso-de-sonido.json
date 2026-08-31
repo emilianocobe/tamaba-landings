@@ -41,14 +41,27 @@
   },
   "video": "GRUQsreYYG8",
   "faq": [
-    { "p": "¿Necesito conocimientos previos?", "r": "No. El curso está pensado para dar los primeros pasos profesionales en sonido, tanto para músicos como para cualquier persona interesada." },
-    { "p": "¿Cómo es la modalidad mixta?", "r": "La teoría se cursa a distancia (lunes) y la práctica se puede hacer presencial en nuestros estudios o a distancia (miércoles), de 20 a 22 h." },
-    { "p": "¿Qué certificados recibo?", "r": "Tres: la certificación oficial de la Dirección General de Educación (Disposición 9/DGEGP/2019), el Diploma Latinoamericano ALAEMUS y el certificado TAMABA." },
-    { "p": "¿Sirve como puerta de entrada a la carrera?", "r": "Sí: muchos estudiantes continúan luego la Tecnicatura Superior en Sonido y Producción Musical. Consultanos por equivalencias." }
+    {
+      "p": "¿Necesito conocimientos previos?",
+      "r": "No. El curso está pensado para dar los primeros pasos profesionales en sonido, tanto para músicos como para cualquier persona interesada."
+    },
+    {
+      "p": "¿Cómo es la modalidad mixta?",
+      "r": "La teoría se cursa a distancia (lunes) y la práctica se puede hacer presencial en nuestros estudios o a distancia (miércoles), de 20 a 22 h."
+    },
+    {
+      "p": "¿Qué certificados recibo?",
+      "r": "Tres: la certificación oficial de la Dirección General de Educación (Disposición 9/DGEGP/2019), el Diploma Latinoamericano ALAEMUS y el certificado TAMABA."
+    },
+    {
+      "p": "¿Sirve como puerta de entrada a la carrera?",
+      "r": "Sí: muchos estudiantes continúan luego la carrera de Técnico Superior en Sonido y Producción Musical. Consultanos por equivalencias."
+    }
   ],
   "ghlForms": null,
   "ghlFormNombre": "Curso de Sonido",
   "formTitulo": "Hablemos",
-  "formSub": "Completá el formulario para saber más sobre el curso",
-  "formNota": "La inscripción está abierta hasta el inicio de la cursada."
+  "formSub": "Escribinos y te contamos fechas, aranceles y cómo anotarte al curso",
+  "formNota": "La inscripción está abierta hasta el inicio de la cursada.",
+  "cardTexto": "Cinco meses, modalidad mixta y triple certificación para dar tus primeros pasos en el sonido."
 }

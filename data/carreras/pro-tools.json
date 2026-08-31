@@ -15,7 +15,8 @@
     "modalidad": "Presencial · CABA",
     "duracion": "2 cursos de 15 h + examen cada uno",
     "titulo": "Credencial oficial AVID Pro Tools User",
-    "requisitos": "PT101: sin requisitos · PT110: PT101 aprobado o experiencia equivalente"
+    "requisitos": "PT101: sin requisitos · PT110: PT101 aprobado o experiencia equivalente",
+    "cursada": "Cohortes presenciales intensivas · consultanos la próxima fecha"
   },
   "modulos": [
     {
@@ -36,13 +37,23 @@
   "notaCertificacion": "La certificación oficial está dividida en dos partes: solo se obtiene una vez cursadas y aprobadas ambas.",
   "video": "GRUQsreYYG8",
   "faq": [
-    { "p": "¿Qué valor tiene la certificación AVID?", "r": "Es la credencial oficial del fabricante de Pro Tools, el estándar de la industria en estudios de grabación y postproducción de todo el mundo." },
-    { "p": "¿Puedo hacer solo el PT101?", "r": "Sí, y recibís la formación completa de ese nivel. Pero la credencial oficial AVID se obtiene únicamente al aprobar ambos cursos." },
-    { "p": "¿Necesito experiencia previa?", "r": "Para el PT101, no. Para el PT110 necesitás el PT101 aprobado o experiencia equivalente en Pro Tools." }
+    {
+      "p": "¿Qué valor tiene la certificación AVID?",
+      "r": "Es la credencial oficial del fabricante de Pro Tools, el estándar de la industria en estudios de grabación y postproducción de todo el mundo."
+    },
+    {
+      "p": "¿Puedo hacer solo el PT101?",
+      "r": "Sí, y recibís la formación completa de ese nivel. Pero la credencial oficial AVID se obtiene únicamente al aprobar ambos cursos."
+    },
+    {
+      "p": "¿Necesito experiencia previa?",
+      "r": "Para el PT101, no. Para el PT110 necesitás el PT101 aprobado o experiencia equivalente en Pro Tools."
+    }
   ],
   "ghlForms": null,
   "ghlFormNombre": "Pro Tools",
   "formTitulo": "Hablemos",
-  "formSub": "Completá el formulario para conocer fechas y aranceles",
-  "formNota": "Los cupos de cada cohorte son limitados."
+  "formSub": "Escribinos y te contamos fechas, aranceles y cómo anotarte a la certificación",
+  "formNota": "Los cupos de cada cohorte son limitados.",
+  "cardTexto": "La certificación oficial AVID en dos cursos: PT101 + PT110, en un AVID Learning Partner."
 }

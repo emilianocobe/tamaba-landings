@@ -26,22 +26,22 @@ export function home({ site, carreras }) {
 
 <!-- ══ CONFIANZA ══ -->
 <section class="franja-confianza" aria-label="TAMABA en números">
-  <div class="dato-numero"><strong class="contador" data-hasta="30">0</strong><span>años de trayectoria</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="30">30</strong><span>años de trayectoria</span></div>
   <div class="dato-numero"><strong>A-1441</strong><span>instituto oficial</span></div>
-  <div class="dato-numero"><strong class="contador" data-hasta="4">0</strong><span>carreras oficiales</span></div>
+  <div class="dato-numero"><strong class="contador" data-hasta="${carrerasPrincipales.length}" >${carrerasPrincipales.length}</strong><span>carreras oficiales</span></div>
   <div class="dato-numero"><strong>CABA + online</strong><span>presencial y a distancia</span></div>
 </section>
 
 <!-- ══ CARRERAS ══ -->
 <section class="seccion" id="carreras">
   <p class="etiqueta">Carreras terciarias</p>
-  <h2 class="titulo-display">Título oficial.<br><em>Cuatro caminos.</em></h2>
+  <h2 class="titulo-display">Título oficial.<br><em>Elegí tu camino.</em></h2>
   <div class="tarjetas">
 ${carrerasPrincipales.map(c => `    <a class="tarjeta revela" href="${c.slug}/" data-tb="tarjeta-carrera" data-carrera="${c.slug}">
       <figure><img src="assets/img/${c.heroImg}.webp" alt="${c.heroImgAlt}" loading="lazy" width="700" height="460"></figure>
       <div class="tarjeta-cuerpo">
         <h3>${c.nombreCorto}</h3>
-        <p>${c.heroSub.split('.')[0]}.</p>
+        <p>${c.cardTexto || c.heroSub.split('.')[0] + '.'}</p>
         <div class="tarjeta-meta"><span>${c.ficha.modalidad}</span><span>${c.ficha.duracion}</span></div>
         <span class="tarjeta-cta">Conocer la carrera →</span>
       </div>
@@ -58,7 +58,7 @@ ${cursos.map(c => `    <a class="tarjeta tarjeta-clara revela" href="${c.slug}/"
       <div class="tarjeta-cuerpo">
         <span class="chip chip-oscuro">${c.eyebrow}</span>
         <h3>${c.nombreCorto}</h3>
-        <p>${c.heroSub.split('.')[0]}.</p>
+        <p>${c.cardTexto || c.heroSub.split('.')[0] + '.'}</p>
         <span class="tarjeta-cta">Ver detalles →</span>
       </div>
     </a>`).join('\n')}
@@ -69,22 +69,22 @@ ${cursos.map(c => `    <a class="tarjeta tarjeta-clara revela" href="${c.slug}/"
 <section class="seccion" id="test">
   <p class="etiqueta">Test vocacional exprés</p>
   <h2 class="titulo-display">Tres preguntas.<br><em>Tu carrera.</em></h2>
-  <div class="quiz" id="quiz" data-tb="quiz">
+  <div class="quiz" id="quiz">
     <form class="quiz-form" id="quiz-form">
       <fieldset class="quiz-paso" data-paso="1">
         <legend>1 · ¿Qué te imaginás haciendo dentro de cinco años?</legend>
-        <label><input type="radio" name="q1" value="produccion" required><span>Produciendo y mezclando discos en un estudio</span></label>
+        <label><input type="radio" name="q1" value="produccion"><span>Produciendo y mezclando discos en un estudio</span></label>
         <label><input type="radio" name="q1" value="tocar"><span>Tocando mi instrumento en vivo o en sesiones</span></label>
         <label><input type="radio" name="q1" value="cantar"><span>Cantando en escenarios o grabaciones</span></label>
       </fieldset>
       <fieldset class="quiz-paso" data-paso="2" hidden>
         <legend>2 · ¿Cómo preferís cursar?</legend>
-        <label><input type="radio" name="q2" value="distancia" required><span>100 % a distancia, desde donde esté</span></label>
+        <label><input type="radio" name="q2" value="distancia"><span>100 % a distancia, desde donde esté</span></label>
         <label><input type="radio" name="q2" value="presencial"><span>Presencial, en el instituto y sus estudios</span></label>
       </fieldset>
       <fieldset class="quiz-paso" data-paso="3" hidden>
         <legend>3 · ¿Cuánto tiempo querés invertir?</legend>
-        <label><input type="radio" name="q3" value="carrera" required><span>Una carrera completa, con título oficial</span></label>
+        <label><input type="radio" name="q3" value="carrera"><span>Una carrera completa, con título oficial</span></label>
         <label><input type="radio" name="q3" value="curso"><span>Un curso corto para arrancar ya</span></label>
       </fieldset>
       <div class="quiz-controles">
@@ -92,7 +92,7 @@ ${cursos.map(c => `    <a class="tarjeta tarjeta-clara revela" href="${c.slug}/"
         <button type="button" class="boton boton-rojo" id="quiz-siguiente">Siguiente</button>
       </div>
     </form>
-    <div class="quiz-resultado" id="quiz-resultado" hidden aria-live="polite"></div>
+    <div class="quiz-resultado" id="quiz-resultado" hidden aria-live="polite" tabindex="-1"></div>
   </div>
 </section>
 
@@ -115,6 +115,7 @@ ${cursos.map(c => `    <a class="tarjeta tarjeta-clara revela" href="${c.slug}/"
       <img src="https://i.ytimg.com/vi/${site.videos.institucional}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
       <span class="video-play" aria-hidden="true">▶</span>
     </button>
+    <noscript><p><a href="https://www.youtube.com/watch?v=${site.videos.institucional}" target="_blank" rel="noopener">Ver el video en YouTube</a></p></noscript>
   </div>
 </section>
 

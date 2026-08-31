@@ -7,8 +7,9 @@
    2. Inserta el iframe de GoHighLevel eligiendo el form del canal correcto
       y propagándole los UTMs (GHL los guarda como atribución del contacto).
    3. Empuja eventos tipados a dataLayer (GTM los enruta a GA4/Ads/Meta):
-      page_view_landing, form_visible, cta_click, scroll_depth,
-      outbound (wa/tel/mail/booking), generate_lead (en /gracias/).
+      page_view_landing, form_cargado, form_visible, scroll_depth,
+      cta_click (con tipo: whatsapp/telefono/email/booking) y
+      generate_lead (en /gracias/, deduplicado por sesión).
    Ver docs/TRACKING.md para el plan completo y el mapa de etiquetas GTM. */
 'use strict';
 
@@ -37,7 +38,9 @@
     }
   } catch (e) { attr = ahora; }
 
-  /* Canal: utm_source/campaign → gads | mads | pmax (mapa en site.json) */
+  /* Canal: utm_source/campaign → gads | mads | pmax, o null sin señales.
+     El tráfico sin atribución se reporta como 'directo' — nunca se
+     inventa un canal de pago (inflaría a Google Ads en GHL y GA4). */
   function canal() {
     const src = (attr.utm_source || '').toLowerCase();
     const camp = (attr.utm_campaign || '').toLowerCase();
@@ -45,9 +48,10 @@
     if (TB.canales && TB.canales[src]) return TB.canales[src];
     if (attr.gclid) return 'gads';
     if (attr.fbclid) return 'mads';
-    return 'gads'; // por defecto: el canal principal
+    return null;
   }
-  const CANAL = canal();
+  const CANAL = canal();                 // null = sin canal de pago
+  const CANAL_PAGO = CANAL || 'directo'; // lo que se reporta en eventos
 
   /* ── 2 · Google Tag Manager (contenedor único para todo) ───── */
   if (TB.gtmId && /^GTM-[A-Z0-9]+$/.test(TB.gtmId) && !/XXXXXXX/.test(TB.gtmId)) {
@@ -61,8 +65,8 @@
   /* Contexto base de la página */
   push({
     event: 'page_view_landing',
-    canal_pago: CANAL,
-    carrera: TB.slug || document.body.dataset.carrera || (location.pathname.split('/').filter(Boolean)[0] || 'home'),
+    canal_pago: CANAL_PAGO,
+    carrera: TB.slug || (location.pathname.split('/').filter(Boolean)[0] || 'home'),
     utm_source: attr.utm_source || '(directo)',
     utm_campaign: attr.utm_campaign || '(sin campaña)'
   });
@@ -70,11 +74,11 @@
   /* ── 3 · Formulario GHL: canal correcto + UTMs propagados ──── */
   const cont = document.getElementById('ghl-form');
   if (cont) {
-    const formId = cont.dataset[CANAL] || cont.dataset.gads;
+    const formId = (CANAL && cont.dataset[CANAL]) || cont.dataset.gads;
     const params = new URLSearchParams();
-    for (const k of CLAVES) if (attr[k]) params.set(k, attr[k]);
-    params.set('utm_source', attr.utm_source || CANAL);
-    const src = 'https://api.leadconnectorhq.com/widget/form/' + formId + '?' + params.toString();
+    for (const k of CLAVES) if (attr[k]) params.set(k, attr[k]); // solo atribución real
+    const q = params.toString();
+    const src = 'https://api.leadconnectorhq.com/widget/form/' + formId + (q ? '?' + q : '');
 
     const crea = () => {
       if (cont.dataset.cargado) return;
@@ -90,7 +94,7 @@
       s.src = 'https://link.msgsndr.com/js/form_embed.js';
       s.async = true;
       document.body.appendChild(s);
-      push({ event: 'form_cargado', form_id: formId, canal_pago: CANAL });
+      push({ event: 'form_cargado', form_id: formId, canal_pago: CANAL_PAGO });
     };
     /* Carga diferida: recién cuando el bloque se acerca al viewport
        (el form está alto en la página, así que en la práctica es casi eager) */
@@ -105,7 +109,7 @@
     if ('IntersectionObserver' in window) {
       const ioVis = new IntersectionObserver(es => {
         if (es.some(e => e.isIntersecting && e.intersectionRatio > 0.4)) {
-          push({ event: 'form_visible', form_id: formId, canal_pago: CANAL });
+          push({ event: 'form_visible', form_id: formId, canal_pago: CANAL_PAGO });
           ioVis.disconnect();
         }
       }, { threshold: 0.4 });
@@ -115,20 +119,30 @@
 
   /* ── 4 · Conversión en /gracias/ ──────────────────────────── */
   if (TB.esGracias) {
-    push({
-      event: 'generate_lead',
-      carrera: TB.slug,
-      canal_pago: CANAL,
-      utm_source: attr.utm_source || '(directo)',
-      utm_campaign: attr.utm_campaign || '(sin campaña)'
-    });
+    // Deduplicación: recargar /gracias/ o volver con el botón atrás
+    // no debe contar una segunda conversión en la misma sesión.
+    let yaContada = false;
+    try {
+      const clave = 'tb_lead_' + TB.slug;
+      yaContada = sessionStorage.getItem(clave) === '1';
+      if (!yaContada) sessionStorage.setItem(clave, '1');
+    } catch (e) { /* sin storage: se cuenta igual */ }
+    if (!yaContada) {
+      push({
+        event: 'generate_lead',
+        carrera: TB.slug,
+        canal_pago: CANAL_PAGO,
+        utm_source: attr.utm_source || '(directo)',
+        utm_campaign: attr.utm_campaign || '(sin campaña)'
+      });
+    }
   }
 
   /* ── 5 · Clics medidos ────────────────────────────────────── */
   document.addEventListener('click', ev => {
-    const a = ev.target.closest('[data-tb]');
+    const a = ev.target.closest('a[data-tb], button[data-tb]');
     if (!a) return;
-    const params = { elemento: a.dataset.tb, canal_pago: CANAL };
+    const params = { elemento: a.dataset.tb, canal_pago: CANAL_PAGO };
     if (a.dataset.carrera) params.carrera = a.dataset.carrera;
     if (a.href) {
       if (a.href.startsWith('tel:')) params.tipo = 'telefono';
@@ -150,7 +164,7 @@
       if (max <= 0) return;
       const pct = Math.round((scrollY / max) * 100);
       while (alcanzado < hitos.length && pct >= hitos[alcanzado]) {
-        push({ event: 'scroll_depth', profundidad: hitos[alcanzado], canal_pago: CANAL });
+        push({ event: 'scroll_depth', profundidad: hitos[alcanzado], canal_pago: CANAL_PAGO });
         alcanzado++;
       }
     });

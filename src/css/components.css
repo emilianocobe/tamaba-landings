@@ -9,6 +9,10 @@
 }
 .seccion > * { max-width: var(--ancho-max); margin-left: auto; margin-right: auto; }
 .seccion > .titulo-display { margin-bottom: var(--esp-4); }
+/* Los bloques angostos se alinean a la izquierda con su título,
+   no al centro del contenedor (colisión detectada en revisión). */
+.seccion > .quiz, .seccion > .faq, .seccion > .ruta, .seccion > .video-marco,
+.seccion > .premios, .seccion > .condiciones, .seccion > .temario { margin-left: 0; }
 
 /* Inversión de tema por sección: el corte claro/oscuro marca fronteras.
    El panel claro SEÑALA conversión y datos duros. */
@@ -269,8 +273,9 @@
   font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm);
   letter-spacing: var(--track-etiqueta); text-transform: uppercase;
 }
-.mapa-estado[data-abierto="si"] { color: #4BC98A; }
-.mapa-estado[data-abierto="no"] { color: var(--tinta-3); }
+/* Paleta cerrada: el estado se diferencia por brillo + símbolo ●/○, sin verde */
+.mapa-estado[data-abierto="si"] { color: var(--tinta); }
+.mapa-estado[data-abierto="no"] { color: var(--niebla); }
 /* Sin filter sobre el iframe: un filter en iframes cross-origin puede
    tumbar el compositor del navegador (pantalla negra). */
 .mapa { width: 100%; height: 100%; min-height: 380px; }
@@ -329,7 +334,7 @@
   font-family: var(--f-dato); font-weight: 600;
   letter-spacing: 0.08em; color: var(--tinta-3);
 }
-.quiz-progreso b { color: var(--acento); font-size: 1.3em; }
+.quiz-progreso b { color: var(--acento); font-size: 1.3em; font-weight: 600; }
 .quiz-resultado {
   border: 1px solid var(--acento); border-radius: var(--radio-panel);
   padding: var(--esp-4);
@@ -393,7 +398,7 @@
 .gracias-ctas { display: flex; flex-wrap: wrap; gap: var(--esp-2); margin-bottom: var(--esp-5); }
 .gracias-qrs { display: flex; gap: var(--esp-4); flex-wrap: wrap; margin-bottom: var(--esp-4); }
 .gracias-qrs figure { display: flex; gap: var(--esp-2); align-items: center; max-width: 320px; }
-.gracias-qrs img { border-radius: var(--radio); border: 1px solid var(--panel-linea); background: #fff; }
+.gracias-qrs img { border-radius: var(--radio); border: 1px solid var(--panel-linea); background: var(--blanco); }
 .gracias-qrs figcaption { font-size: var(--t-sm); color: var(--panel-tinta-2); }
 .gracias-volver { font-size: var(--t-sm); }
 .gracias-volver a { color: var(--panel-tinta-2); }
