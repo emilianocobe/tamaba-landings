@@ -19,8 +19,16 @@ ${ev.pasos.map((s, i) => `      <li><span class="ruta-numero">${String(i + 1).pa
       <img src="${p}assets/img/${ev.img}.webp" alt="${ev.imgAlt}" loading="lazy" width="1280" height="720">
     </figure>
 
+${ev.opuesto ? `
+    <aside class="cruzado">
+      <span class="chip chip-oscuro">${ev.opuesto.chip}</span>
+      <h2>${ev.opuesto.titulo}</h2>
+      <p>${ev.opuesto.texto}</p>
+      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings[ev.opuesto.booking]}" target="_blank" rel="noopener" data-tb="${ev.opuesto.tb}">${ev.opuesto.cta}</a>
+    </aside>` : ''}
+
     <div class="gracias-ctas">
-      <a class="boton boton-rojo boton-grande" href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, agendé un encuentro con TAMABA y quiero hacer una consulta')}" target="_blank" rel="noopener" data-tb="whatsapp-gracias-evento">Tengo una pregunta</a>
+      <a class="boton boton-borde-oscuro boton-grande" href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, agendé un encuentro con TAMABA y quiero hacer una consulta')}" target="_blank" rel="noopener" data-tb="whatsapp-gracias-evento">Tengo una pregunta</a>
       <a class="boton boton-borde-oscuro boton-grande" href="${p}" data-tb="ver-carreras-gracias-evento">Ver las carreras</a>
     </div>
 

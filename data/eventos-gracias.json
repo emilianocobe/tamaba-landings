@@ -10,11 +10,28 @@
     "imgAlt": "Sede de TAMABA en Adolfo Alsina 1994, CABA",
     "evento": "visita_presencial",
     "pasos": [
-      { "t": "Revisá tu mail", "d": "Te llega la confirmación con día y horario. Si no aparece, mirá spam o promociones." },
-      { "t": "Anotate la dirección", "d": "Adolfo Alsina 1994, CABA — a metros del Congreso. Llegá 10 minutos antes." },
-      { "t": "Traé tus preguntas", "d": "Vas a recorrer los estudios y hablar con el equipo de admisiones: es el momento de preguntar todo (aranceles, becas, horarios)." }
+      {
+        "t": "Revisá tu mail",
+        "d": "Te llega la confirmación con día y horario. Si no aparece, mirá spam o promociones."
+      },
+      {
+        "t": "Anotate la dirección",
+        "d": "Adolfo Alsina 1994, CABA — a metros del Congreso. Llegá 10 minutos antes."
+      },
+      {
+        "t": "Traé tus preguntas",
+        "d": "Vas a recorrer los estudios y hablar con el equipo de admisiones: es el momento de preguntar todo (aranceles, becas, horarios)."
+      }
     ],
-    "conMapa": true
+    "conMapa": true,
+    "opuesto": {
+      "booking": "encuentroOnline",
+      "chip": "También podés sumarte",
+      "titulo": "Sumate además al encuentro online",
+      "texto": "La visita es para ver el instituto por dentro. En el encuentro informativo online contamos el plan de estudios, los aranceles y el sistema de becas, y respondés todas tus dudas en vivo. Son complementarios: podés hacer los dos.",
+      "cta": "Reservar mi lugar online",
+      "tb": "booking-cruzado-online"
+    }
   },
   "encuentro-online": {
     "slug": "encuentro-online",
@@ -26,10 +43,27 @@
     "imgAlt": "Estudio virtual 3D de TAMABA",
     "evento": "encuentro_online",
     "pasos": [
-      { "t": "Guardá el link", "d": "Te llega por mail junto con la invitación de calendario. Revisá spam o promociones si no lo ves." },
-      { "t": "Conectate desde donde estés", "d": "Solo necesitás internet. Podés entrar desde la computadora o el celular." },
-      { "t": "Participá en vivo", "d": "Contamos el plan de estudios, los aranceles y el sistema de becas, y respondemos todas tus preguntas." }
+      {
+        "t": "Guardá el link",
+        "d": "Te llega por mail junto con la invitación de calendario. Revisá spam o promociones si no lo ves."
+      },
+      {
+        "t": "Conectate desde donde estés",
+        "d": "Solo necesitás internet. Podés entrar desde la computadora o el celular."
+      },
+      {
+        "t": "Participá en vivo",
+        "d": "Contamos el plan de estudios, los aranceles y el sistema de becas, y respondemos todas tus preguntas."
+      }
     ],
-    "conMapa": false
+    "conMapa": false,
+    "opuesto": {
+      "booking": "visitaPresencial",
+      "chip": "También podés sumarte",
+      "titulo": "Y si querés, vení a conocernos en persona",
+      "texto": "En el encuentro online contamos todo sobre la carrera. Si además querés ver los estudios, las aulas y el equipamiento con tus propios ojos, agendá una visita guiada por el instituto. Son complementarios: podés hacer los dos.",
+      "cta": "Agendar visita presencial",
+      "tb": "booking-cruzado-visita"
+    }
   }
 }

@@ -398,6 +398,17 @@
 .gracias-qrs figure { display: flex; gap: var(--esp-2); align-items: center; max-width: 320px; }
 .gracias-qrs img { border-radius: var(--radio); border: 1px solid var(--panel-linea); background: var(--blanco); }
 .gracias-qrs figcaption { font-size: var(--t-sm); color: var(--panel-tinta-2); }
+/* Invitación al evento complementario (visita ↔ encuentro online) */
+.cruzado {
+  background: var(--blanco); border-radius: var(--radio-panel);
+  box-shadow: var(--sombra-claro);
+  border-left: 4px solid var(--rojo);
+  padding: var(--esp-4); margin-bottom: var(--esp-4);
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--esp-2);
+}
+.cruzado h2 { font-family: var(--f-display); font-weight: 400; font-size: var(--t-xl); line-height: 1.05; }
+.cruzado p { color: var(--panel-tinta-2); max-width: 60ch; }
+
 .gracias-imagen { border-radius: var(--radio-panel); overflow: hidden; margin-bottom: var(--esp-4); box-shadow: var(--sombra-claro); }
 .gracias-imagen img { width: 100%; }
 .gracias-mapa { margin-top: var(--esp-4); padding-top: var(--esp-3); border-top: 1px solid var(--panel-linea); }
