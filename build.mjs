@@ -12,6 +12,7 @@
  */
 import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
@@ -104,14 +105,28 @@ function minJs(s) {
     .trim();
 }
 
-mkdirSync(join(DIST, 'css'), { recursive: true });
-writeFileSync(join(DIST, 'css/styles.css'), minCss(fontsCss + '\n' + css) + '\n');
+/* Huella de contenido en el nombre. El .htaccess sirve estos archivos con
+   `immutable` y un año de caché: sin huella, el navegador de quien ya
+   visitó el sitio se queda con la versión vieja durante ese año y ve el
+   HTML nuevo sin sus estilos. Con huella, cada cambio es un archivo
+   distinto y el HTML — que sí se revalida siempre — lo pide solo. */
+const huella = s => createHash('sha1').update(s).digest('hex').slice(0, 8);
 
-// JS
+mkdirSync(join(DIST, 'css'), { recursive: true });
+const cssFinal = minCss(fontsCss + '\n' + css) + '\n';
+const cssRuta = `css/styles.${huella(cssFinal)}.css`;
+writeFileSync(join(DIST, cssRuta), cssFinal);
+
 mkdirSync(join(DIST, 'js'), { recursive: true });
+const jsRutas = {};
 for (const f of readdirSync(join(ROOT, 'src/js'))) {
-  writeFileSync(join(DIST, 'js', f), minJs(readFileSync(join(ROOT, 'src/js', f), 'utf8')) + '\n');
+  const cuerpo = minJs(readFileSync(join(ROOT, 'src/js', f), 'utf8')) + '\n';
+  const base = f.replace(/\.js$/, '');
+  const ruta = `js/${base}.${huella(cuerpo)}.js`;
+  writeFileSync(join(DIST, ruta), cuerpo);
+  jsRutas[base] = ruta;
 }
+const assets = { css: cssRuta, ...jsRutas };
 
 // ── Escritura de páginas ─────────────────────────────────────────────
 const pages = [];
@@ -122,7 +137,7 @@ function page(path, html) {
   pages.push(path === '' ? '/' : `/${path}/`);
 }
 
-const ctx = { site, carreras, beca, dim, medir };
+const ctx = { site, carreras, beca, dim, medir, assets };
 
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 
@@ -342,9 +357,9 @@ if (process.argv.includes('--check')) {
   }
   // Los woff2 que referencia el CSS deben existir (una @font-face rota
   // no da error de build por sí sola)
-  const cssFinal = readFileSync(join(DIST, 'css/styles.css'), 'utf8');
-  for (const m of cssFinal.matchAll(/url\('([^']+\.woff2)'\)/g)) {
-    if (!existsSync(join(DIST, 'css', m[1]))) { console.error(`✘ css/styles.css: fuente inexistente → ${m[1]}`); errores++; }
+  const cssServido = readFileSync(join(DIST, cssRuta), 'utf8');
+  for (const m of cssServido.matchAll(/url\('([^']+\.woff2)'\)/g)) {
+    if (!existsSync(join(DIST, 'css', m[1]))) { console.error(`✘ ${cssRuta}: fuente inexistente → ${m[1]}`); errores++; }
   }
   if (errores) { console.error(`\n✘ ${errores} problema(s).`); process.exit(1); }
   console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, dimensiones reales, noopener, https, fuentes — todo OK');

@@ -41,10 +41,10 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <link rel="icon" type="image/svg+xml" href="${p}assets/favicon.svg">
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${p}css/styles.css">
+<link rel="stylesheet" href="${p}${o.assets.css}">
 <script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')},eventoReserva:${JSON.stringify(o.eventoReserva || '')}};</script>
-<script src="${p}js/tracking.js" defer></script>
-<script src="${p}js/main.js" defer></script>
+<script src="${p}${o.assets.tracking}" defer></script>
+<script src="${p}${o.assets.main}" defer></script>
 ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</script>` : ''}
 <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org', '@type': 'EducationalOrganization',
