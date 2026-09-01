@@ -1,0 +1,100 @@
+# TAMABA · generado por build.mjs — no editar a mano
+Options -Indexes
+DirectoryIndex index.html
+
+# HTTPS obligatorio + 301 de las URLs del sitio viejo
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Las 46 URLs del WordPress viejo. 301 de servidor: transfieren
+  # autoridad y no gastan una carga de pagina. Apache arrastra la query
+  # string, asi que los UTM de los anuncios activos sobreviven al salto.
+  RewriteRule ^gads-sonido-y-produccion-musical-a-distancia/?$ /sonido-distancia/ [R=301,L]
+  RewriteRule ^mads-sonido-y-produccion-musical-a-distancia/?$ /sonido-distancia/ [R=301,L]
+  RewriteRule ^pmax-sonido-y-produccion-musical-a-distancia/?$ /sonido-distancia/ [R=301,L]
+  RewriteRule ^borrador-sonido-y-produccion-musical-a-distancia/?$ /sonido-distancia/ [R=301,L]
+  RewriteRule ^sonido-y-produccion-musical-presencial/?$ /sonido-presencial/ [R=301,L]
+  RewriteRule ^mads-sonido-y-produccion-musical-presencial/?$ /sonido-presencial/ [R=301,L]
+  RewriteRule ^pmax-sonido-y-produccion-musical-presencial/?$ /sonido-presencial/ [R=301,L]
+  RewriteRule ^gads-musico-profesional/?$ /musico-profesional/ [R=301,L]
+  RewriteRule ^mads-musico-profesional/?$ /musico-profesional/ [R=301,L]
+  RewriteRule ^pmax-musico-profesional/?$ /musico-profesional/ [R=301,L]
+  RewriteRule ^gads-cantante-profesional/?$ /cantante-profesional/ [R=301,L]
+  RewriteRule ^mads-cantante-profesional/?$ /cantante-profesional/ [R=301,L]
+  RewriteRule ^pmax-cantante-profesional/?$ /cantante-profesional/ [R=301,L]
+  RewriteRule ^gads-sonido-y-produccion-musical-a-distancia-mar-del-plata/?$ /sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^mads-sonido-y-produccion-musical-a-distancia-mdq/?$ /sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^pmax-sonido-y-produccion-musical-a-distancia-mdq/?$ /sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^gads-curso-de-sonido/?$ /curso-de-sonido/ [R=301,L]
+  RewriteRule ^mads-taller-de-mediciones-acusticas/?$ /mediciones-acusticas/ [R=301,L]
+  RewriteRule ^mads-pro-tools/?$ /pro-tools/ [R=301,L]
+  RewriteRule ^gads-gracias-form-sonido-distancia/?$ /gracias/sonido-distancia/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-sonido-y-produccion-musical-a-distancia/?$ /gracias/sonido-distancia/ [R=301,L]
+  RewriteRule ^pmax-gracias-por-tu-consulta-sonido-y-produccion-musical-a-distancia/?$ /gracias/sonido-distancia/ [R=301,L]
+  RewriteRule ^gads-gracias-form-sonido-presencial/?$ /gracias/sonido-presencial/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-sonido-y-produccion-musical-presencial/?$ /gracias/sonido-presencial/ [R=301,L]
+  RewriteRule ^pmax-gracias-por-tu-consulta-sonido-y-produccion-musical-presencial/?$ /gracias/sonido-presencial/ [R=301,L]
+  RewriteRule ^gads-gracias-por-tu-consulta-musico-profesional/?$ /gracias/musico-profesional/ [R=301,L]
+  RewriteRule ^gads-gracias-form-musico-profesional/?$ /gracias/musico-profesional/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-musico-profesional/?$ /gracias/musico-profesional/ [R=301,L]
+  RewriteRule ^pmax-gracias-por-tu-consulta-musico-profesional/?$ /gracias/musico-profesional/ [R=301,L]
+  RewriteRule ^gads-gracias-form-cantante-profesional/?$ /gracias/cantante-profesional/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-cantante-profesional/?$ /gracias/cantante-profesional/ [R=301,L]
+  RewriteRule ^pmax-gracias-por-tu-consulta-cantante-profesional/?$ /gracias/cantante-profesional/ [R=301,L]
+  RewriteRule ^gads-gracias-por-tu-consulta-sonido-y-produccion-musical-a-distancia-mdq/?$ /gracias/sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-sonido-y-produccion-musical-a-distancia-mdq/?$ /gracias/sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^pmax-gracias-por-tu-consulta-sonido-y-produccion-musical-a-distancia-mdq/?$ /gracias/sonido-distancia-mdq/ [R=301,L]
+  RewriteRule ^gads-gracias-form-curso-sonido/?$ /gracias/curso-de-sonido/ [R=301,L]
+  RewriteRule ^mads-gracias-por-tu-consulta-taller-de-mediciones-acusticas/?$ /gracias/mediciones-acusticas/ [R=301,L]
+  RewriteRule ^mads-gracias-pro-tools/?$ /gracias/pro-tools/ [R=301,L]
+  RewriteRule ^gracias-encuentro-zoom/?$ /gracias-evento/encuentro-online/ [R=301,L]
+  RewriteRule ^gracias-encuentro-zoom-beca/?$ /gracias-evento/encuentro-online/ [R=301,L]
+  RewriteRule ^gracias-visita-presencial/?$ /gracias-evento/visita-presencial/ [R=301,L]
+  RewriteRule ^eventos-tamaba/?$ /eventos/ [R=301,L]
+  RewriteRule ^beca-agosto-2026/?$ /beca/ [R=301,L]
+  RewriteRule ^bases-y-condiciones-sorteo-beca-16-de-julio-2026/?$ /bases-sorteo-beca/ [R=301,L]
+  RewriteRule ^cartelera/?$ / [R=301,L]
+  RewriteRule ^gads-sonido-y-produccion-musical-presencial/?$ /sonido-presencial/ [R=301,L]
+</IfModule>
+
+# Página 404 propia
+ErrorDocument 404 /404.html
+
+# Compresión
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/javascript application/json image/svg+xml
+</IfModule>
+
+# Caché: assets con hash de contenido estable, HTML siempre fresco
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js|webp|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # El sitio no se embebe en ningun lado; si embebe (GHL, Maps), que es
+  # otra cosa y no la afecta esta cabecera.
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), interest-cohort=()"
+  # HSTS con despliegue gradual (recomendacion OWASP): un dia primero.
+  # Subir a 31536000 recien despues de verificar que el certificado
+  # renueva solo — un max-age largo con el cert vencido deja el sitio
+  # inaccesible y no hay forma de revertirlo del lado del visitante.
+  Header always set Strict-Transport-Security "max-age=86400"
+</IfModule>
