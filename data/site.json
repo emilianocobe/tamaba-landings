@@ -40,15 +40,23 @@
     "gtmId": "GTM-KTLTXJZ",
     "ga4Id": "G-LCTZBVD2L6",
     "googleAdsId": "AW-11075909129",
-    "metaPixelId": "",
-    "nota": "GTM es el orquestador: carga GA4, Google Ads y Meta Pixel. El token de la API de Conversiones de Meta NO va aca (es server-side). Ver docs/TRACKING.md",
+    "metaPixelId": "274500118502404",
+    "nota": "GTM es el orquestador: carga GA4, Google Ads y Meta Pixel. La API de Conversiones de Meta ya esta activa del lado del negocio, por eso cada Lead viaja con event_id: sin el, la conversion se cuenta dos veces (navegador + servidor). El token de CAPI NO va aca, es server-side. Ver docs/TRACKING.md",
     "canales": {
       "google": "gads",
       "facebook": "mads",
       "instagram": "mads",
       "meta": "mads",
       "pmax": "pmax"
-    }
+    },
+    "adsLabels": {
+      "sonido-distancia": "y7LxCLLrqPEcEInss6Ep",
+      "cantante-profesional": "KvpNCKnrqPEcEInss6Ep",
+      "sonido-presencial": "_Q_1CK_rqPEcEInss6Ep",
+      "musico-profesional": "80RnCKzrqPEcEInss6Ep"
+    },
+    "adsLabelsNota": "Una accion de conversion por carrera. Los cuatro productos restantes (curso-de-sonido, pro-tools, mediciones-acusticas, sonido-distancia-mdq) no tienen etiqueta propia todavia: su generate_lead va a GA4 pero no a Ads.",
+    "metaPixelNombre": "MADS - Pixel"
   },
   "whatsappHref": "5491178563203",
   "alianzas": [

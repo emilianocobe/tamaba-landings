@@ -21,9 +21,11 @@ const T = site.tracking;
 
 // Google Ads: el ID de conversión es la parte numérica de AW-XXXXXXXXX
 const adsConversionId = (T.googleAdsId || '').replace(/^AW-/, '');
-// La etiqueta de conversión es específica de cada acción de conversión y hay
-// que copiarla desde Google Ads (Objetivos → Conversiones → la acción → Configurar con GTM).
-const ETIQUETA_ADS = 'PEGAR_ETIQUETA_DE_CONVERSION';
+// Hay una acción de conversión POR CARRERA, no una sola. El sitio ya resuelve
+// cuál corresponde y la manda en el evento (`ads_label`), así que la etiqueta
+// se toma de la capa de datos en vez de quemarla en la etiqueta de GTM: sumar
+// una carrera nueva no obliga a tocar el contenedor.
+const ETIQUETA_ADS = '{{DLV - ads_label}}';
 const PIXEL_META = T.metaPixelId || 'PEGAR_ID_DEL_PIXEL';
 
 let id = 0;
@@ -31,7 +33,8 @@ const nextId = () => String(++id);
 
 // ── Variables de capa de datos ───────────────────────────────────────
 const dlvNombres = ['carrera', 'carrera_nombre', 'canal_pago', 'utm_source',
-  'utm_campaign', 'event_id', 'elemento', 'tipo', 'profundidad', 'value', 'currency'];
+  'utm_campaign', 'event_id', 'ads_label', 'ads_send_to', 'elemento', 'tipo',
+  'profundidad', 'value', 'currency'];
 
 const variable = dlvNombres.map(n => ({
   accountId: '0', containerId: '0', variableId: nextId(),

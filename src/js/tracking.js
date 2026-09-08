@@ -147,6 +147,8 @@
         utm_source: attr.utm_source || '(directo)',
         utm_campaign: attr.utm_campaign || '(sin campaña)',
         event_id: eventId,
+        ads_label: TB.adsLabel || '',
+        ads_send_to: TB.adsLabel ? TB.adsId + '/' + TB.adsLabel : '',
         value: 1,
         currency: 'ARS'
       });
