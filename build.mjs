@@ -334,6 +334,13 @@ if (process.argv.includes('--check')) {
     for (const m of html.matchAll(/<img(?![^>]*\balt=)[^>]*>/g)) { console.error(`✘ ${ruta}: <img> sin alt → ${m[0].slice(0, 80)}`); errores++; }
     // target=_blank sin noopener
     for (const m of html.matchAll(/<a[^>]*target="_blank"(?![^>]*noopener)[^>]*>/g)) { console.error(`✘ ${ruta}: _blank sin noopener → ${m[0].slice(0, 80)}`); errores++; }
+    // Regla 4.1 del CLAUDE.md (distincion legal, no negociable): el titulo
+    // lo EMITE el Ministerio de Educacion de la Ciudad; la Nacion solo
+    // CERTIFICA su validez nacional. Atribuirselo a Nacion ya se corrigio
+    // siete veces en el deck y una vez aca: que no pueda volver.
+    for (const m of html.matchAll(/Ministerio de Educación(?: de la)? (?:Nación|Nacional|República Argentina)/g)) {
+      console.error(`✘ ${ruta}: regla 4.1 — el titulo no lo emite Nación → "${m[0]}"`); errores++;
+    }
     // http:// inseguro
     for (const m of html.matchAll(/(?:href|src)="http:\/\/[^"]*"/g)) { console.error(`✘ ${ruta}: URL http insegura → ${m[0].slice(0, 90)}`); errores++; }
     // Toda imagen local debe declarar width/height, y esos numeros deben
@@ -362,5 +369,5 @@ if (process.argv.includes('--check')) {
     if (!existsSync(join(DIST, 'css', m[1]))) { console.error(`✘ ${cssRuta}: fuente inexistente → ${m[1]}`); errores++; }
   }
   if (errores) { console.error(`\n✘ ${errores} problema(s).`); process.exit(1); }
-  console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, dimensiones reales, noopener, https, fuentes — todo OK');
+  console.log('✔ Verificaciones: enlaces, anclas, ids únicos, h1 único, alt, dimensiones reales, regla 4.1, noopener, https, fuentes — todo OK');
 }
