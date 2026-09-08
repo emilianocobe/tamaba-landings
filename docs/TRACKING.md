@@ -115,51 +115,57 @@ KPIs: costo por lead por carrera y canal · tasa `form_visible`/`page_view` (¿e
 
 ---
 
-## Bucle de eventos del pixel de Meta (detectado 2026-09-08, SIN RESOLVER)
+## Bucle de eventos del pixel de Meta (detectado y RESUELTO el 2026-09-08)
 
-Cada conversion se envia **tres veces** a Meta. Medido en produccion sobre
-`/gracias/curso-de-sonido/`:
+Cada conversion llegaba **tres veces** a Meta. Se resolvio en tres pasos, y
+en cada uno se midio en produccion.
 
-| # | evento | event_id | origen |
-|---|---|---|---|
-| 1 | `Lead` | `lead-curso-de-sonido-…` | el del sitio, el que deduplica con la CAPI |
-| 2 | `Lead` | `55a85f2a-…` | eco |
-| 3 | `Lead` | `55a85f2a-…` | eco |
+**Causa 1 — el eco del dataLayer.** La etiqueta
+`FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template` se activa con
+`Event no contiene gtm.`, es decir con *cualquier* evento. Y ella misma
+escribe `Lead` y `page_view_landing` en el dataLayer, que vuelven a
+activarla. Se auto-alimentaba.
 
-**Causa.** La etiqueta `FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template`
-se activa con `Event no contiene gtm.` — es decir, con *cualquier* evento del
-dataLayer. Y esa misma etiqueta **escribe** `Lead` y `page_view_landing` en el
-dataLayer, que vuelven a activarla. Se auto-alimenta.
+> Arreglo: activador *Excepcion - eco de Meta* con
+> `^(Lead|PageView|page_view_landing)$` por regex, puesto como **Excepcion**
+> en esa etiqueta. **3 Leads → 2.**
 
-El dataLayer de una pagina de gracias, en orden:
+**Causa 2 — el disparo en DOM Ready.** La misma etiqueta tenia un segundo
+activador (`…-Web-Trigger-DOM_Ready`) que la excepcion no cubre, porque no
+es un evento personalizado.
+
+> Arreglo: se quito ese activador de la etiqueta. Desaparecio un `PageView`
+> duplicado. **6 peticiones → 3.**
+
+**Causa 3 — la CAPI automatica del portfolio.** Una segunda instalacion del
+pixel, catalogada por Meta como *Integracion con socios*, cargaba un
+segundo `fbevents.js` y mandaba su propio `Lead` con event_id propio. Venia
+de la CAPI automatica a nivel de negocio (agregada el 31/08, 8 conjuntos de
+datos conectados). No se apagaba desde GTM.
+
+> Arreglo: se pauso la etiqueta de Meta en GTM. **Resultado: 1 solo Lead —
+> y el que queda es el nuestro**, con event_id propio y todos los
+> parametros. La CAPI automatica lee el dataLayer del sitio, asi que no se
+> perdio nada.
+
+**Estado verificado en produccion (2026-09-08):**
 
 ```
-gtm.js → page_view_landing → generate_lead → Lead → gtm.dom → gtm.load
-         ^ lo emite Meta                     ^ lo emite Meta
+facebook.com/tr  ·  ev=Lead  ·  eid=lead-sonido-presencial-…
+  cd[content_name]      Sonido y Produccion Musical Presencial
+  cd[content_category]  carrera
+  cd[content_type]      product
+  cd[currency]          ARS
+  cd[value]             1
 ```
 
-Solo `generate_lead` es del sitio. Los otros dos son el eco.
+Una sola carga de `fbevents.js`, un solo `Lead`, con la carrera adentro.
 
-**Consecuencia.** Las conversiones de Meta aparecen infladas hasta 3x y el CPA
-se ve hasta 3 veces mejor que el real. Los tres eventos llevan `event_id`
-distinto, asi que Meta no puede deduplicarlos entre si.
+**Notas para el futuro.** La pantalla de la CAPI del portfolio
+(`business.facebook.com/web_conversions_api`) esta rota: la tabla de
+exclusion no lista los datasets y el boton *Remove Conversions API*
+confirma pero no aplica. Si algun dia hay que desconectarla, hay que
+reportarlo a Meta. `docs/gtm/excepcion-meta.json` conserva el activador de
+excepcion por si hay que recrearlo.
 
-**Arreglo pendiente** (en GTM, sobre esa etiqueta):
-
-1. Crear un activador de tipo *Evento personalizado*, nombre del evento
-   `^(Lead|PageView|page_view_landing)$` con **coincidencia por expresion
-   regular**.
-2. Abrir `FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template` →
-   Activacion → **Excepciones** → agregar ese activador.
-3. Publicar y comprobar en el Probador de eventos de Meta que queda **un solo
-   `Lead`** por conversion, con el `event_id` del sitio.
-
-`docs/gtm/excepcion-meta.json` tiene ese activador listo, pero GTM rechaza
-importar un contenedor que solo trae activadores: hay que crearlo a mano.
-
-**No lo causa el sitio.** La etiqueta se instalo el 2026-08-31, antes de que
-esta landing publicara sus eventos. El sitio solo lo hace visible.
-
-Nota aparte: `Seguimiento automatico de eventos sin codigo` ya fue desactivado
-en el pixel; `Eventos automaticos` sigue activado, pero no es el causante — el
-eco persiste igual.
+Si se despausa la etiqueta de Meta en GTM, vuelve el duplicado.
