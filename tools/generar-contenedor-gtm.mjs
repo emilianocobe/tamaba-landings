@@ -28,6 +28,14 @@ const adsConversionId = (T.googleAdsId || '').replace(/^AW-/, '');
 const ETIQUETA_ADS = '{{DLV - ads_label}}';
 const PIXEL_META = T.metaPixelId || 'PEGAR_ID_DEL_PIXEL';
 
+/* El contenedor real ya trae la integracion oficial de Meta
+   (FB_CONVERSIONS_API-<pixel>-Web-Tag-Pixel_Template) con
+   "Use GA4 dataLayer Integration" y Event ID propio: capta generate_lead
+   sola. Emitir ademas nuestras etiquetas de Meta contaria cada Lead dos
+   veces. Con --sin-meta se omiten y el contenedor queda solo con Google.
+   Si algun dia esa integracion se quita, generar sin el flag. */
+const SIN_META = process.argv.includes('--sin-meta');
+
 let id = 0;
 const nextId = () => String(++id);
 
@@ -234,7 +242,8 @@ const contenedor = {
       publicId: T.gtmId,
       usageContext: ['WEB']
     },
-    tag, trigger, variable
+    tag: SIN_META ? tag.filter(x => !/^Meta Pixel/.test(x.name)) : tag,
+    trigger, variable
   }
 };
 
@@ -243,7 +252,7 @@ const salida = join(ROOT, 'docs/gtm/contenedor-tamaba.json');
 writeFileSync(salida, JSON.stringify(contenedor, null, 2) + '\n');
 
 console.log(`✔ ${salida}`);
-console.log(`  ${tag.length} etiquetas · ${trigger.length} activadores · ${variable.length} variables`);
+console.log(`  ${contenedor.containerVersion.tag.length} etiquetas · ${trigger.length} activadores · ${variable.length} variables`);
 console.log(`  GA4 ${T.ga4Id} · Ads ${T.googleAdsId} · GTM ${T.gtmId}`);
 if (ETIQUETA_ADS.startsWith('PEGAR')) console.log('  ⚠ Falta la etiqueta de conversión de Google Ads');
 if (PIXEL_META.startsWith('PEGAR')) console.log('  ⚠ Falta el ID numérico del píxel de Meta');

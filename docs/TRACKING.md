@@ -112,3 +112,54 @@ KPIs: costo por lead por carrera y canal · tasa `form_visible`/`page_view` (¿e
 - **Server-side tagging (sGTM)**: recomendable a futuro (mejor calidad de dato post-ITP), pero requiere infraestructura paga; el volumen actual no lo justifica. Documentado para revisión al superar ~5.000 visitas/mes.
 - **A/B testing formal**: sin herramienta gratuita decente post-Optimize. La alternativa práctica: duplicar una landing con otro slug y dividir tráfico desde Ads (el generador hace que crear variantes cueste un JSON).
 - **Heatmaps (Clarity/Hotjar)**: Microsoft Clarity es gratis y compatible — agregarlo vía GTM cuando el contenedor exista, no antes.
+
+---
+
+## Bucle de eventos del pixel de Meta (detectado 2026-09-08, SIN RESOLVER)
+
+Cada conversion se envia **tres veces** a Meta. Medido en produccion sobre
+`/gracias/curso-de-sonido/`:
+
+| # | evento | event_id | origen |
+|---|---|---|---|
+| 1 | `Lead` | `lead-curso-de-sonido-…` | el del sitio, el que deduplica con la CAPI |
+| 2 | `Lead` | `55a85f2a-…` | eco |
+| 3 | `Lead` | `55a85f2a-…` | eco |
+
+**Causa.** La etiqueta `FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template`
+se activa con `Event no contiene gtm.` — es decir, con *cualquier* evento del
+dataLayer. Y esa misma etiqueta **escribe** `Lead` y `page_view_landing` en el
+dataLayer, que vuelven a activarla. Se auto-alimenta.
+
+El dataLayer de una pagina de gracias, en orden:
+
+```
+gtm.js → page_view_landing → generate_lead → Lead → gtm.dom → gtm.load
+         ^ lo emite Meta                     ^ lo emite Meta
+```
+
+Solo `generate_lead` es del sitio. Los otros dos son el eco.
+
+**Consecuencia.** Las conversiones de Meta aparecen infladas hasta 3x y el CPA
+se ve hasta 3 veces mejor que el real. Los tres eventos llevan `event_id`
+distinto, asi que Meta no puede deduplicarlos entre si.
+
+**Arreglo pendiente** (en GTM, sobre esa etiqueta):
+
+1. Crear un activador de tipo *Evento personalizado*, nombre del evento
+   `^(Lead|PageView|page_view_landing)$` con **coincidencia por expresion
+   regular**.
+2. Abrir `FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template` →
+   Activacion → **Excepciones** → agregar ese activador.
+3. Publicar y comprobar en el Probador de eventos de Meta que queda **un solo
+   `Lead`** por conversion, con el `event_id` del sitio.
+
+`docs/gtm/excepcion-meta.json` tiene ese activador listo, pero GTM rechaza
+importar un contenedor que solo trae activadores: hay que crearlo a mano.
+
+**No lo causa el sitio.** La etiqueta se instalo el 2026-08-31, antes de que
+esta landing publicara sus eventos. El sitio solo lo hace visible.
+
+Nota aparte: `Seguimiento automatico de eventos sin codigo` ya fue desactivado
+en el pixel; `Eventos automaticos` sigue activado, pero no es el causante — el
+eco persiste igual.

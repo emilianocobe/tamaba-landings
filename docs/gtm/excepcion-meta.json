@@ -1,0 +1,48 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-09-08 00:00:00",
+  "containerVersion": {
+    "path": "accounts/0/containers/0/versions/0",
+    "accountId": "0",
+    "containerId": "0",
+    "containerVersionId": "0",
+    "name": "TAMABA — excepcion anti-bucle de Meta",
+    "container": {
+      "path": "accounts/0/containers/0",
+      "accountId": "0",
+      "containerId": "0",
+      "name": "landing.tamaba.edu.ar",
+      "publicId": "GTM-KTLTXJZ",
+      "usageContext": [
+        "WEB"
+      ]
+    },
+    "trigger": [
+      {
+        "accountId": "0",
+        "containerId": "0",
+        "triggerId": "900",
+        "name": "Excepcion - eco de Meta (corta el bucle)",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "MATCH_REGEX",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "^(Lead|PageView|page_view_landing)$"
+              }
+            ]
+          }
+        ],
+        "notes": "Los eventos Lead / PageView / page_view_landing los emite la propia etiqueta de Meta al dataLayer. Su activador escucha 'Event no contiene gtm.', asi que se re-dispara con su propio eco. Usar este activador como EXCEPCION en FB_CONVERSIONS_API-274500118502404-Web-Tag-Pixel_Template."
+      }
+    ]
+  }
+}
