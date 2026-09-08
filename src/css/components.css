@@ -403,8 +403,42 @@
   transition: filter var(--dur-corta) ease;
 }
 
+/* ── La objecion, antes del pedido ──
+   Regla 5.8 del CLAUDE.md. El dato manda: el numero es la pieza grafica
+   y el texto lo sostiene. Va sobre superficie clara porque es un momento
+   de franqueza, no de atmosfera. */
+.objecion {
+  background: var(--panel-fondo);
+  background-image: var(--grano);
+  background-blend-mode: multiply;
+  color: var(--panel-tinta);
+  position: relative; z-index: 2;
+  padding: var(--esp-6) var(--pad-columna);
+}
+.objecion .etiqueta { color: var(--rojo); }
+.objecion .titulo-display { color: var(--panel-tinta); }
+.objecion .titulo-display em { color: var(--rojo); }
+.objecion-cuerpo {
+  display: grid; grid-template-columns: auto 1fr;
+  gap: var(--esp-5); align-items: start;
+}
+.objecion-dato {
+  display: flex; align-items: flex-start; line-height: 0.82;
+  font-family: var(--f-display); font-weight: 400;
+  font-size: clamp(5rem, 13vw, 11rem);
+  color: var(--rojo);
+  font-variant-numeric: tabular-nums;
+}
+.objecion-dato span { font-size: 0.38em; padding-top: 0.12em; }
+.objecion-texto { max-width: 54ch; }
+.objecion-texto p { color: var(--panel-tinta-2); margin-bottom: var(--esp-2); }
+.objecion-texto strong { color: var(--panel-tinta); }
+.objecion-texto .boton { margin-top: var(--esp-2); }
+.objecion .boton-borde { border-color: var(--panel-linea); color: var(--panel-tinta); }
+
 /* ── Firma de aniversario ── */
 .sello-30 { width: 113px; height: auto; margin: var(--esp-4) auto 0; opacity: 0.75; }
+.gracias .sello-30 { margin: var(--esp-5) 0 0; opacity: 0.55; }
 
 /* ── Onda: separador de marca ──
    Un instituto de sonido tiene un motivo gráfico obvio y no lo estaba
@@ -564,6 +598,8 @@ html.anima .revela.visto { opacity: 1; transform: none; }
 /* ══════════ teléfono ══════════ */
 @media (max-width: 640px) {
   .franja-confianza { grid-template-columns: repeat(2, 1fr); }
+  .objecion-cuerpo { grid-template-columns: 1fr; gap: var(--esp-2); }
+  .objecion .boton { width: 100%; }
   .alianzas { gap: var(--esp-4); }
   .alianza img { height: calc(var(--alto, 52px) * 0.76); }
   .onda svg { height: 24px; }

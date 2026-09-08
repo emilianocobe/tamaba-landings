@@ -263,6 +263,7 @@ h1, h2, h3 { text-wrap: balance; }
   .wa-flotante:hover { transform: scale(1.08); }
   .boton-rojo:hover { background: var(--rojo-hover); transform: translateY(-2px); }
   .boton-borde:hover { border-color: var(--acento); color: var(--acento); }
+  .objecion .boton-borde:hover { border-color: var(--rojo); color: var(--rojo); }
   .boton-borde-oscuro:hover { background: var(--panel-tinta); color: var(--hueso); }
   .pie-col a:hover { color: var(--acento); }
   .tarjeta:hover figure img { transform: scale(1.03); filter: grayscale(0) brightness(0.9); }

@@ -217,6 +217,24 @@ ${c.faq.map(f => `    <details class="faq-item" data-tb-faq="${f.p.replaceAll('"
 
 ${franjaAlianzas(site, p, dim, medir)}
 
+<!-- ══ LA OBJECIÓN, ANTES DEL PEDIDO ══
+     Regla 5.8: nombrar la objecion antes de resolverla. Regla 4.3: los
+     valores se informan SOLO en los encuentros. El bloque hace las dos
+     cosas — dice en voz alta lo que frena y deriva a donde se resuelve,
+     sin publicar una sola cifra. -->
+<section class="objecion">
+  <p class="etiqueta">Hablemos de plata</p>
+  <h2 class="titulo-display">Sabemos qué te está<br><em>frenando.</em></h2>
+  <div class="objecion-cuerpo">
+    <p class="objecion-dato"><strong class="contador" data-hasta="82">82</strong><span>%</span></p>
+    <div class="objecion-texto">
+      <p>De 161 personas que consultaron por nuestras carreras, el <strong>82&nbsp;% dijo que lo que más pesa a la hora de decidir es el costo</strong>. No te lo vamos a esquivar.</p>
+      <p>Los valores, las formas de pago y las becas de descuento se cuentan completos en el encuentro: con todo sobre la mesa, sin letra chica y con tiempo para preguntar.</p>
+      <a class="boton boton-borde" href="${p}eventos/" data-tb="cta-objecion">Ver los próximos encuentros</a>
+    </div>
+  </div>
+</section>
+
 ${onda()}
 
 <!-- ══ CTA FINAL ══ -->

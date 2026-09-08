@@ -26,10 +26,11 @@ export function eventos({ site, dim }) {
       <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.visitaPresencial}" target="_blank" rel="noopener" data-tb="booking-visita">Agendar visita presencial</a>
     </article>
     <article class="opcion-evento revela">
-      <span class="chip chip-rojo">Online · en vivo</span>
+      <span class="chip chip-rojo">Online · jueves 19 hs</span>
       <h2>Encuentro informativo</h2>
       <p>Sumate a un encuentro por videollamada: te contamos el plan de estudios, los aranceles y el sistema de becas, y respondemos todas tus preguntas en vivo.</p>
       <ul class="beneficios beneficios-oscuros">
+        <li><strong>Todos los jueves a las 19 hs</strong> (hora de Argentina)</li>
         <li>Ideal si estás lejos de Buenos Aires</li>
         <li>Aranceles, becas y plan de estudios, sin vueltas</li>
         <li>Preguntas y respuestas en vivo</li>

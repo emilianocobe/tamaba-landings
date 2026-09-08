@@ -37,9 +37,11 @@ export function franjaAlianzas(site, p, dim, medir) {
 }
 
 /** Firma de aniversario. El lockup existe a 113 px de ancho: se usa a su
- *  tamaño real, no ampliado. */
-export function sello30(p, dim) {
-  return `<img class="sello-30" src="${p}assets/logos/logo-30-blanco.png" alt="TAMABA · 30 años" ${dim('logos/logo-30-blanco.png')} loading="lazy">`;
+ *  tamaño real, no ampliado. `tono` elige la version segun el fondo:
+ *  'blanco' para el mundo oscuro, 'negro' para los paneles claros. */
+export function sello30(p, dim, tono = 'blanco') {
+  const f = `logos/logo-30-${tono}.png`;
+  return `<img class="sello-30" src="${p}assets/${f}" alt="TAMABA · 30 años" ${dim(f)} loading="lazy">`;
 }
 
 /** Separador de forma de onda: el motivo de marca que más sentido tiene

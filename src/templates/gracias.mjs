@@ -1,6 +1,8 @@
 /** Página de gracias: confirmación + próximos pasos + booking + QR.
  *  noindex. Acá se dispara el evento de conversión (tracking.js). */
 
+import { sello30 } from './partes.mjs';
+
 export function gracias({ site, c, dim }) {
   const p = '../../';
   return `
@@ -33,6 +35,7 @@ export function gracias({ site, c, dim }) {
     </div>
 
     <p class="gracias-volver"><a href="${p}${c.slug}/">← Volver a ${c.nombreCorto}</a> · <a href="${p}">Ver todas las carreras</a></p>
+    ${sello30(p, dim, 'negro')}
   </div>
 </section>`;
 }
