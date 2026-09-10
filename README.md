@@ -40,7 +40,7 @@ build.mjs                ← generador + verificador
 
 ## Pendientes al publicar (ver docs/TRACKING.md)
 
-- [ ] Reemplazar `GTM-XXXXXXX` en `data/site.json` por el contenedor real de Google Tag Manager.
-- [ ] Crear formularios GHL para Curso de Sonido, Mediciones Acústicas y Pro Tools (hoy usan contacto directo por WhatsApp/mail); al crearlos, cargar los IDs en `ghlForms` del JSON correspondiente.
+- [x] Contenedor real de Google Tag Manager configurado (`GTM-KTLTXJZ`).
+- [ ] Crear formularios GHL para Curso de Sonido, Mediciones Acústicas y Pro Tools (hoy usan contacto directo por WhatsApp/mail); al crearlos, cargar `ghlForm` (`id`, `nombre` y `altura` del código de inserción) en el JSON correspondiente.
 - [ ] Configurar la redirección post-envío de cada formulario GHL hacia `/gracias/<carrera>/`.
-- [ ] Configurar el dominio (CNAME) en GitHub Pages y actualizar `dominio` en `site.json` si cambia.
+- [x] Dominio: el sitio se sirve desde Hostinger (`landing.tamaba.edu.ar`) con deploy automático de la rama `deploy` (ver `docs/HOSTINGER-DEPLOY.md`).

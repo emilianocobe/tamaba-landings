@@ -7,7 +7,7 @@
   "fundacion": 1996,
   "dominio": "https://landing.tamaba.edu.ar",
   "baseUrl": "",
-  "descripcion": "Instituto Terciario Oficial de Sonido y Música · Buenos Aires",
+  "descripcion": "Tecnicaturas oficiales en Sonido y Producción Musical (presencial o 100 % online), Músico y Cantante Profesional. 30 años formando en Buenos Aires.",
   "direccion": "Adolfo Alsina 1994, CABA, Argentina",
   "mapaQuery": "TAMABA+Adolfo+Alsina+1994+CABA",
   "telefono": "+54 11 4952-9803",
@@ -20,12 +20,10 @@
   },
   "redes": {
     "instagram": "https://www.instagram.com/terciariotamaba/",
-    "youtube": "https://www.youtube.com/@tamabaterciario"
+    "youtube": "https://www.youtube.com/@TAMABAvideo"
   },
   "videos": {
-    "institucional": "GRUQsreYYG8",
-    "estudioVirtual": "Yp9_uxDB7gw",
-    "streaming": "1MTkZPys7mU"
+    "institucional": "GRUQsreYYG8"
   },
   "ghl": {
     "embedScript": "https://link.msgsndr.com/js/form_embed.js",

@@ -23,11 +23,13 @@ El WordPress viejo se borró (backup previo del cliente). El contenido de la ram
 1. Editás el contenido (`data/*.json`) o el código.
 2. `node build.mjs --check` y commit + push a `main`.
 3. GitHub Actions regenera automáticamente la rama **`deploy`** con el sitio construido.
-4. Subir esa rama al hosting: hoy es el único paso manual. Dos opciones:
-   - **Integración Git de Hostinger** (recomendada, ver abajo) → automático.
-   - **Manual**: hPanel → Administrador de archivos → `public_html/landing` → subir los archivos nuevos.
+4. Hostinger despliega la rama `deploy` solo (integración Git activa): el cambio queda en producción en segundos.
 
-## Pendiente: activar la integración Git (deploys 100 % automáticos)
+## Integración Git (activa)
+
+**Activa desde septiembre de 2026**: cada push a `main` queda en producción en segundos (verificado el 2026-09-10). Está conectada al sitio **`landing.tamaba.edu.ar`** (raíz `public_html/landing`). **Nunca conectarla al sitio `tamaba.edu.ar`**: esa confusión fue la que borró dos veces el sitio institucional.
+
+Cómo se configuró (referencia):
 
 Hostinger tiene **hPanel → Avanzado → GIT**, que clona un repo directamente al hosting. Con eso, publicar sería solo `git push`. Requiere **un click tuyo**: la pantalla pide conectar GitHub por OAuth y ese permiso solo lo puede otorgar el titular de la cuenta.
 

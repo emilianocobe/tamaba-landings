@@ -116,7 +116,7 @@ ${cursos.map(c => `    <a class="tarjeta tarjeta-clara revela" href="${c.slug}/"
   <h2 class="titulo-display">Mirá TAMABA<br><em>por dentro</em></h2>
   <div class="video-marco revela">
     <button class="video-tapa" data-video="${site.videos.institucional}" aria-label="Reproducir video institucional de TAMABA">
-      <img src="https://i.ytimg.com/vi/${site.videos.institucional}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+      <img src="https://i.ytimg.com/vi/${site.videos.institucional}/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720" onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')">
       <span class="video-play" aria-hidden="true">▶</span>
     </button>
     <noscript><p><a href="https://www.youtube.com/watch?v=${site.videos.institucional}" target="_blank" rel="noopener">Ver el video en YouTube</a></p></noscript>

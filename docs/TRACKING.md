@@ -96,7 +96,7 @@ El contenedor **GTM-KTLTXJZ** ya está instalado en el sitio y recibiendo el `da
 | Verificar que el mapeo de campos UTM esté activo en cada formulario | Para que el contacto entre con atribución |
 | Crear formularios para Curso de Sonido, Mediciones Acústicas y Pro Tools | Hoy esas páginas capturan por WhatsApp/mail (los forms viejos eran de Elementor y murieron con WordPress) |
 | Conectar GHL ↔ Google Ads y GHL ↔ Meta (integraciones nativas) | Conversiones offline: cuando un lead pasa a «inscripto» en el pipeline, GHL lo reporta al canal → la puja aprende de inscripciones reales, no solo de formularios |
-| Etiquetar la fuente en el pipeline usando el UTM capturado, no el nombre del formulario | El nombre del form deja de codificar el canal |
+| Etiquetar la fuente en el pipeline usando el UTM capturado, no el nombre del formulario | Desde el 2026-09-10 hay un solo formulario por carrera: el canal solo se conoce por el UTM |
 
 ## 5 · Métricas del embudo (tablero mínimo)
 

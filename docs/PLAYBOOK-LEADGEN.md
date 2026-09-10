@@ -7,11 +7,11 @@ Leyenda: ✅ resuelto acá · 🔧 preparado, requiere acción del equipo · �
 
 ## A · Medición (sin esto, todo lo demás es opinión)
 
-1. **Conversión medible de punta a punta** (clic → lead → inscripto). El sitio viejo no medía nada; la puja optimizaba a ciegas. 🔧 Arquitectura lista (`generate_lead` + dataLayer); falta crear el contenedor GTM y las redirecciones GHL. *Ver TRACKING.md.*
+1. **Conversión medible de punta a punta** (clic → lead → inscripto). ✅ GTM publicado con `generate_lead`, una acción de Google Ads por carrera (MDQ comparte la de Distancia) y un único Lead de Meta, sin duplicados. 🔧 Falta confirmar que cada formulario de GHL redirija directo a `/gracias/{carrera}/`. *Ver TRACKING.md.*
 2. **Conversiones offline**: el lead no es el negocio — el inscripto sí. GHL puede devolver a Google/Meta qué leads se inscribieron. 🔧 Integración nativa a activar.
 3. **Persistencia de atribución** (primer/último toque). ✅
 4. **Micro-conversiones** (WhatsApp, teléfono, bookings, quiz): señales para optimizar antes de tener volumen de leads. ✅
-5. **Nomenclatura UTM documentada y obligatoria**: `utm_source=google|facebook`, `utm_medium=cpc|paid_social`, `utm_campaign={carrera}-{objetivo}-{mes}`. 📋 Falta adoptarla en las campañas al migrar.
+5. **Nomenclatura UTM documentada y obligatoria**: `utm_source=google|facebook`, `utm_medium=cpc|paid_social`, `utm_campaign={carrera}-{tipo}-{mes}` (tipo = search · pmax · meta). ✅ URLs de las 15 campañas entregadas en la planilla «TAMABA · URLs de campañas con UTM» (2026-09-10). 🔧 Falta cargarlas en Google Ads y Meta.
 
 ## B · Velocidad y entrega
 
@@ -47,4 +47,4 @@ Leyenda: ✅ resuelto acá · 🔧 preparado, requiere acción del equipo · �
 23. **El sitio debe poder reconstruirse desde el repo en un comando** — el WXR viejo no alcanzaba para reconstruir nada (menús, kits, snippets y leads quedaban fuera). ✅ `node build.mjs` reproduce todo; el contenido está versionado en git.
 24. **Verificación automática pre-deploy**: las 7 clases de bugs del sitio viejo (anclas rotas, H1 ausentes, alt vacíos, http://, etc.) rompen el build en CI. ✅
 25. **Backups del CRM**: los leads viven en GHL, no en el sitio. 📋 Export mensual programado desde GHL.
-26. **Dominio**: decidir si `landing.tamaba.edu.ar` apunta a Pages (CNAME) o si se usa otro subdominio; mantener redirecciones 301 de las URLs viejas (`/gads-*`, `/mads-*`, `/pmax-*`) hacia las nuevas. 📋 **Crítico al migrar: sin las 301, los ads activos caen en 404.** Mapa de redirecciones en `docs/REDIRECTS.md`.
+26. **Dominio**: ✅ `landing.tamaba.edu.ar` se sirve desde Hostinger con deploy automático; las URLs viejas (`/gads-*`, `/mads-*`, `/pmax-*`) redirigen con 301 y conservan las UTM (verificado el 2026-09-10). Mapa en `docs/REDIRECTS.md`.

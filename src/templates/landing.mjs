@@ -29,7 +29,7 @@ export function landing({ site, c, dim, medir }) {
 <!-- ══ HERO ══ -->
 <section class="hero">
   <div class="hero-fondo" aria-hidden="true">
-    <img src="${p}assets/img/${c.heroImg}.webp" alt="" fetchpriority="high" ${dim(`img/${c.heroImg}.webp`)}>
+    <img src="${p}assets/img/${c.heroImg}.webp" alt="" fetchpriority="high" ${dim(`img/${c.heroImg}.webp`)}${c.heroFoco ? ` style="object-position:${c.heroFoco}"` : ''}>
   </div>
   <div class="hero-cuerpo">
     <p class="chip chip-rojo">${c.eyebrow}</p>
@@ -199,7 +199,7 @@ ${c.video ? `
   <h2 class="titulo-display">Mirá TAMABA<br><em>por dentro</em></h2>
   <div class="video-marco revela">
     <button class="video-tapa" data-video="${c.video}" aria-label="Reproducir video institucional de TAMABA">
-      <img src="https://i.ytimg.com/vi/${c.video}/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+      <img src="https://i.ytimg.com/vi/${c.video}/maxresdefault.jpg" alt="" loading="lazy" width="1280" height="720" onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')">
       <span class="video-play" aria-hidden="true">▶</span>
     </button>
     <noscript><p><a href="https://www.youtube.com/watch?v=${c.video}" target="_blank" rel="noopener">Ver el video en YouTube</a></p></noscript>
