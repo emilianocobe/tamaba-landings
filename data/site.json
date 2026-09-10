@@ -51,11 +51,12 @@
     },
     "adsLabels": {
       "sonido-distancia": "y7LxCLLrqPEcEInss6Ep",
+      "sonido-distancia-mdq": "y7LxCLLrqPEcEInss6Ep",
       "cantante-profesional": "KvpNCKnrqPEcEInss6Ep",
       "sonido-presencial": "_Q_1CK_rqPEcEInss6Ep",
       "musico-profesional": "80RnCKzrqPEcEInss6Ep"
     },
-    "adsLabelsNota": "Una accion de conversion por carrera. Los cuatro productos restantes (curso-de-sonido, pro-tools, mediciones-acusticas, sonido-distancia-mdq) no tienen etiqueta propia todavia: su generate_lead va a GA4 pero no a Ads.",
+    "adsLabelsNota": "Una accion de conversion por carrera. sonido-distancia-mdq reporta a la de Sonido a Distancia (misma carrera; decision de Emiliano, 2026-09-10): los reportes de Ads la separan igual por campaña. Los tres productos restantes (curso-de-sonido, pro-tools, mediciones-acusticas) no tienen etiqueta: su generate_lead va a GA4 pero no a Ads.",
     "metaPixelNombre": "MADS - Pixel"
   },
   "whatsappHref": "5491178563203",

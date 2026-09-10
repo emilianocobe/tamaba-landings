@@ -56,7 +56,9 @@ Eventos tipados que ya emite el sitio, listos para enrutar desde un único conte
 | Google Tag Manager | **GTM-KTLTXJZ** | Cargado en el `<head>` de todas las páginas + `<noscript>` |
 | Google Analytics 4 | **G-LCTZBVD2L6** | Se dispara **desde GTM** |
 | Google Ads | **AW-11075909129** | Se dispara **desde GTM** |
-| Meta Pixel | *(pendiente el ID numérico)* | Preferentemente desde GTM; el sitio soporta carga directa si se completa `metaPixelId` en `site.json` |
+| Meta Pixel | **274500118502404** («MADS - Pixel») | Se dispara **desde GTM** (`metaPixelId` en `site.json`) |
+
+**Etiquetas de conversión de Google Ads:** una por carrera, en `site.json → tracking.adsLabels`; el sitio la manda en `ads_label` y GTM la usa tal cual. **MDQ reporta a la de Sonido a Distancia** (misma carrera, decisión del 2026-09-10): los informes de Ads la separan igual, porque cada conversión se atribuye a la campaña que la trajo.
 
 > **El token de la API de Conversiones de Meta NO va en el sitio.** Es una credencial secreta: si se pone en el navegador queda expuesta a cualquiera (y este repo es público). Va del lado del servidor — lo natural acá es cargarlo en **GoHighLevel** (que tiene integración nativa con Meta CAPI y ya tiene los datos del contacto) o en un endpoint propio del back-end (ver `CRM-BACKEND.md`).
 
