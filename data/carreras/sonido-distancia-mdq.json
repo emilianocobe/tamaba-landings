@@ -63,10 +63,10 @@
       "r": "Ser mayor de 17 años y tener el secundario completo, o estar rindiendo las últimas materias."
     }
   ],
-  "ghlForms": {
-    "gads": "1IXyyW6m9XkvUqOYuQKw",
-    "mads": "aDvzkXf4Iy1PHBMmilzV",
-    "pmax": "RF6ze343O7r1J4YJvUgJ"
+  "ghlForm": {
+    "id": "1IXyyW6m9XkvUqOYuQKw",
+    "nombre": "Form - Sonido y Producción Musical MDQ",
+    "altura": 584
   },
   "ghlFormNombre": "Sonido MDQ",
   "formTitulo": "Hablemos",

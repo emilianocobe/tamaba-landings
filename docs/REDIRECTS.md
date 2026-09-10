@@ -11,7 +11,7 @@ GitHub Pages no permite 301 de servidor, así que se usan páginas puente: `meta
 
 | Grupo viejo | Destino | Nota |
 |-------------|---------|------|
-| Landings Gads/Mads/Pmax de cada carrera (3 URLs c/u) | `/{carrera}/` única | El canal ahora viaja por UTM; `tracking.js` elige el formulario GHL correcto |
+| Landings Gads/Mads/Pmax de cada carrera (3 URLs c/u) | `/{carrera}/` única | El canal ahora viaja por UTM; cada landing tiene un único formulario GHL |
 | Páginas de gracias (hasta 4 variantes por carrera) | `/gracias/{carrera}/` | Ahí se dispara `generate_lead` |
 | `borrador-sonido-…` (borrador publicado por error) | `/sonido-distancia/` | |
 | `gracias-encuentro-zoom`, `gracias-visita-presencial`, `gracias-…-beca` | `/eventos/` | Eran confirmaciones de bookings; el booking vive en GHL |

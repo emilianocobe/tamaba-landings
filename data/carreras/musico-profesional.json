@@ -77,10 +77,10 @@
       "r": "Músico de sesión o en vivo, compositor, arreglador, productor y docente. El área de práctica profesionalizante incluye producción musical, comercialización y proyecto profesional propio."
     }
   ],
-  "ghlForms": {
-    "gads": "yYofFCXvb09pTsXKh0Tk",
-    "mads": "Nj2ubdhcVCWF6nTntJBl",
-    "pmax": "JkBrGuNbzDaE0y4pVoVX"
+  "ghlForm": {
+    "id": "yYofFCXvb09pTsXKh0Tk",
+    "nombre": "Form - Músico Profesional",
+    "altura": 669
   },
   "ghlFormNombre": "Músico",
   "formTitulo": "Hablemos",

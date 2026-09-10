@@ -20,8 +20,8 @@ El sitio viejo trackeaba el canal **por URL**: cada carrera existía tres veces 
 
 ### 2.1 Una URL por carrera, canal por UTM
 - `/{carrera}/?utm_source=google&utm_medium=cpc&utm_campaign=…` reemplaza a `/gads-{carrera}`.
-- `tracking.js` resuelve el canal (`gads` | `mads` | `pmax`) desde `utm_source`/`utm_campaign`/`gclid`/`fbclid` (mapa configurable en `data/site.json → tracking.canales`). **Sin señales de pago, el canal se reporta como `directo`** — nunca se inventa atribución de pago; en ese caso el formulario embebido es el de Gads (hay que mostrar alguno) pero sin UTMs inyectados.
-- **Los 15 formularios GHL existentes se preservan**: cada carrera lleva sus tres IDs (`ghlForms.gads/mads/pmax`) y el script monta el iframe del canal correcto. Los pipelines y automatizaciones de GHL siguen intactos; el día que quieran unificar a un formulario por carrera, es borrar dos claves del JSON.
+- `tracking.js` resuelve el canal (`gads` | `mads` | `pmax`) desde `utm_source`/`utm_campaign`/`gclid`/`fbclid` (mapa configurable en `data/site.json → tracking.canales`). **Sin señales de pago, el canal se reporta como `directo`** — nunca se inventa atribución de pago; en ese caso el formulario de la carrera se monta sin UTMs inyectados.
+- **Un formulario GHL por carrera, el mismo para todos los canales** (unificados el 2026-09-10; `ghlForm` en cada `data/carreras/*.json`, con el `id`, `nombre` y `altura` del código de inserción de GHL). El canal ya no lo indica el formulario sino las UTMs, que viajan con el contacto. Los formularios de Mads y PMax de cada carrera quedaron fuera de uso.
 
 ### 2.2 Persistencia de atribución (primer y último toque)
 - Se capturan `utm_source/medium/campaign/term/content`, `gclid`, `fbclid`, `wbraid`, `gbraid`.

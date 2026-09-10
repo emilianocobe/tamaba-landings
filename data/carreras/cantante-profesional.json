@@ -77,10 +77,10 @@
       "r": "Sí. El área de práctica profesionalizante incluye técnicas de grabación y mezcla, producción musical y un proyecto profesional propio, con prácticas en nuestros estudios."
     }
   ],
-  "ghlForms": {
-    "gads": "NJYRnusRZwy9gQFBzaNy",
-    "mads": "kKH6VTuUiYSUyeRwNLnb",
-    "pmax": "23UrjewAZo0BbGvrF9vy"
+  "ghlForm": {
+    "id": "NJYRnusRZwy9gQFBzaNy",
+    "nombre": "Form - Cantante Profesional",
+    "altura": 754
   },
   "ghlFormNombre": "Cantante",
   "formTitulo": "Hablemos",

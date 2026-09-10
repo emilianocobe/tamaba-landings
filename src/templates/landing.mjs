@@ -62,9 +62,9 @@ export function landing({ site, c, dim, medir }) {
     <p class="conversion-titulo-oficial">${c.tituloOficial}</p>
   </div>
   <div class="conversion-form">
-${c.ghlForms ? `    <div class="ghl-form" id="ghl-form" data-gads="${c.ghlForms.gads}" data-mads="${c.ghlForms.mads}" data-pmax="${c.ghlForms.pmax}" data-nombre="${c.ghlFormNombre}">
+${c.ghlForm ? `    <div class="ghl-form" id="ghl-form" data-form="${c.ghlForm.id}" data-form-nombre="${c.ghlForm.nombre}" data-altura="${c.ghlForm.altura}" data-nombre="${c.ghlFormNombre}">
       <noscript>
-        <iframe src="${site.ghl.formBase}${c.ghlForms.gads}" title="Formulario de consulta — ${c.ghlFormNombre}" loading="eager"></iframe>
+        <iframe src="${site.ghl.formBase}${c.ghlForm.id}" title="Formulario de consulta — ${c.ghlFormNombre}" style="height:${c.ghlForm.altura}px;border:none" loading="eager"></iframe>
       </noscript>
     </div>` : `    <div class="contacto-directo">
       <p class="contacto-directo-titulo">Escribinos y te contamos todo:</p>

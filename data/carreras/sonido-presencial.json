@@ -71,10 +71,10 @@
       "r": "El plan es «Todo incluido»: material, permisos de examen, campus virtual, clínicas y workshops. Consultanos por formas de pago y el programa de becas."
     }
   ],
-  "ghlForms": {
-    "gads": "d8RJhGMJ0WtMxOV9pmd4",
-    "mads": "rklNeVJSwLKPscjn5sHy",
-    "pmax": "yfFpRT3aaj0d3aHwaQuV"
+  "ghlForm": {
+    "id": "d8RJhGMJ0WtMxOV9pmd4",
+    "nombre": "Form - Sonido y Producción Musical Semi Presencial",
+    "altura": 584
   },
   "ghlFormNombre": "Sonido Presencial",
   "formTitulo": "Hablemos",

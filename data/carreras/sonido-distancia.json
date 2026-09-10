@@ -143,10 +143,10 @@
       "r": "El plan es «Todo incluido»: material de estudio, permisos de examen, campus virtual, clínicas y workshops. Consultanos por formas de pago y el programa de becas."
     }
   ],
-  "ghlForms": {
-    "gads": "WXYBDJYAFGG8xlRJhZlw",
-    "mads": "NjfOWmICeOeELPxF30in",
-    "pmax": "vfgt61jPBGIghkYzYaKb"
+  "ghlForm": {
+    "id": "WXYBDJYAFGG8xlRJhZlw",
+    "nombre": "Form - Sonido Y Producción Musical a Distancia",
+    "altura": 584
   },
   "ghlFormNombre": "Sonido Distancia",
   "formTitulo": "Hablemos",

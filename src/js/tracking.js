@@ -4,8 +4,9 @@
 
    Qué hace:
    1. Captura y persiste UTMs + gclid/fbclid (primer toque y último toque).
-   2. Inserta el iframe de GoHighLevel eligiendo el form del canal correcto
-      y propagándole los UTMs (GHL los guarda como atribución del contacto).
+   2. Inserta el iframe de GoHighLevel (un formulario por carrera, el mismo
+      para todos los canales) y le propaga los UTMs: GHL los guarda como
+      atribución del contacto, y así el canal viaja con el lead.
    3. Empuja eventos tipados a dataLayer (GTM los enruta a GA4/Ads/Meta):
       page_view_landing, form_cargado, form_visible, scroll_depth,
       cta_click (con tipo: whatsapp/telefono/email/booking) y
@@ -75,10 +76,10 @@
     utm_campaign: attr.utm_campaign || '(sin campaña)'
   });
 
-  /* ── 3 · Formulario GHL: canal correcto + UTMs propagados ──── */
+  /* ── 3 · Formulario GHL de la carrera + UTMs propagados ───── */
   const cont = document.getElementById('ghl-form');
   if (cont) {
-    const formId = (CANAL && cont.dataset[CANAL]) || cont.dataset.gads;
+    const formId = cont.dataset.form;
     const params = new URLSearchParams();
     for (const k of CLAVES) if (attr[k]) params.set(k, attr[k]); // solo atribución real
     const q = params.toString();
@@ -89,10 +90,23 @@
       cont.dataset.cargado = '1';
       const ifr = document.createElement('iframe');
       ifr.src = src;
-      ifr.id = 'ghl-' + formId;
+      ifr.id = 'inline-' + formId;
       ifr.title = 'Formulario de consulta — ' + (cont.dataset.nombre || 'TAMABA');
-      ifr.setAttribute('data-form-id', formId);
-      ifr.setAttribute('data-layout-iframe-id', 'ghl-' + formId);
+      ifr.style.cssText = 'height:' + (cont.dataset.altura || 560) + 'px;border:none';
+      // Los mismos atributos del código de inserción oficial de GHL:
+      // form_embed.js los lee para activar y dimensionar el formulario.
+      const oficial = {
+        'data-layout': "{'id':'INLINE'}",
+        'data-trigger-type': 'alwaysShow', 'data-trigger-value': '',
+        'data-activation-type': 'alwaysActivated', 'data-activation-value': '',
+        'data-deactivation-type': 'neverDeactivate', 'data-deactivation-value': '',
+        'data-form-name': cont.dataset.formNombre || '',
+        'data-height': cont.dataset.altura || '',
+        'data-layout-iframe-id': 'inline-' + formId,
+        'data-form-id': formId,
+        'data-cookie-consent': 'true', 'data-cookie-consent-provider': 'auto'
+      };
+      for (const k in oficial) ifr.setAttribute(k, oficial[k]);
       cont.appendChild(ifr);
       const s = document.createElement('script');
       s.src = 'https://link.msgsndr.com/js/form_embed.js';
