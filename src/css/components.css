@@ -617,6 +617,9 @@
 .simu-atras:hover { color: var(--panel-tinta); }
 .simu-error { margin-top: var(--esp-2); color: var(--rojo-profundo); font-weight: 600; }
 .simu-cargando, .simu-sin-js { color: var(--panel-tinta-2); }
+.form-grupo { margin-bottom: var(--esp-2); }
+.form-propio .simu-pregunta { margin-bottom: var(--esp-2); }
+.form-propio .form-enviar { width: 100%; justify-content: center; }
 .simu-escuelas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--esp-2); max-width: 900px; }
 .simu-escuelas article { background: var(--blanco); border: 1px solid var(--panel-linea); border-left: 3px solid var(--rojo); border-radius: var(--radio); padding: var(--esp-2) var(--esp-3); }
 .simu-escuelas h3 { font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm); letter-spacing: .08em; text-transform: uppercase; color: var(--panel-tinta-2); margin-bottom: 6px; }

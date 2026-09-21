@@ -270,3 +270,53 @@ document.documentElement.classList.remove('sin-js');
     });
   });
 })();
+
+/* ── Formulario de consulta propio (reemplazo del de GoHighLevel) ──
+   Manda la consulta a app.tamaba.edu.ar con la atribución que guardó tracking.js y, si sale
+   bien, lleva a /gracias/{carrera}/, que es donde se cuenta la conversión (igual que con GHL). */
+(function () {
+  document.querySelectorAll('form.form-propio').forEach(function (form) {
+    const error = form.querySelector('.simu-error');
+    const boton = form.querySelector('.form-enviar');
+    const decir = t => { error.textContent = t || ''; error.hidden = !t; };
+    const dl = (ev, extra) => (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: ev, form_id: 'propio-' + form.dataset.carrera }, extra || {}));
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => {
+        if (es.some(e => e.isIntersecting && e.intersectionRatio > 0.4)) { dl('form_visible'); io.disconnect(); }
+      }, { threshold: 0.4 });
+      io.observe(form);
+    }
+    const atribucion = () => {
+      try { return JSON.parse(localStorage.getItem('tb_attr_ultimo') || localStorage.getItem('tb_attr_primero') || '{}') || {}; }
+      catch (e) { return {}; }
+    };
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const d = Object.fromEntries(new FormData(form).entries());
+      const persona = { nombre: (d.nombre || '').trim(), apellido: (d.apellido || '').trim(), email: (d.email || '').trim(), telefono: (d.telefono || '').trim() };
+      if (!persona.nombre) return decir('Falta tu nombre.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(persona.email)) return decir('Revisá tu email: parece que tiene un error.');
+      if (persona.telefono.replace(/\D/g, '').length < 8) return decir('Revisá tu celular: incluí la característica.');
+      if (!d.nivel_estudios) return decir('Contanos tu nivel de estudios actual.');
+      for (const campo of ['instrumento', 'nivel_instrumento', 'nivel_canto', 'tiempo_canto']) {
+        if (form.querySelector('[name="' + campo + '"]') && !d[campo]) return decir('Respondé todas las preguntas.');
+      }
+      let api = form.dataset.api;
+      if (location.hostname === 'localhost') { const q = new URLSearchParams(location.search).get('api'); if (q) api = q; }
+      boton.disabled = true; boton.textContent = 'Enviando…'; decir('');
+      fetch(api + '/api/publico/consulta', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ carrera: form.dataset.carrera, persona, nivel_estudios: d.nivel_estudios, instrumento: d.instrumento,
+          nivel_instrumento: d.nivel_instrumento, nivel_canto: d.nivel_canto, tiempo_canto: d.tiempo_canto,
+          atribucion: atribucion(), sitio_web: d.sitio_web })
+      }).then(r => r.json().then(j => ({ ok: r.ok, j }))).then(x => {
+        if (!x.ok) throw new Error(x.j.error || 'No pudimos enviar tu consulta.');
+        location.href = form.dataset.gracias;
+      }).catch(err => {
+        boton.disabled = false; boton.textContent = 'Quiero más información';
+        decir((err && err.message && err.message !== 'Failed to fetch' ? err.message : 'No pudimos conectar.') + ' Si sigue fallando, escribinos por WhatsApp.');
+        dl('form_error', { motivo: String(err && err.message || 'red').slice(0, 80) });
+      });
+    });
+  });
+})();

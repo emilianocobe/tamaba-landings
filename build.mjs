@@ -24,6 +24,8 @@ const carreras = readdirSync(join(ROOT, 'data/carreras'))
   .filter(f => f.endsWith('.json'))
   .map(f => JSON.parse(readFileSync(join(ROOT, 'data/carreras', f), 'utf8')))
   .sort((a, b) => a.orden - b.orden);
+// FORMULARIOS_PROPIOS=1 node build.mjs → todas las páginas con el formulario propio (para probar en local).
+if (process.env.FORMULARIOS_PROPIOS === '1') for (const c of carreras) c.formularioPropio = true;
 const beca = JSON.parse(readFileSync(join(ROOT, 'data/campanias/beca.json'), 'utf8'));
 const eventosGracias = JSON.parse(readFileSync(join(ROOT, 'data/eventos-gracias.json'), 'utf8'));
 

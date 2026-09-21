@@ -2,7 +2,7 @@
  *  el canal (gads/mads/pmax) se resuelve por UTM en tracking.js.
  *  Un solo formulario por página (#inscripcion) — la CTA final vuelve a él. */
 
-import { franjaAlianzas, onda, sello30 } from './partes.mjs';
+import { formularioPropio, franjaAlianzas, onda, sello30 } from './partes.mjs';
 
 const FICHA_ICONOS = {
   modalidad: 'M4 6h16M4 12h16M4 18h10',
@@ -62,7 +62,7 @@ export function landing({ site, c, dim, medir }) {
     <p class="conversion-titulo-oficial">${c.tituloOficial}</p>
   </div>
   <div class="conversion-form">
-${c.ghlForm ? `    <div class="ghl-form" id="ghl-form" data-form="${c.ghlForm.id}" data-form-nombre="${c.ghlForm.nombre}" data-altura="${c.ghlForm.altura}" data-nombre="${c.ghlFormNombre}">
+${c.formularioPropio ? formularioPropio(site, c, p) : c.ghlForm ? `    <div class="ghl-form" id="ghl-form" data-form="${c.ghlForm.id}" data-form-nombre="${c.ghlForm.nombre}" data-altura="${c.ghlForm.altura}" data-nombre="${c.ghlFormNombre}">
       <noscript>
         <iframe src="${site.ghl.formBase}${c.ghlForm.id}" title="Formulario de consulta — ${c.ghlFormNombre}" style="height:${c.ghlForm.altura}px;border:none" loading="eager"></iframe>
       </noscript>
