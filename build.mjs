@@ -63,6 +63,7 @@ const { landing }  = await import('./src/templates/landing.mjs');
 const { home }     = await import('./src/templates/home.mjs');
 const { gracias }  = await import('./src/templates/gracias.mjs');
 const { graciasEvento } = await import('./src/templates/graciasEvento.mjs');
+const { graciasSimulador } = await import('./src/templates/graciasSimulador.mjs');
 const { eventos }  = await import('./src/templates/eventos.mjs');
 const { becaPage } = await import('./src/templates/beca.mjs');
 const { legal }    = await import('./src/templates/legal.mjs');
@@ -176,6 +177,9 @@ for (const c of carreras) {
   page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ogImgAlt: c.heroImgAlt, jsonLd: jsonLdCarrera, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, carreraNombre: c.nombre, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
 }
+
+// Gracias del simulador de equivalencias: muestra el resultado y dispara la conversión propia
+page('gracias/simulador-de-equivalencias', layout(graciasSimulador(ctx), { ...ctx, depth: 2, titulo: 'Tu simulación de equivalencias · TAMABA', descripcion: 'Tu simulación de equivalencias está lista.', noindex: true, esGracias: true, slugCarrera: 'simulador-de-equivalencias', carreraNombre: 'Simulador de equivalencias', ruta: '/gracias/simulador-de-equivalencias/', cta: { href: '../../', texto: 'Ver carreras' } }));
 
 // Gracias de reserva de evento (post-booking de GHL)
 for (const [clave, ev] of Object.entries(eventosGracias)) {
