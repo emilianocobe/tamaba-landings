@@ -573,6 +573,61 @@
 .gracias-volver { font-size: var(--t-sm); }
 .gracias-volver a { color: var(--panel-tinta-2); }
 
+/* Simulador de equivalencias (simulador-de-equivalencias): formulario en tres pasos sobre el
+   panel claro. Las opciones son radios de verdad con una etiqueta grande: se eligen con el
+   teclado y se leen bien en el celular. */
+.simu {
+  background: var(--blanco); border: 1px solid var(--panel-linea); border-top: 4px solid var(--rojo);
+  border-radius: var(--radio-panel); padding: var(--esp-3); box-shadow: var(--sombra-claro);
+}
+.simu fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.simu fieldset[hidden], .simu [hidden] { display: none !important; }
+.simu-progreso {
+  font-family: var(--f-dato); font-weight: 600; font-size: var(--t-xs); letter-spacing: .12em;
+  text-transform: uppercase; color: var(--rojo); margin-bottom: var(--esp-1);
+}
+.simu-pregunta { font-family: var(--f-display); font-size: var(--t-lg); line-height: var(--lh-titulo); margin-bottom: var(--esp-2); color: var(--panel-tinta); }
+.simu-subpregunta { font-weight: 600; margin: var(--esp-2) 0 var(--esp-1); }
+.simu-opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.simu-opciones-chicas { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
+.simu-opcion { position: relative; cursor: pointer; }
+.simu-opcion input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.simu-opcion span {
+  display: grid; gap: 2px; height: 100%; padding: 14px 16px; border: 1.5px solid var(--panel-linea);
+  border-radius: var(--radio); transition: border-color var(--dur-micro), background var(--dur-micro);
+}
+.simu-opcion strong { font-weight: 700; line-height: 1.25; }
+.simu-opcion small { font-size: var(--t-sm); color: var(--panel-tinta-2); }
+.simu-opcion:hover span { border-color: var(--panel-tinta-2); }
+.simu-opcion input:checked + span { border-color: var(--rojo); background: rgba(227, 6, 19, .05); box-shadow: inset 0 0 0 1px var(--rojo); }
+.simu-opcion input:focus-visible + span { outline: 3px solid rgba(227, 6, 19, .35); outline-offset: 2px; }
+.simu-campo { display: grid; gap: 6px; font-weight: 600; font-size: var(--t-sm); margin-bottom: var(--esp-2); color: var(--panel-tinta); }
+.simu-campo input, .simu-campo select {
+  font: inherit; font-weight: 400; font-size: 1rem; color: var(--panel-tinta); width: 100%;
+  padding: 12px 14px; border: 1.5px solid var(--panel-linea); border-radius: var(--radio); background: var(--blanco);
+}
+.simu-campo input:focus, .simu-campo select:focus { outline: none; border-color: var(--rojo); box-shadow: 0 0 0 3px rgba(227, 6, 19, .18); }
+.simu-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.simu-ayuda { font-weight: 400; font-size: var(--t-xs); color: var(--panel-tinta-2); }
+.simu-trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.simu-legal { font-size: var(--t-xs); color: var(--panel-tinta-2); margin-bottom: var(--esp-2); }
+.simu-legal a { color: inherit; }
+.simu-botones { display: flex; align-items: center; justify-content: space-between; gap: var(--esp-2); margin-top: var(--esp-2); }
+.simu-atras { background: none; border: 0; color: var(--panel-tinta-2); font: inherit; font-weight: 600; cursor: pointer; padding: 8px 0; }
+.simu-atras:hover { color: var(--panel-tinta); }
+.simu-error { margin-top: var(--esp-2); color: var(--rojo-profundo); font-weight: 600; }
+.simu-cargando, .simu-sin-js { color: var(--panel-tinta-2); }
+.simu-escuelas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--esp-2); max-width: 900px; }
+.simu-escuelas article { background: var(--blanco); border: 1px solid var(--panel-linea); border-left: 3px solid var(--rojo); border-radius: var(--radio); padding: var(--esp-2) var(--esp-3); }
+.simu-escuelas h3 { font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm); letter-spacing: .08em; text-transform: uppercase; color: var(--panel-tinta-2); margin-bottom: 6px; }
+.simu-escuelas p { font-family: var(--f-display); font-size: var(--t-lg); letter-spacing: .02em; line-height: 1.2; }
+@media (max-width: 560px) {
+  .simu { padding: var(--esp-2); }
+  .simu-opciones, .simu-fila { grid-template-columns: 1fr; }
+  .simu-opciones-chicas { grid-template-columns: repeat(2, 1fr); }
+  .simu-botones .boton { flex: 1; }
+}
+
 /* Resultado del simulador de equivalencias (gracias/simulador-de-equivalencias) */
 .sim-resultado[hidden], .sim-bloque[hidden] { display: none; }
 .sim-resultado {

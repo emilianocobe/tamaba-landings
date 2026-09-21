@@ -152,7 +152,7 @@ document.documentElement.classList.remove('sin-js');
 (function () {
   const cta = document.getElementById('cta-movil');
   const hero = document.querySelector('.hero');
-  const form = document.getElementById('inscripcion');
+  const form = document.getElementById('inscripcion') || document.getElementById('simulador');
   if (!cta || !hero) return;
   cta.hidden = false;
   const visible = v => { if (v) cta.dataset.visible = ''; else delete cta.dataset.visible; };

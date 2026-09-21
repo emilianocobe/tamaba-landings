@@ -77,7 +77,7 @@ export function graciasSimulador({ site, dim }) {
       if (it.origen && it.origen.length) {
         var o = document.createElement('span');
         o.className = 'sim-origen';
-        o.textContent = 'Con ' + it.origen.join(' + ');
+        o.textContent = 'Con ' + it.origen.join(' o ');
         li.appendChild(o);
       }
       if (it.condicion) {
@@ -97,8 +97,14 @@ export function graciasSimulador({ site, dim }) {
   if (s.tipo === 'saberes_previos') {
     $('sim-previos-nota').textContent = 'Tu escuela no tiene validez oficial, por eso no se otorgan equivalencias. ' +
       'Pero lo que aprobaste te deja en condiciones de rendir estas materias sin cursarlas.';
+  } else if (s.tipo === 'sin_tabla') {
+    $('sim-sub').textContent = 'Tu escuela todavía no tiene tabla de equivalencias en el simulador, así que Admisiones va a revisar tu caso ' +
+      'a mano y te va a escribir por WhatsApp. Mientras tanto, estas son las materias de ' + s.carreraNombre + ' que se pueden rendir sin cursarlas.';
+    $('sim-previos-nota').textContent = 'Si tenés conocimientos previos, podés rendirlas como saberes previos.';
   } else {
-    $('sim-previos-nota').textContent = 'Además de lo que se acredita, estas materias de primer año se pueden rendir sin cursarlas.';
+    $('sim-previos-nota').textContent = s.acreditadas && s.acreditadas.length
+      ? 'Además de lo que se acredita, estas materias se pueden rendir sin cursarlas.'
+      : 'Estas materias se pueden rendir sin cursarlas.';
   }
   var hay = llenar($('sim-acreditadas'), s.tipo === 'saberes_previos' ? [] : s.acreditadas);
   hay = llenar($('sim-previos'), s.saberesPrevios) || hay;
