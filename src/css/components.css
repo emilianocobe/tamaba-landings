@@ -573,6 +573,44 @@
 .gracias-volver { font-size: var(--t-sm); }
 .gracias-volver a { color: var(--panel-tinta-2); }
 
+/* Seminario Internacional de Industria de la Música (seminario-industria-musica):
+   hero en dos columnas con el afiche oficial, y una tarjeta por masterclass. */
+.hero-seminario { min-height: auto; padding-bottom: 0; }
+.sem-hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--esp-5); align-items: center; }
+.sem-hero .hero-titulo { font-size: clamp(2.8rem, 6.4vw, 5.6rem); }
+.sem-hero-afiche { margin: 0; }
+.sem-hero-afiche img { width: 100%; height: auto; border-radius: var(--radio-panel); box-shadow: var(--sombra-panel); transform: rotate(1.5deg); }
+.mcs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--esp-3); margin-top: var(--esp-4); }
+.mc {
+  display: flex; flex-direction: column; gap: var(--esp-2);
+  border: 1px solid var(--linea); border-top: 3px solid var(--acento-solido); border-radius: var(--radio-panel);
+  background: var(--superficie-grad); box-shadow: var(--sombra-oscura); padding: var(--esp-3);
+}
+.mc-cuando { font-family: var(--f-dato); font-weight: 600; font-size: var(--t-sm); letter-spacing: var(--track-etiqueta); text-transform: uppercase; color: var(--tinta-2); }
+.mc-dia { display: inline-block; background: var(--acento-solido); color: var(--blanco); padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+.mc-titulo { font-family: var(--f-display); font-weight: 400; font-size: var(--t-lg); line-height: var(--lh-titulo); letter-spacing: var(--track-display-chico); text-wrap: balance; }
+.mc-panel { list-style: none; display: grid; gap: 10px; }
+.mc-panel li { display: grid; gap: 1px; padding-left: 12px; border-left: 2px solid var(--linea-fuerte); }
+.mc-panel span, .mc-bio { color: var(--tinta-2); font-size: var(--t-sm); line-height: 1.5; }
+.mc-orador { display: grid; grid-template-columns: 96px 1fr; gap: var(--esp-2); align-items: start; }
+.mc-orador img { width: 96px; height: 96px; object-fit: cover; border-radius: 50%; border: 2px solid var(--linea-fuerte); }
+.mc-nombre { font-weight: 700; margin-bottom: 4px; }
+.mc-nombre span { font-family: var(--f-dato); font-weight: 600; font-size: var(--t-xs); letter-spacing: var(--track-etiqueta); text-transform: uppercase; color: var(--tinta-3); margin-left: 6px; }
+.mc-pie { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: var(--esp-2); padding-top: var(--esp-2); }
+.mc-nota { font-size: var(--t-sm); color: var(--tinta-3); }
+.sem-horarios { margin-top: var(--esp-4); padding: var(--esp-2) var(--esp-3); border-left: 3px solid var(--rojo); background: var(--blanco); border-radius: var(--radio); max-width: 760px; }
+.sem-horarios .etiqueta { margin-bottom: 4px; }
+@media (max-width: 960px) {
+  .sem-hero { grid-template-columns: 1fr; }
+  .sem-hero-afiche { max-width: 420px; }
+  .mcs { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .mc-orador { grid-template-columns: 72px 1fr; }
+  .mc-orador img { width: 72px; height: 72px; }
+  .mc-pie .boton { width: 100%; justify-content: center; }
+}
+
 /* Simulador de equivalencias (simulador-de-equivalencias): formulario en tres pasos sobre el
    panel claro. Las opciones son radios de verdad con una etiqueta grande: se eligen con el
    teclado y se leen bien en el celular. */

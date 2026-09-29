@@ -67,6 +67,7 @@ const { gracias }  = await import('./src/templates/gracias.mjs');
 const { graciasEvento } = await import('./src/templates/graciasEvento.mjs');
 const { graciasSimulador } = await import('./src/templates/graciasSimulador.mjs');
 const { simulador } = await import('./src/templates/simulador.mjs');
+const { seminario } = await import('./src/templates/seminario.mjs');
 const { eventos }  = await import('./src/templates/eventos.mjs');
 const { becaPage } = await import('./src/templates/beca.mjs');
 const { legal }    = await import('./src/templates/legal.mjs');
@@ -180,6 +181,9 @@ for (const c of carreras) {
   page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ogImgAlt: c.heroImgAlt, jsonLd: jsonLdCarrera, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, carreraNombre: c.nombre, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
 }
+
+// 4.º Seminario Internacional de Industria de la Música (19 al 22 de octubre de 2026)
+page('seminario-industria-musica', layout(seminario(ctx), { ...ctx, depth: 1, titulo: '4.º Seminario Internacional de Industria de la Música · TAMABA', descripcion: 'Cuatro masterclasses gratuitas por Zoom con referentes de México, España, Costa Rica, Argentina, India y Perú. Del 19 al 22 de octubre de 2026, a las 19 h (Argentina).', ogImg: 'assets/img/seminario-og.webp', ogImgAlt: '4.º Seminario Internacional de Industria de la Música, 19 al 22 de octubre de 2026', ruta: '/seminario-industria-musica/', cta: { href: '#agenda', texto: 'Reservar' }, conStickyCta: true, sticky: { href: '#agenda', texto: 'Elegir masterclass' }, waTexto: 'Hola, tengo una consulta sobre el Seminario Internacional de Industria de la Música' }));
 
 // Landing del simulador de equivalencias (campaña «Tu carrera no empieza de cero»)
 page('simulador-de-equivalencias', layout(simulador(ctx), { ...ctx, depth: 1, titulo: 'Simulador de equivalencias · TAMABA', descripcion: 'Las materias que aprobaste en otra escuela se acreditan en TAMABA. Simulá tus equivalencias y cursá solo lo que te falta, con título oficial.', ogImg: 'assets/img/estudio-pareja.webp', ogImgAlt: 'Un cantante y un guitarrista grabando en un estudio', ruta: '/simulador-de-equivalencias/', cta: { href: '#simulador', texto: 'Simular' }, conStickyCta: true, sticky: { href: '#simulador', texto: 'Simular mis equivalencias' }, waTexto: 'Hola, quiero saber qué materias me acreditan en TAMABA' }));
