@@ -1,6 +1,7 @@
 /** 4.º Seminario Internacional de Industria de la Música (19 al 22 de octubre de 2026).
  *  Cuatro masterclasses por Zoom, cada una con su propio calendario de reserva en GoHighLevel.
- *  Fecha, hora (19:00 GMT-3) y duración (1 h) verificadas en los cuatro calendarios el 29/9/2026.
+ *  Fecha y duración (1 h) verificadas en los cuatro calendarios el 29/9/2026. El 30/9 TAMABA pasó todas
+ *  las masterclasses a las 20:00 (GMT-3): la hora de los calendarios de GHL la cambia Emiliano.
  *  Las reservas se miden como cta_click tipo «booking» (tracking.js); no hay formulario propio. */
 
 import { onda, sello30 } from './partes.mjs';
@@ -50,7 +51,7 @@ function tarjeta(m, p, dim) {
       </div>`;
   return `
     <article class="mc revela" id="dia-${m.dia}">
-      <p class="mc-cuando"><span class="mc-dia">Día ${m.dia}</span> ${m.fecha} · 19 h</p>
+      <p class="mc-cuando"><span class="mc-dia">Día ${m.dia}</span> ${m.fecha} · 20 h</p>
       <h3 class="mc-titulo">«${m.titulo}»</h3>
       ${orador}
       <div class="mc-pie">
@@ -70,14 +71,14 @@ export function seminario({ site, dim }) {
     <div class="sem-hero-texto">
       <p class="chip chip-rojo">19 al 22 de octubre · Vía Zoom</p>
       <h1 class="hero-titulo">4.º Seminario Internacional de <em>Industria de la Música</em></h1>
-      <p class="hero-sub">Cuatro masterclasses con referentes de México, España, Costa Rica, Argentina, India y Perú. Todas a las 19 h (Argentina), en vivo por Zoom. Gratis y abierto a todo público.</p>
+      <p class="hero-sub">Cuatro masterclasses con referentes de México, España, Costa Rica, Argentina, India y Perú. Todas a las 20 h (Argentina), en vivo por Zoom. Gratis y abierto a todo público.</p>
       <div class="hero-ctas">
         <a class="boton boton-rojo boton-grande" href="#agenda" data-tb="cta-hero">Elegir masterclass</a>
         <a class="boton boton-borde" href="#como-participar" data-tb="cta-hero-secundario">Cómo participar</a>
       </div>
     </div>
     <figure class="sem-hero-afiche">
-      <img src="${p}assets/img/seminario-portada.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 19 h" fetchpriority="high" ${dim('img/seminario-portada.webp')}>
+      <img src="${p}assets/img/seminario-portada.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h" fetchpriority="high" ${dim('img/seminario-portada.webp')}>
     </figure>
   </div>
   <div class="hero-cinta" aria-hidden="true">
@@ -89,7 +90,7 @@ export function seminario({ site, dim }) {
 <section class="franja-confianza" aria-label="El seminario en números">
   <div class="dato-numero"><strong>4</strong><span>masterclasses</span></div>
   <div class="dato-numero"><strong>6</strong><span>países</span></div>
-  <div class="dato-numero"><strong>19 h</strong><span>hora de Argentina</span></div>
+  <div class="dato-numero"><strong>20 h</strong><span>hora de Argentina</span></div>
   <div class="dato-numero"><strong>Gratis</strong><span>con reserva previa</span></div>
 </section>
 
@@ -110,11 +111,11 @@ ${MASTERCLASSES.map(m => tarjeta(m, p, dim)).join('\n')}
   <ol class="ruta ruta-clara">
     <li class="revela"><span class="ruta-numero">01</span><span><strong>Elegí la masterclass y reservá tu lugar.</strong> Cada día tiene su propio botón de reserva y el cupo es limitado.</span></li>
     <li class="revela"><span class="ruta-numero">02</span><span><strong>Revisá tu mail.</strong> Te llega la confirmación con el acceso a Zoom. Si no la ves, mirá en spam o promociones.</span></li>
-    <li class="revela"><span class="ruta-numero">03</span><span><strong>Conectate a las 19 h de Argentina.</strong> Cada encuentro dura alrededor de una hora.</span></li>
+    <li class="revela"><span class="ruta-numero">03</span><span><strong>Conectate a las 20 h de Argentina.</strong> Cada encuentro dura alrededor de una hora.</span></li>
   </ol>
   <div class="sem-horarios revela">
     <p class="etiqueta">Si estás en otro país</p>
-    <p>19 h en Argentina, Uruguay y Chile · 17 h en Perú y Colombia · 16 h en México y Costa Rica.</p>
+    <p>20 h en Argentina, Uruguay y Chile · 18 h en Perú y Colombia · 17 h en México y Costa Rica.</p>
   </div>
 </section>
 
@@ -123,7 +124,7 @@ ${onda()}
 <!-- ══ CIERRE ══ -->
 <section class="cierre">
   <h2 class="cierre-titulo">La industria de la música,<br>contada por quienes la hacen</h2>
-  <p class="cierre-sub">Del 19 al 22 de octubre, a las 19 h (Argentina), por Zoom.</p>
+  <p class="cierre-sub">Del 19 al 22 de octubre, a las 20 h (Argentina), por Zoom.</p>
   <a class="boton boton-rojo boton-grande" href="#agenda" data-tb="cta-final">Elegir masterclass</a>
   <p class="cierre-alternativa">¿Tenés alguna duda? <a href="https://wa.me/${site.whatsappHref}?text=${encodeURIComponent('Hola, tengo una consulta sobre el Seminario Internacional de Industria de la Música')}" target="_blank" rel="noopener" data-tb="whatsapp-cierre">Escribinos por WhatsApp</a>.</p>
   ${sello30(p, dim)}
