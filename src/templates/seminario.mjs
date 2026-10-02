@@ -78,7 +78,7 @@ export function seminario({ site, dim }) {
       </div>
     </div>
     <figure class="sem-hero-afiche">
-      <img src="${p}assets/img/seminario-portada.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música, de TAMABA con la Sección Estudiantil AES TAMABA y ALAEMUS: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h" fetchpriority="high" ${dim('img/seminario-portada.webp')}>
+      <img src="${p}assets/img/seminario-portada-bd0fc21d.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música, de TAMABA con la Sección Estudiantil AES TAMABA y ALAEMUS: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h" fetchpriority="high" ${dim('img/seminario-portada-bd0fc21d.webp')}>
     </figure>
   </div>
   <div class="hero-cinta" aria-hidden="true">
