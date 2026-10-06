@@ -14,7 +14,6 @@ export const MASTERCLASSES = [
     titulo: 'Negocios de la música, ¿cómo nos preparamos?',
     panel: [
       ['Jorge Rocha', 'Director de Academia Dacapo', 'México'],
-      ['Miguel Menescau', 'Director de Mousike La Laguna', 'España'],
       ['Andrés Suárez', 'Director de la Escuela Superior de Música de Costa Rica', 'Costa Rica'],
       ['Gabriel Mourelos', 'Director de TAMABA', 'Argentina'],
     ],
@@ -39,7 +38,7 @@ export const MASTERCLASSES = [
   },
 ];
 
-const PAISES = 'MÉXICO · ESPAÑA · COSTA RICA · ARGENTINA · INDIA · PERÚ';
+const PAISES = 'MÉXICO · ECUADOR · COSTA RICA · ARGENTINA · INDIA · PERÚ';
 
 function tarjeta(m, p, dim) {
   const orador = m.panel
@@ -71,14 +70,14 @@ export function seminario({ site, dim }) {
     <div class="sem-hero-texto">
       <p class="chip chip-rojo">19 al 22 de octubre · Vía Zoom</p>
       <h1 class="hero-titulo">4.º Seminario Internacional de <em>Industria de la Música</em></h1>
-      <p class="hero-sub">Cuatro masterclasses con referentes de México, España, Costa Rica, Argentina, India y Perú. Todas a las 20 h (Argentina), en vivo por Zoom. Gratis y abierto a todo público.</p>
+      <p class="hero-sub">Cuatro masterclasses con referentes de México, Ecuador, Costa Rica, Argentina, India y Perú. Todas a las 20 h (Argentina), en vivo por Zoom. Gratis y abierto a todo público.</p>
       <div class="hero-ctas">
         <a class="boton boton-rojo boton-grande" href="#agenda" data-tb="cta-hero">Elegir masterclass</a>
         <a class="boton boton-borde" href="#como-participar" data-tb="cta-hero-secundario">Cómo participar</a>
       </div>
     </div>
     <figure class="sem-hero-afiche">
-      <img src="${p}assets/img/seminario-portada-bd0fc21d.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música, de TAMABA con la Sección Estudiantil AES TAMABA y ALAEMUS: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h" fetchpriority="high" ${dim('img/seminario-portada-bd0fc21d.webp')}>
+      <img src="${p}assets/img/seminario-portada-aa47f313.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música de TAMABA: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h, con las banderas de Argentina, Costa Rica, Ecuador, India, México y Perú" fetchpriority="high" ${dim('img/seminario-portada-aa47f313.webp')}>
     </figure>
   </div>
   <div class="hero-cinta" aria-hidden="true">
@@ -115,7 +114,7 @@ ${MASTERCLASSES.map(m => tarjeta(m, p, dim)).join('\n')}
   </ol>
   <div class="sem-horarios revela">
     <p class="etiqueta">Si estás en otro país</p>
-    <p>20 h en Argentina, Uruguay y Chile · 18 h en Perú y Colombia · 17 h en México y Costa Rica.</p>
+    <p>20 h en Argentina, Uruguay y Chile · 18 h en Perú, Ecuador y Colombia · 17 h en México y Costa Rica.</p>
   </div>
 </section>
 
