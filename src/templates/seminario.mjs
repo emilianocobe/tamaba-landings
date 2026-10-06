@@ -14,6 +14,7 @@ export const MASTERCLASSES = [
     titulo: 'Negocios de la música, ¿cómo nos preparamos?',
     panel: [
       ['Jorge Rocha', 'Director de Academia Dacapo', 'México'],
+      ['Gorki Alarcón', 'Director del Instituto Tecnológico Superior Paradox', 'Ecuador'],
       ['Andrés Suárez', 'Director de la Escuela Superior de Música de Costa Rica', 'Costa Rica'],
       ['Gabriel Mourelos', 'Director de TAMABA', 'Argentina'],
     ],
