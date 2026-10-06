@@ -15,7 +15,7 @@ export const MASTERCLASSES = [
     panel: [
       ['Jorge Rocha', 'Director de Academia Dacapo', 'México'],
       ['Gorki Alarcón', 'Director del Instituto Tecnológico Superior Paradox', 'Ecuador'],
-      ['Andrés Suárez', 'Director de la Escuela Superior de Música de Costa Rica', 'Costa Rica'],
+      ['Andrés Gómez', 'Director de la Escuela Superior de Música de Costa Rica', 'Costa Rica'],
       ['Gabriel Mourelos', 'Director de TAMABA', 'Argentina'],
     ],
   },
@@ -78,7 +78,7 @@ export function seminario({ site, dim }) {
       </div>
     </div>
     <figure class="sem-hero-afiche">
-      <img src="${p}assets/img/seminario-portada-aa47f313.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música de TAMABA: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h, con las banderas de Argentina, Costa Rica, Ecuador, India, México y Perú" fetchpriority="high" ${dim('img/seminario-portada-aa47f313.webp')}>
+      <img src="${p}assets/img/seminario-portada-00f51ff4.webp" alt="Afiche del 4.º Seminario Internacional de Industria de la Música, de TAMABA con la Sección Estudiantil AES TAMABA y ALAEMUS: 19, 20, 21 y 22 de octubre de 2026, vía Zoom, 20 h, con las banderas de Argentina, Costa Rica, Ecuador, India, México y Perú" fetchpriority="high" ${dim('img/seminario-portada-00f51ff4.webp')}>
     </figure>
   </div>
   <div class="hero-cinta" aria-hidden="true">
