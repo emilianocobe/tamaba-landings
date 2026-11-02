@@ -1,3 +1,4 @@
+import { urlAgenda } from './partes.mjs';
 /** Gracias de RESERVA (post-booking de GHL): visita presencial / encuentro online.
  *  Distinta de gracias.mjs, que confirma una consulta por formulario.
  *  Acá la conversión es "agendó un evento" — la fuga #1 del embudo. */
@@ -24,7 +25,7 @@ ${ev.opuesto ? `
       <span class="chip chip-oscuro">${ev.opuesto.chip}</span>
       <h2>${ev.opuesto.titulo}</h2>
       <p>${ev.opuesto.texto}</p>
-      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings[ev.opuesto.booking]}" target="_blank" rel="noopener" data-tb="${ev.opuesto.tb}">${ev.opuesto.cta}</a>
+      <a class="boton boton-rojo boton-grande" href="${urlAgenda(site, ev.opuesto.booking)}" data-agenda data-tb="${ev.opuesto.tb}">${ev.opuesto.cta}</a>
     </aside>` : ''}
 
     <div class="gracias-ctas">

@@ -9,7 +9,7 @@
  *  Sin simulación guardada (visita directa, otra pestaña) el bloque no se muestra
  *  y la página queda como un gracias común. Nada viaja por la URL. */
 
-import { sello30 } from './partes.mjs';
+import { sello30, urlAgenda } from './partes.mjs';
 
 export function graciasSimulador({ site, dim }) {
   const p = '../../';
@@ -40,8 +40,8 @@ export function graciasSimulador({ site, dim }) {
     </ol>
 
     <div class="gracias-ctas">
-      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.encuentroOnline}" target="_blank" rel="noopener" data-tb="booking-online">Anotarme al encuentro grupal online</a>
-      <a class="boton boton-borde-oscuro boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.visitaPresencial}" target="_blank" rel="noopener" data-tb="booking-visita">Agendar visita presencial</a>
+      <a class="boton boton-rojo boton-grande" href="${urlAgenda(site, 'encuentroOnline')}" data-agenda data-tb="booking-online">Anotarme al encuentro grupal online</a>
+      <a class="boton boton-borde-oscuro boton-grande" href="${urlAgenda(site, 'visitaPresencial')}" data-agenda data-tb="booking-visita">Agendar visita presencial</a>
     </div>
     <p class="sim-cuando">Encuentro grupal por Zoom: todos los jueves a las 19 hs (hora de Argentina). Visita guiada: Adolfo Alsina 1994, CABA.</p>
 

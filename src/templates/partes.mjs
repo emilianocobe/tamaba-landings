@@ -60,6 +60,13 @@ export function onda() {
  *  formulario unificado de GHL; lo envía main.js a app.tamaba.edu.ar y, si sale bien, lleva a
  *  /gracias/{slug}/, donde se dispara la conversión como hasta ahora. Se activa por página con
  *  `"formularioPropio": true` en data/carreras/{slug}.json. */
+/** Link a la agenda propia del CRM. `carrera` (slug) viaja en la query para que la reserva quede con
+ *  su carrera; los UTM y gclid/fbclid los agrega tracking.js al hacer clic (data-agenda), desde lo
+ *  que guardó la landing, porque la agenda vive en otro dominio y no puede leerlo. */
+export function urlAgenda(site, clave, carrera) {
+  return site.agenda.base + site.agenda.slugs[clave] + (carrera ? '?carrera=' + encodeURIComponent(carrera) : '');
+}
+
 export function formularioPropio(site, c, p) {
   const opciones = (nombre, pares) => pares.map(([v, t]) =>
     `<label class="simu-opcion"><input type="radio" name="${nombre}" value="${v}" required><span><strong>${t}</strong></span></label>`).join('');

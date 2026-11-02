@@ -1,3 +1,4 @@
+import { urlAgenda } from './partes.mjs';
 /** Eventos: visita presencial + encuentro online (bookings de GHL como enlaces). */
 
 export function eventos({ site, dim }) {
@@ -23,7 +24,7 @@ export function eventos({ site, dim }) {
         <li>Charla con el equipo de admisiones</li>
         <li>Adolfo Alsina 1994, a metros del Congreso</li>
       </ul>
-      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.visitaPresencial}" target="_blank" rel="noopener" data-tb="booking-visita">Agendar visita presencial</a>
+      <a class="boton boton-rojo boton-grande" href="${urlAgenda(site, 'visitaPresencial')}" data-agenda data-tb="booking-visita">Agendar visita presencial</a>
     </article>
     <article class="opcion-evento revela">
       <span class="chip chip-rojo">Online · jueves 19 hs</span>
@@ -35,7 +36,7 @@ export function eventos({ site, dim }) {
         <li>Aranceles, becas y plan de estudios, sin vueltas</li>
         <li>Preguntas y respuestas en vivo</li>
       </ul>
-      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.encuentroOnline}" target="_blank" rel="noopener" data-tb="booking-online">Reservar mi lugar online</a>
+      <a class="boton boton-rojo boton-grande" href="${urlAgenda(site, 'encuentroOnline')}" data-agenda data-tb="booking-online">Reservar mi lugar online</a>
     </article>
   </div>
 </section>

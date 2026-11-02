@@ -1,7 +1,7 @@
 /** Página de gracias: confirmación + próximos pasos + booking + QR.
  *  noindex. Acá se dispara el evento de conversión (tracking.js). */
 
-import { sello30 } from './partes.mjs';
+import { sello30, urlAgenda } from './partes.mjs';
 
 export function gracias({ site, c, dim }) {
   const p = '../../';
@@ -19,8 +19,8 @@ export function gracias({ site, c, dim }) {
     </ol>
 
     <div class="gracias-ctas">
-      <a class="boton boton-rojo boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.visitaPresencial}" target="_blank" rel="noopener" data-tb="booking-visita">Agendar visita presencial</a>
-      <a class="boton boton-borde-oscuro boton-grande" href="${site.ghl.bookingBase}${site.ghl.bookings.encuentroOnline}" target="_blank" rel="noopener" data-tb="booking-online">Encuentro informativo online</a>
+      <a class="boton boton-rojo boton-grande" href="${urlAgenda(site, 'visitaPresencial', c.slug)}" data-agenda data-tb="booking-visita">Agendar visita presencial</a>
+      <a class="boton boton-borde-oscuro boton-grande" href="${urlAgenda(site, 'encuentroOnline', c.slug)}" data-agenda data-tb="booking-online">Encuentro informativo online</a>
     </div>
 
     <div class="gracias-qrs">

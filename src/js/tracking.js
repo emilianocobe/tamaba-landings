@@ -216,6 +216,16 @@
     }
   }
 
+  /* ── 4 bis · Links a la agenda propia (app.tamaba.edu.ar/agendar) ─
+     La agenda vive en otro dominio: no puede leer la atribución guardada acá. Se la pasa en la URL. */
+  document.querySelectorAll('a[data-agenda]').forEach(a => {
+    try {
+      const u = new URL(a.href);
+      for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid']) if (attr[k] && !u.searchParams.has(k)) u.searchParams.set(k, attr[k]);
+      a.href = u.toString();
+    } catch (e) { /* link sin cambios */ }
+  });
+
   /* ── 5 · Clics medidos ────────────────────────────────────── */
   document.addEventListener('click', ev => {
     const a = ev.target.closest('a[data-tb], button[data-tb]');
@@ -226,7 +236,7 @@
       if (a.href.startsWith('tel:')) params.tipo = 'telefono';
       else if (a.href.startsWith('mailto:')) params.tipo = 'email';
       else if (a.href.includes('wa.me')) params.tipo = 'whatsapp';
-      else if (a.href.includes('widget/booking')) params.tipo = 'booking';
+      else if (a.href.includes('widget/booking') || a.href.includes('/agendar/')) params.tipo = 'booking';
     }
     push(Object.assign({ event: 'cta_click' }, params));
   }, { passive: true });

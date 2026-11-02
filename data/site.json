@@ -26,6 +26,14 @@
   "videos": {
     "institucional": "GRUQsreYYG8"
   },
+  "agenda": {
+    "_comentario": "Agenda propia del CRM (app.tamaba.edu.ar/agendar/{slug}). Reemplaza a los calendarios de GHL de site.ghl.bookings.",
+    "base": "https://app.tamaba.edu.ar/agendar/",
+    "slugs": {
+      "visitaPresencial": "visita-presencial",
+      "encuentroOnline": "encuentro-online"
+    }
+  },
   "ghl": {
     "embedScript": "https://link.msgsndr.com/js/form_embed.js",
     "formBase": "https://api.leadconnectorhq.com/widget/form/",
