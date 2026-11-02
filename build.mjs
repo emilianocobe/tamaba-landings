@@ -67,7 +67,7 @@ const { gracias }  = await import('./src/templates/gracias.mjs');
 const { graciasEvento } = await import('./src/templates/graciasEvento.mjs');
 const { graciasSimulador } = await import('./src/templates/graciasSimulador.mjs');
 const { simulador } = await import('./src/templates/simulador.mjs');
-const { seminario } = await import('./src/templates/seminario.mjs');
+// const { seminario } = await import('./src/templates/seminario.mjs'); // despublicado, ver más abajo
 const { eventos }  = await import('./src/templates/eventos.mjs');
 const { becaPage } = await import('./src/templates/beca.mjs');
 const { legal }    = await import('./src/templates/legal.mjs');
@@ -183,7 +183,9 @@ for (const c of carreras) {
 }
 
 // 4.º Seminario Internacional de Industria de la Música (19 al 22 de octubre de 2026)
-page('seminario-industria-musica', layout(seminario(ctx), { ...ctx, depth: 1, titulo: '4.º Seminario Internacional de Industria de la Música · TAMABA', descripcion: 'Cuatro masterclasses gratuitas por Zoom con referentes de México, Ecuador, Costa Rica, Argentina, India y Perú. Del 19 al 22 de octubre de 2026, a las 20 h (Argentina).', ogImg: 'assets/img/seminario-og-0560dfd1.webp', ogImgAlt: '4.º Seminario Internacional de Industria de la Música, 19 al 22 de octubre de 2026', ruta: '/seminario-industria-musica/', cta: { href: '#agenda', texto: 'Reservar' }, conStickyCta: true, sticky: { href: '#agenda', texto: 'Elegir masterclass' }, waTexto: 'Hola, tengo una consulta sobre el Seminario Internacional de Industria de la Música' }));
+// El 4.º Seminario (19 al 22 de octubre de 2026) terminó: se despublicó el 2/11/2026 y su ruta
+// redirige a los encuentros (data/redirects.json). La plantilla queda en src/templates/seminario.mjs.
+// page('seminario-industria-musica', layout(seminario(ctx), { ...ctx, depth: 1, titulo: '4.º Seminario Internacional de Industria de la Música · TAMABA', descripcion: 'Cuatro masterclasses gratuitas por Zoom con referentes de México, Ecuador, Costa Rica, Argentina, India y Perú. Del 19 al 22 de octubre de 2026, a las 20 h (Argentina).', ogImg: 'assets/img/seminario-og-0560dfd1.webp', ogImgAlt: '4.º Seminario Internacional de Industria de la Música, 19 al 22 de octubre de 2026', ruta: '/seminario-industria-musica/', cta: { href: '#agenda', texto: 'Reservar' }, conStickyCta: true, sticky: { href: '#agenda', texto: 'Elegir masterclass' }, waTexto: 'Hola, tengo una consulta sobre el Seminario Internacional de Industria de la Música' }));
 
 // Landing del simulador de equivalencias (campaña «Tu carrera no empieza de cero»)
 page('simulador-de-equivalencias', layout(simulador(ctx), { ...ctx, depth: 1, titulo: 'Simulador de equivalencias · TAMABA', descripcion: 'Las materias que aprobaste en otra escuela se acreditan en TAMABA. Simulá tus equivalencias y cursá solo lo que te falta, con título oficial.', ogImg: 'assets/img/estudio-pareja.webp', ogImgAlt: 'Un cantante y un guitarrista grabando en un estudio', ruta: '/simulador-de-equivalencias/', cta: { href: '#simulador', texto: 'Simular' }, conStickyCta: true, sticky: { href: '#simulador', texto: 'Simular mis equivalencias' }, waTexto: 'Hola, quiero saber qué materias me acreditan en TAMABA' }));

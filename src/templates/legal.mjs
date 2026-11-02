@@ -5,19 +5,19 @@ export function legal({ site }, cual) {
     return `
 <article class="legal">
   <h1>Política de Privacidad</h1>
-  <p class="legal-fecha">Última actualización: agosto de 2026</p>
+  <p class="legal-fecha">Última actualización: noviembre de 2026</p>
 
   <h2>1 · Responsable del tratamiento</h2>
   <p>${site.nombreLegal}, CUIT ${site.cuit}, con domicilio en ${site.direccion} (en adelante, «TAMABA»), es responsable del tratamiento de los datos personales recabados a través de este sitio.</p>
 
   <h2>2 · Qué datos recolectamos</h2>
-  <p>A través de los formularios de consulta recolectamos: nombre, número de teléfono y dirección de correo electrónico, junto con la carrera o curso por el que consultás y, opcionalmente, el texto de tu consulta. También registramos datos de navegación anónimos (páginas visitadas, origen de la visita) con fines estadísticos y de mejora del sitio.</p>
+  <p>A través de los formularios de consulta recolectamos: nombre, número de teléfono y dirección de correo electrónico, junto con la carrera o curso por el que consultás y, opcionalmente, el texto de tu consulta. Si avanzás con tu inscripción, también el comprobante de la transferencia que nos envíes. También registramos datos de navegación anónimos (páginas visitadas, origen de la visita) con fines estadísticos y de mejora del sitio.</p>
 
   <h2>3 · Para qué los usamos</h2>
   <p>Usamos tus datos exclusivamente para: (a) responder tu consulta y brindarte información sobre nuestra oferta académica; (b) gestionar tu inscripción si decidís avanzar; (c) invitarte a eventos informativos de TAMABA; y (d) elaborar estadísticas internas. No vendemos ni cedemos tus datos a terceros con fines comerciales.</p>
 
   <h2>4 · Dónde se almacenan</h2>
-  <p>Los datos de los formularios se procesan y almacenan en nuestra plataforma de gestión de contactos (GoHighLevel / LeadConnector) y en los sistemas internos de TAMABA, con acceso restringido al personal de admisiones y comunicaciones.</p>
+  <p>Los datos se almacenan en la plataforma de gestión de contactos propia de TAMABA, alojada en servidores de Hostinger, con acceso restringido al personal de admisiones y comunicaciones. Las conversaciones por WhatsApp pasan por WhatsApp Business (Meta), y si te anotás a un encuentro online, tu nombre y tu correo se registran en Zoom para darte el acceso. No guardamos copias de documentos de identidad.</p>
 
   <h2>5 · Tus derechos</h2>
   <p>Conforme a la Ley 25.326 de Protección de los Datos Personales, podés ejercer en cualquier momento tus derechos de acceso, rectificación y supresión escribiendo a <a href="mailto:${site.emails.info}">${site.emails.info}</a>. La Agencia de Acceso a la Información Pública, órgano de control de la Ley 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.</p>
