@@ -171,3 +171,18 @@ reportarlo a Meta. `docs/gtm/excepcion-meta.json` conserva el activador de
 excepcion por si hay que recrearlo.
 
 Si se despausa la etiqueta de Meta en GTM, vuelve el duplicado.
+
+## Reserva de un encuentro: `reserva_evento` (GTM versión 14, 2026-11-02)
+
+Al cargar `/gracias-evento/{visita-presencial|encuentro-online}/` (a donde vuelve también quien reserva en la
+agenda del CRM, `app.tamaba.edu.ar/agendar/…`), `tracking.js` empuja una vez por sesión:
+
+- `reserva_evento` al dataLayer con `tipo_evento`, `canal_pago`, `utm_source`, `utm_campaign` y `event_id`;
+- `fbq('track', 'Schedule', …, { eventID })` directo (el píxel lo carga la integración automática de Meta: la
+  etiqueta de Meta de GTM sigue pausada, ver arriba), así que en GTM **no** hay etiqueta de Meta para `Schedule`
+  — si se agregara, contaría doble.
+
+En GTM (versión 14, publicada el 2026-11-02): etiqueta **GA4 - reserva_evento (Agendó encuentro)**, activador
+**CE - reserva_evento** (evento personalizado) y variable **DLV - tipo_evento**. Verificado en el contenedor
+publicado (`gtm.js?id=GTM-KTLTXJZ`). Falta, si se quiere usar como conversión: GA4 → Eventos clave → marcar
+`reserva_evento`.
