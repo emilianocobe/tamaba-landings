@@ -43,7 +43,8 @@ Eventos tipados que ya emite el sitio, listos para enrutar desde un único conte
 | `faq_abierta` | Se abre una pregunta | `faq_pregunta` |
 | `video_play` | Play del video | `video_id` |
 | `quiz_completado` | Test vocacional | `quiz_q1..q3`, `quiz_resultado` |
-| **`generate_lead`** | **Carga de `/gracias/{carrera}/`** — deduplicado por sesión (recargas y botón «atrás» no cuentan dos veces) | `carrera`, `canal_pago`, `utm_source`, `utm_campaign` |
+| **`generate_lead`** | **Carga de `/gracias/{carrera}/` que viene de un envío real** (`#op=…`, ver 2.7) — una vez por envío: recargas y «atrás» no cuentan dos veces, dos consultas distintas cuentan dos, abrir el gracias directo no cuenta | `carrera`, `canal_pago`, `utm_source`, `utm_campaign` |
+| `gracias_sin_operacion` | Carga de un gracias sin `#op` (abierto directo, link compartido, una página vieja en caché) | `pagina` — solo diagnóstico, sin etiqueta en GTM |
 
 ### 2.5 La conversión: `/gracias/{carrera}/`
 - **Una** página de gracias por carrera (plantilla única), `noindex`, que dispara `generate_lead`.
@@ -64,7 +65,13 @@ Eventos tipados que ya emite el sitio, listos para enrutar desde un único conte
 
 ## 2.7 · El evento de conversión: «Cliente potencial» / Lead
 
-En las páginas `/gracias/{carrera}/` se dispara, una sola vez por sesión:
+En las páginas `/gracias/{carrera}/` se dispara **solo si la página llega desde un envío real** (desde el
+18/11/2026, por la auditoría del 17/11): el formulario propio y el simulador llevan al gracias con `#op=<12
+hexadecimales>`, un identificador opaco de la consulta que devuelve el CRM (`operacion` en la respuesta de
+`/api/publico/consulta` y `/api/publico/simulador`). El script del `<head>` lo lee y lo saca de la barra con
+`history.replaceState` antes de que cargue GTM (además, el `#` no viaja al servidor). `tracking.js` cuenta cada
+`op` una sola vez (`localStorage tb_ops`, últimas 50). Sin `op` no se cuenta nada: antes, abrir un gracias directo
+contaba una conversión, y dos consultas válidas de la misma carrera en la misma sesión contaban una.
 
 | Plataforma | Nombre del evento | Notas |
 |-----------|-------------------|-------|
@@ -72,7 +79,7 @@ En las páginas `/gracias/{carrera}/` se dispara, una sola vez por sesión:
 | Meta | **`Lead`** | La interfaz en español lo muestra como **«Cliente potencial»**. Se envía con `content_name` (la carrera), `content_category`, `content_type`, `value` y `currency` |
 | dataLayer (espejo) | `Lead` | Por si preferís enrutar en GTM por ese nombre |
 
-**Deduplicación navegador ↔ servidor:** cada conversión genera un `event_id` único que viaja tanto en el `dataLayer` como en el `eventID` del pixel. Si además enviás el evento por la API de Conversiones con **ese mismo `event_id`**, Meta une ambos y no cuenta doble. Es la razón por la que el `event_id` existe.
+**Deduplicación navegador ↔ servidor:** cada conversión lleva un `event_id` (`lead-<op>`) que viaja tanto en el `dataLayer` como en el `eventID` del pixel. Si además enviás el evento por la API de Conversiones con **ese mismo `event_id`**, Meta une ambos y no cuenta doble. Es la razón por la que el `event_id` existe.
 
 ## 3 · Mapa de etiquetas a crear en GTM (checklist de implementación)
 
@@ -175,9 +182,15 @@ Si se despausa la etiqueta de Meta en GTM, vuelve el duplicado.
 ## Reserva de un encuentro: `reserva_evento` (GTM versión 14, 2026-11-02)
 
 Al cargar `/gracias-evento/{visita-presencial|encuentro-online}/` (a donde vuelve también quien reserva en la
-agenda del CRM, `app.tamaba.edu.ar/agendar/…`), `tracking.js` empuja una vez por sesión:
+agenda del CRM, `app.tamaba.edu.ar/agendar/…`), `tracking.js` empuja **una vez por reserva** y solo si la página
+viene de la agenda: el CRM manda al gracias con `#op=<reserva opaca>&p=<persona opaca>` (los mismos criterios que
+en 2.7; sin `op` no cuenta):
 
 - `reserva_evento` al dataLayer con `tipo_evento`, `canal_pago`, `utm_source`, `utm_campaign` y `event_id`;
+- el `event_id` es `tamaba-<p>-agendo`, **el mismo que manda el CRM a Meta para «Agendó»** por la API
+  (`server/conversiones/cola.js`, mapeo por defecto Agendó → `Schedule`): si algún día se activan los dos canales,
+  Meta une el del píxel con el del CRM y cuenta uno. Mientras la API de Meta del CRM no esté configurada, el único
+  `Schedule` es el del navegador;
 - `fbq('track', 'Schedule', …, { eventID })` directo (el píxel lo carga la integración automática de Meta: la
   etiqueta de Meta de GTM sigue pausada, ver arriba), así que en GTM **no** hay etiqueta de Meta para `Schedule`
   — si se agregara, contaría doble.

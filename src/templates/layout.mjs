@@ -42,7 +42,7 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${p}${o.assets.css}">
-<script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",adsId:"${site.tracking.googleAdsId}",adsLabel:"${(site.tracking.adsLabels || {})[o.slugCarrera] || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')},eventoReserva:${JSON.stringify(o.eventoReserva || '')}};</script>
+<script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",adsId:"${site.tracking.googleAdsId}",adsLabel:"${(site.tracking.adsLabels || {})[o.slugCarrera] || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')},eventoReserva:${JSON.stringify(o.eventoReserva || '')}};${o.esGracias || o.eventoReserva ? `(function(){var h=new URLSearchParams(location.hash.slice(1)),ok=function(v){return /^[a-f0-9]{8,32}$/.test(v||'')?v:''};TB.op=ok(h.get('op'));TB.persona=ok(h.get('p'));if(location.hash&&history.replaceState)history.replaceState(null,'',location.pathname+location.search)})();` : ''}</script>
 <script src="${p}${o.assets.tracking}" defer></script>
 <script src="${p}${o.assets.main}" defer></script>
 ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</script>` : ''}

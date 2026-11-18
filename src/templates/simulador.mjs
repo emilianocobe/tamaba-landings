@@ -95,7 +95,7 @@ export function simulador({ site, dim }) {
           <span class="simu-ayuda">Con código de área, sin 0 ni 15. Si estás fuera de Argentina, con + y el código de tu país.</span>
         </label>
         <label class="simu-trampa" aria-hidden="true">No completar<input id="simu-sitio" type="text" tabindex="-1" autocomplete="off"></label>
-        <p class="simu-legal">Al enviar aceptás que TAMABA te contacte por WhatsApp o por mail y la <a href="${p}privacidad/">política de privacidad</a>.</p>
+        <p class="simu-legal" data-consentimiento data-api="${site.app}" data-version="1">Al enviar tus datos aceptás que TAMABA te contacte por WhatsApp o por mail para darte información sobre sus carreras y encuentros, y aceptás la política de privacidad (<a href="https://landing.tamaba.edu.ar/privacidad/">https://landing.tamaba.edu.ar/privacidad/</a>).</p>
         <div class="simu-botones">
           <button type="button" class="simu-atras" data-ir="2">← Volver</button>
           <button type="submit" class="boton boton-rojo boton-grande" id="simu-enviar">Ver mi simulación</button>
@@ -259,11 +259,12 @@ const SCRIPT = String.raw`
     fetch(api + '/api/publico/simulador', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ carrera: estado.carrera, institucion: estado.institucion, instrumento: estado.instrumento,
-        institucion_otra: $('simu-otra').value.trim(), persona: persona, atribucion: atribucion(), sitio_web: $('simu-sitio').value })
+        institucion_otra: $('simu-otra').value.trim(), persona: persona, atribucion: atribucion(), sitio_web: $('simu-sitio').value,
+        consentimiento_version: Number((form.querySelector('[data-consentimiento]') || { dataset: {} }).dataset.version) || null })
     }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); }).then(function (x) {
       if (!x.ok) throw new Error(x.d.error || 'No pudimos enviar tu simulación.');
       try { sessionStorage.setItem('tb_simulacion', JSON.stringify(x.d.simulacion)); } catch (err) { /* sin storage: el gracias queda genérico */ }
-      location.href = '../gracias/simulador-de-equivalencias/';
+      location.href = '../gracias/simulador-de-equivalencias/' + (x.d.operacion ? '#op=' + encodeURIComponent(x.d.operacion) : '');
     }).catch(function (err) {
       boton.disabled = false; boton.textContent = 'Ver mi simulación';
       error((err && err.message && err.message !== 'Failed to fetch' ? err.message : 'No pudimos conectar.') + ' Si sigue fallando, escribinos por WhatsApp.');

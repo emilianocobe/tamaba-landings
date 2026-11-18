@@ -104,7 +104,7 @@ ${esCantante ? `      <fieldset class="form-grupo"><legend class="simu-subpregun
         <div class="simu-opciones simu-opciones-chicas">${opciones('tiempo_canto', [['mas_de_un_anio', 'Más de un año'], ['menos_de_un_anio', 'Menos de un año'], ['no_canta', 'Todavía no canto']])}</div>
       </fieldset>` : ''}
       <label class="simu-trampa" aria-hidden="true">No completar<input name="sitio_web" type="text" tabindex="-1" autocomplete="off"></label>
-      <p class="simu-legal">Al enviar aceptás que TAMABA te contacte por WhatsApp o por mail y la <a href="${p}privacidad/">política de privacidad</a>.</p>
+      <p class="simu-legal" data-consentimiento data-api="${site.app}" data-version="1">Al enviar tus datos aceptás que TAMABA te contacte por WhatsApp o por mail para darte información sobre sus carreras y encuentros, y aceptás la política de privacidad (<a href="https://landing.tamaba.edu.ar/privacidad/">https://landing.tamaba.edu.ar/privacidad/</a>).</p>
       <button type="submit" class="boton boton-rojo boton-grande form-enviar">Quiero más información</button>
       <p class="simu-error" role="alert" hidden></p>
     </form>

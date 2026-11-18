@@ -10,7 +10,7 @@
    3. Empuja eventos tipados a dataLayer (GTM los enruta a GA4/Ads/Meta):
       page_view_landing, form_cargado, form_visible, scroll_depth,
       cta_click (con tipo: whatsapp/telefono/email/booking) y
-      generate_lead (en /gracias/, deduplicado por sesión).
+      generate_lead (en /gracias/, una vez por envío real: #op=…).
    Ver docs/TRACKING.md para el plan completo y el mapa de etiquetas GTM. */
 'use strict';
 
@@ -136,84 +136,79 @@
   }
 
   /* ── 4 · Conversión en /gracias/ ──────────────────────────── */
-  if (TB.esGracias) {
-    // Deduplicación: recargar /gracias/ o volver con el botón atrás
-    // no debe contar una segunda conversión en la misma sesión.
-    let yaContada = false;
+  /* Solo cuenta un envío real: el formulario (o la agenda) lleva al gracias con #op=… (un
+     identificador opaco de la consulta o la reserva, que el script del <head> ya sacó de la barra).
+     Sin op —alguien que abre el gracias directo, un link compartido— no se cuenta nada. Cada op
+     cuenta una sola vez aunque se recargue o se vuelva con «atrás»; dos consultas distintas en la
+     misma sesión cuentan dos. */
+  function primeraVez(op) {
     try {
-      const clave = 'tb_lead_' + TB.slug;
-      yaContada = sessionStorage.getItem(clave) === '1';
-      if (!yaContada) sessionStorage.setItem(clave, '1');
+      const vistas = JSON.parse(localStorage.getItem('tb_ops') || '[]');
+      if (vistas.indexOf(op) >= 0) return false;
+      localStorage.setItem('tb_ops', JSON.stringify(vistas.concat(op).slice(-50)));
     } catch (e) { /* sin storage: se cuenta igual */ }
-    if (!yaContada) {
-      // Identificador único de la conversión: deduplica navegador ↔ CAPI
-      // (Meta une el evento del pixel con el de la API de Conversiones si
-      //  ambos llevan el mismo event_id).
-      const eventId = 'lead-' + TB.slug + '-' + Date.now() + '-' +
-        Math.random().toString(36).slice(2, 10);
+    return true;
+  }
+  if ((TB.esGracias || TB.eventoReserva) && !TB.op) push({ event: 'gracias_sin_operacion', pagina: location.pathname });
+  if (TB.esGracias && TB.op && primeraVez('lead-' + TB.op)) {
+    // Identificador de la conversión: deduplica navegador ↔ CAPI (Meta une el evento del
+    // píxel con el de la API de Conversiones si ambos llevan el mismo event_id).
+    const eventId = 'lead-' + TB.op;
 
-      // GA4 / Google Ads: el evento estándar de lead
-      push({
-        event: 'generate_lead',
-        carrera: TB.slug,
-        carrera_nombre: TB.carreraNombre || TB.slug,
-        canal_pago: CANAL_PAGO,
-        utm_source: attr.utm_source || '(directo)',
-        utm_campaign: attr.utm_campaign || '(sin campaña)',
-        event_id: eventId,
-        ads_label: TB.adsLabel || '',
-        ads_send_to: TB.adsLabel ? TB.adsId + '/' + TB.adsLabel : '',
+    // GA4 / Google Ads: el evento estándar de lead
+    push({
+      event: 'generate_lead',
+      carrera: TB.slug,
+      carrera_nombre: TB.carreraNombre || TB.slug,
+      canal_pago: CANAL_PAGO,
+      utm_source: attr.utm_source || '(directo)',
+      utm_campaign: attr.utm_campaign || '(sin campaña)',
+      event_id: eventId,
+      ads_label: TB.adsLabel || '',
+      ads_send_to: TB.adsLabel ? TB.adsId + '/' + TB.adsLabel : '',
+      value: 1,
+      currency: 'ARS'
+    });
+
+    // Meta: evento estándar "Lead" (la interfaz en español lo muestra
+    // como «Cliente potencial»).
+    if (window.fbq) {
+      fbq('track', 'Lead', {
+        content_name: TB.carreraNombre || TB.slug,
+        content_category: 'carrera',
+        content_type: 'product',
         value: 1,
         currency: 'ARS'
-      });
-
-      // Meta: evento estándar "Lead" (la interfaz en español lo muestra
-      // como «Cliente potencial»).
-      if (window.fbq) {
-        fbq('track', 'Lead', {
-          content_name: TB.carreraNombre || TB.slug,
-          content_category: 'carrera',
-          content_type: 'product',
-          value: 1,
-          currency: 'ARS'
-        }, { eventID: eventId });
-      }
-
-      // Espejo para quien prefiera enrutar por nombre de evento en GTM
-      push({ event: 'Lead', carrera: TB.slug, event_id: eventId });
+      }, { eventID: eventId });
     }
+
+    // Espejo para quien prefiera enrutar por nombre de evento en GTM
+    push({ event: 'Lead', carrera: TB.slug, event_id: eventId });
   }
 
   /* ── 4.b · Reserva de evento (/gracias-evento/…) ───────────── */
   /* La conversión de "agendó visita / encuentro online": el eslabón
      más débil del embudo (solo 38 % asiste, según la encuesta). */
-  if (TB.eventoReserva) {
-    let yaContada = false;
-    try {
-      const clave = 'tb_reserva_' + TB.eventoReserva;
-      yaContada = sessionStorage.getItem(clave) === '1';
-      if (!yaContada) sessionStorage.setItem(clave, '1');
-    } catch (e) { /* sin storage: se cuenta igual */ }
-    if (!yaContada) {
-      const eventId = 'reserva-' + TB.eventoReserva + '-' + Date.now() + '-' +
-        Math.random().toString(36).slice(2, 10);
-      push({
-        event: 'reserva_evento',
-        tipo_evento: TB.eventoReserva,          // visita_presencial | encuentro_online
-        canal_pago: CANAL_PAGO,
-        utm_source: attr.utm_source || '(directo)',
-        utm_campaign: attr.utm_campaign || '(sin campaña)',
-        event_id: eventId
-      });
-      // Meta: evento estándar "Schedule" (en español, «Programar»)
-      if (window.fbq) {
-        fbq('track', 'Schedule', {
-          content_name: TB.eventoReserva,
-          content_category: 'evento'
-        }, { eventID: eventId });
-      }
-      push({ event: 'Schedule', tipo_evento: TB.eventoReserva, event_id: eventId });
+  if (TB.eventoReserva && TB.op && primeraVez('reserva-' + TB.op)) {
+    // Con la persona (p), el mismo event_id que manda el CRM a Meta para «Agendó»
+    // (server/conversiones/cola.js): si los dos canales están activos, Meta cuenta uno.
+    const eventId = TB.persona ? 'tamaba-' + TB.persona + '-agendo' : 'reserva-' + TB.op;
+    push({
+      event: 'reserva_evento',
+      tipo_evento: TB.eventoReserva,          // visita_presencial | encuentro_online
+      canal_pago: CANAL_PAGO,
+      utm_source: attr.utm_source || '(directo)',
+      utm_campaign: attr.utm_campaign || '(sin campaña)',
+      event_id: eventId
+    });
+    // Meta: evento estándar "Schedule" (en español, «Programar»)
+    if (window.fbq) {
+      fbq('track', 'Schedule', {
+        content_name: TB.eventoReserva,
+        content_category: 'evento'
+      }, { eventID: eventId });
     }
+    push({ event: 'Schedule', tipo_evento: TB.eventoReserva, event_id: eventId });
   }
 
   /* ── 4 bis · Links a la agenda propia (app.tamaba.edu.ar/agendar) ─

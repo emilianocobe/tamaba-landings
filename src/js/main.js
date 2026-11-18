@@ -271,6 +271,29 @@ document.documentElement.classList.remove('sin-js');
   });
 })();
 
+/* ── Texto de consentimiento de los formularios ──
+   La página trae escrita la versión 1 del CRM. Si en el panel se publicó otra, se muestra esa y el
+   formulario manda su número: la constancia que guarda el CRM es la del texto que se vio. Los links
+   se arman con nodos (nunca innerHTML): el texto lo escribe el equipo en el panel. */
+(function () {
+  const ps = document.querySelectorAll('[data-consentimiento]');
+  if (!ps.length || !window.fetch) return;
+  let api = ps[0].dataset.api;
+  if (location.hostname === 'localhost') { const q = new URLSearchParams(location.search).get('api'); if (q) api = q; }
+  fetch(api + '/api/publico/consentimiento').then(r => (r.ok ? r.json() : null)).then(c => {
+    if (!c || !c.texto || !(c.version > 0)) return;
+    ps.forEach(p => {
+      if (String(c.version) === p.dataset.version) return;
+      p.textContent = '';
+      String(c.texto).split(/(https?:\/\/[^\s)]+[^\s).,;:])/).forEach((parte, i) => {
+        if (i % 2) { const a = document.createElement('a'); a.href = parte; a.textContent = parte; p.appendChild(a); }
+        else if (parte) p.appendChild(document.createTextNode(parte));
+      });
+      p.dataset.version = String(c.version);
+    });
+  }).catch(() => { /* queda la versión 1, que es la escrita */ });
+})();
+
 /* ── Formulario de consulta propio (reemplazo del de GoHighLevel) ──
    Manda la consulta a app.tamaba.edu.ar con la atribución que guardó tracking.js y, si sale
    bien, lleva a /gracias/{carrera}/, que es donde se cuenta la conversión (igual que con GHL). */
@@ -308,10 +331,12 @@ document.documentElement.classList.remove('sin-js');
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ carrera: form.dataset.carrera, persona, nivel_estudios: d.nivel_estudios, instrumento: d.instrumento,
           nivel_instrumento: d.nivel_instrumento, nivel_canto: d.nivel_canto, tiempo_canto: d.tiempo_canto,
-          atribucion: atribucion(), sitio_web: d.sitio_web })
+          atribucion: atribucion(), sitio_web: d.sitio_web,
+          consentimiento_version: Number((form.querySelector('[data-consentimiento]') || { dataset: {} }).dataset.version) || null })
       }).then(r => r.json().then(j => ({ ok: r.ok, j }))).then(x => {
         if (!x.ok) throw new Error(x.j.error || 'No pudimos enviar tu consulta.');
-        location.href = form.dataset.gracias;
+        // El # lleva la operación: el gracias cuenta la conversión una vez por envío real.
+        location.href = form.dataset.gracias + (x.j.operacion ? '#op=' + encodeURIComponent(x.j.operacion) : '');
       }).catch(err => {
         boton.disabled = false; boton.textContent = 'Quiero más información';
         decir((err && err.message && err.message !== 'Failed to fetch' ? err.message : 'No pudimos conectar.') + ' Si sigue fallando, escribinos por WhatsApp.');
