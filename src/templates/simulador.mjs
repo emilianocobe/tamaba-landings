@@ -245,7 +245,7 @@ const SCRIPT = String.raw`
   });
 
   function atribucion() {
-    try { return JSON.parse(localStorage.getItem('tb_attr_ultimo') || localStorage.getItem('tb_attr_primero') || '{}') || {}; }
+    try { return [localStorage.getItem('tb_attr_ultimo'), localStorage.getItem('tb_attr_primero')].map(x => JSON.parse(x || 'null')).find(a => a && a.ts && Date.now() - a.ts < 30 * 864e5) || {}; /* vence a los 30 días, como en tracking.js */ }
     catch (e) { return {}; }
   }
 

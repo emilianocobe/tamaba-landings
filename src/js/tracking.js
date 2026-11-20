@@ -26,10 +26,18 @@
   const ahora = {};
   for (const k of CLAVES) if (qs.get(k)) ahora[k] = qs.get(k);
 
+  /* La campaña guardada vence a los 30 días (auditoría del 17/11): una visita directa
+     después de ese plazo cuenta como «directo», no como la campaña vieja. Se borra acá,
+     al cargar, así el formulario y el simulador tampoco la leen. Sin ts (guardada antes
+     del 20/11/2026) también se borra: no se sabe de cuándo es. */
+  const VIGENCIA_MS = 30 * 864e5;
+  const vigente = a => !!(a && a.ts && Date.now() - a.ts < VIGENCIA_MS);
   let attr = {};
   try {
-    const ultimo = JSON.parse(localStorage.getItem('tb_attr_ultimo') || 'null');
-    const primero = JSON.parse(localStorage.getItem('tb_attr_primero') || 'null');
+    let ultimo = JSON.parse(localStorage.getItem('tb_attr_ultimo') || 'null');
+    let primero = JSON.parse(localStorage.getItem('tb_attr_primero') || 'null');
+    if (ultimo && !vigente(ultimo)) { localStorage.removeItem('tb_attr_ultimo'); ultimo = null; }
+    if (primero && !vigente(primero)) { localStorage.removeItem('tb_attr_primero'); primero = null; }
     if (Object.keys(ahora).length) {
       localStorage.setItem('tb_attr_ultimo', JSON.stringify({ ...ahora, ts: Date.now() }));
       if (!primero) localStorage.setItem('tb_attr_primero', JSON.stringify({ ...ahora, ts: Date.now() }));

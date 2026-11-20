@@ -26,6 +26,7 @@ El sitio viejo trackeaba el canal **por URL**: cada carrera existía tres veces 
 ### 2.2 Persistencia de atribución (primer y último toque)
 - Se capturan `utm_source/medium/campaign/term/content`, `gclid`, `fbclid`, `wbraid`, `gbraid`.
 - Se guardan en `localStorage` como **primer toque** (solo si no existía) y **último toque** (siempre). Un usuario que vuelve mañana en directo conserva su campaña de origen.
+- **Vencen a los 30 días** (desde el 20/11/2026, auditoría del 17/11): `tracking.js` borra al cargar el toque guardado hace más de 30 días (o sin `ts`), y el formulario y el simulador solo mandan al CRM un toque vigente. Pasado ese plazo, una visita directa cuenta como `directo`.
 
 ### 2.3 UTMs propagados al iframe de GHL
 - El iframe se monta con los UTMs en la query string. **GoHighLevel captura los parámetros UTM del src del iframe y los asocia al contacto** → cada lead entra al CRM con su campaña, término y clid. Esta es la pieza que une el clic del ad con el contacto en el pipeline.

@@ -18,6 +18,8 @@ export function legal({ site }, cual) {
 
   <h2>4 · Dónde se almacenan</h2>
   <p>Los datos se almacenan en la plataforma de gestión de contactos propia de TAMABA, alojada en servidores de Hostinger, con acceso restringido al personal de admisiones y comunicaciones. Las conversaciones por WhatsApp pasan por WhatsApp Business (Meta), y si te anotás a un encuentro online, tu nombre y tu correo se registran en Zoom para darte el acceso. No guardamos copias de documentos de identidad.</p>
+  <p>Dentro de esa plataforma, el equipo de TAMABA usa un asistente de inteligencia artificial provisto por Anthropic y por OpenAI, que actúan como encargados del tratamiento: procesan los datos por cuenta de TAMABA y solo para responderle al equipo. Al asistente le llega lo mínimo: tu nombre de pila con la inicial del apellido, la carrera por la que consultaste, la etapa de tu proceso de admisión y fragmentos de tus mensajes, sin teléfonos, correos, enlaces ni datos bancarios. Tu teléfono y tu correo completos no se le envían.</p>
+  <p>Algunos de estos proveedores (Hostinger, Meta, Zoom, Anthropic y OpenAI) pueden procesar los datos en servidores fuera de la Argentina.</p>
 
   <h2>5 · Tus derechos</h2>
   <p>Conforme a la Ley 25.326 de Protección de los Datos Personales, podés ejercer en cualquier momento tus derechos de acceso, rectificación y supresión escribiendo a <a href="mailto:${site.emails.info}">${site.emails.info}</a>. La Agencia de Acceso a la Información Pública, órgano de control de la Ley 25.326, tiene la atribución de atender las denuncias y reclamos que se interpongan con relación al incumplimiento de las normas sobre protección de datos personales.</p>
