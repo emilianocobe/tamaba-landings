@@ -37,7 +37,6 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <meta name="twitter:description" content="${esc(o.descripcion)}">
 <meta name="twitter:image" content="${site.dominio}/${o.ogImg || 'assets/img/sede-tamaba.webp'}">
 <meta name="theme-color" content="#0D0C0C">
-<link rel="preconnect" href="https://api.leadconnectorhq.com" crossorigin>
 <link rel="icon" type="image/svg+xml" href="${p}assets/favicon.svg">
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
