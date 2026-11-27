@@ -1,0 +1,59 @@
+{
+  "slug": "curso-intensivo-de-sonido-y-grabacion-de-verano",
+  "nombre": "Curso Intensivo de Sonido y Grabación de Verano 2027",
+  "edicion": "Curso intensivo de verano 2027",
+  "titulo": ["Sonido y", "grabación"],
+  "bajada": "Aprendé a grabar, editar, mezclar y masterizar audio de la mano de profesionales.",
+  "descripcion": "Curso Intensivo de Sonido y Grabación de Verano 2027 en TAMABA. Empieza el 5 de enero. Cursá en Buenos Aires, Mar del Plata o a distancia en vivo.",
+  "inicio": "2027-01-05",
+  "fecha": "Martes 5 de enero de 2027",
+  "dias": "Martes y jueves",
+  "zonaHoraria": "Los horarios son de Argentina.",
+  "estado": "Inscripción abierta hasta cubrir cupos",
+  "imagen": "img/hero-consola.webp",
+  "imagenAlt": "Auriculares de estudio sobre una consola de audio",
+  "modalidades": [
+    {
+      "nombre": "Presencial",
+      "bajada": "Elegí entre TAMABA en Buenos Aires y UC Dadson en Mar del Plata.",
+      "turnos": [
+        { "nombre": "Tarde", "horario": "16 a 19 h" },
+        { "nombre": "Noche", "horario": "18 a 21 h" }
+      ],
+      "contactos": [
+        { "id": "caba", "texto": "Consultar por CABA", "modo": "presencial en CABA" },
+        { "id": "mdq", "texto": "Consultar por Mar del Plata", "modo": "presencial en Mar del Plata" }
+      ]
+    },
+    {
+      "nombre": "A distancia",
+      "bajada": "Cursá 100 % a distancia con clases en vivo desde donde estés.",
+      "turnos": [
+        { "nombre": "Noche", "horario": "18 a 21 h" }
+      ],
+      "contactos": [
+        { "id": "distancia", "texto": "Consultar a distancia", "modo": "a distancia" }
+      ]
+    }
+  ],
+  "publico": "Para músicos, productores, estudiantes y quienes quieran entender cómo se graba y se procesa el audio.",
+  "temario": [
+    "Grabación y acústica",
+    "Micrófonos y técnicas de microfonía",
+    "Ecualización y efectos",
+    "Edición y mezcla",
+    "Masterización",
+    "MIDI"
+  ],
+  "materiales": [
+    "Apuntes digitales en PDF.",
+    "Estudio Virtual 3D para prácticas y simulaciones.",
+    "Campus Virtual con cuestionarios interactivos y videos tutoriales."
+  ],
+  "certificados": [
+    { "nombre": "Dirección General de Educación", "detalle": "Certificación oficial según la Disposición 9/DGEGP/2019." },
+    { "nombre": "Escuelas Vinculadas", "detalle": "Diploma Latinoamericano." },
+    { "nombre": "Steinberg Cubase", "detalle": "Certificación oficial internacional de Steinberg, Alemania." }
+  ],
+  "contacto": "Hola, quiero información para inscribirme al Curso Intensivo de Sonido y Grabación de Verano 2027."
+}

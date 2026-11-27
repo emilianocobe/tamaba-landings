@@ -7,18 +7,19 @@ export function layout(contenido, o) {
   const p = o.absoluto ? '/' : '../'.repeat(o.depth);
   const { site } = o;
   const canonical = site.dominio + (o.ruta || '/');
+  const ogDim = o.ogDim || { w: 1200, h: 630 };
   return `<!DOCTYPE html>
 <html lang="es-AR" class="sin-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google Tag Manager -->
+${o.sinTracking ? '' : `<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','${site.tracking.gtmId}');</script>
-<!-- End Google Tag Manager -->
+<!-- End Google Tag Manager -->`}
 <title>${esc(o.titulo)}</title>
 <meta name="description" content="${esc(o.descripcion)}">
 ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="canonical" href="${canonical}">`}
@@ -28,8 +29,8 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <meta property="og:description" content="${esc(o.descripcion)}">
 <meta property="og:url" content="${canonical}">
 <meta property="og:image" content="${site.dominio}/${o.ogImg || 'assets/img/sede-tamaba.webp'}">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="${ogDim.w}">
+<meta property="og:image:height" content="${ogDim.h}">
 <meta property="og:image:alt" content="${esc(o.ogImgAlt || 'Instituto Terciario TAMABA · 30 años formando profesionales del sonido y la música')}">
 <meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary_large_image">
@@ -41,8 +42,9 @@ ${o.noindex ? '<meta name="robots" content="noindex, nofollow">' : `<link rel="c
 <link rel="preload" href="${p}assets/fonts/bebas-neue-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${p}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="${p}${o.assets.css}">
+${o.cssExtra ? `<link rel="stylesheet" href="${p}${o.cssExtra}">` : ''}
 <script>window.TB={canales:${JSON.stringify(site.tracking.canales)},gtmId:"${site.tracking.gtmId}",metaPixelId:"${site.tracking.metaPixelId || ''}",esGracias:${!!o.esGracias},slug:"${o.slugCarrera || ''}",adsId:"${site.tracking.googleAdsId}",adsLabel:"${(site.tracking.adsLabels || {})[o.slugCarrera] || ''}",carreraNombre:${JSON.stringify(o.carreraNombre || '')},eventoReserva:${JSON.stringify(o.eventoReserva || '')}};${o.esGracias || o.eventoReserva ? `(function(){var h=new URLSearchParams(location.hash.slice(1)),ok=function(v){return /^[a-f0-9]{8,32}$/.test(v||'')?v:''};TB.op=ok(h.get('op'));TB.persona=ok(h.get('p'));if(location.hash&&history.replaceState)history.replaceState(null,'',location.pathname+location.search)})();` : ''}</script>
-<script src="${p}${o.assets.tracking}" defer></script>
+${o.sinTracking ? '' : `<script src="${p}${o.assets.tracking}" defer></script>`}
 <script src="${p}${o.assets.main}" defer></script>
 ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</script>` : ''}
 <script type="application/ld+json">${JSON.stringify({
@@ -55,7 +57,7 @@ ${o.jsonLd ? `<script type="application/ld+json">${JSON.stringify(o.jsonLd)}</sc
   })}</script>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtmId}" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+${o.sinTracking ? '' : `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${site.tracking.gtmId}" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>`}
 <a class="salto" href="#contenido">Ir al contenido</a>
 <div class="progreso" aria-hidden="true"><span id="progreso-lectura"></span></div>
 

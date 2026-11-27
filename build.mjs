@@ -28,6 +28,8 @@ const carreras = readdirSync(join(ROOT, 'data/carreras'))
 if (process.env.FORMULARIOS_PROPIOS === '1') for (const c of carreras) c.formularioPropio = true;
 const beca = JSON.parse(readFileSync(join(ROOT, 'data/campanias/beca.json'), 'utf8'));
 const eventosGracias = JSON.parse(readFileSync(join(ROOT, 'data/eventos-gracias.json'), 'utf8'));
+const sonidoVerano2027 = JSON.parse(readFileSync(join(ROOT, 'data/campanias/sonido-verano-2027.json'), 'utf8'));
+const previewLocal = process.env.TAMABA_PREVIEW === '1';
 
 
 // ── Medidor de imágenes ──────────────────────────────────────────────
@@ -72,6 +74,7 @@ const { eventos }  = await import('./src/templates/eventos.mjs');
 const { becaPage } = await import('./src/templates/beca.mjs');
 const { legal }    = await import('./src/templates/legal.mjs');
 const { e404 }     = await import('./src/templates/e404.mjs');
+const { sonidoVerano } = await import('./src/templates/sonidoVerano.mjs');
 
 // ── Preparar dist ────────────────────────────────────────────────────
 rmSync(DIST, { recursive: true, force: true });
@@ -132,6 +135,9 @@ for (const f of readdirSync(join(ROOT, 'src/js'))) {
   jsRutas[base] = ruta;
 }
 const assets = { css: cssRuta, ...jsRutas };
+const cssVerano = minCss(readFileSync(join(ROOT, 'src/css/sonido-verano.css'), 'utf8')) + '\n';
+const cssVeranoRuta = `css/sonido-verano.${huella(cssVerano)}.css`;
+writeFileSync(join(DIST, cssVeranoRuta), cssVerano);
 
 // ── Escritura de páginas ─────────────────────────────────────────────
 const pages = [];
@@ -142,7 +148,7 @@ function page(path, html) {
   pages.push(path === '' ? '/' : `/${path}/`);
 }
 
-const ctx = { site, carreras, beca, dim, medir, assets };
+const ctx = { site, carreras, beca, dim, medir, assets, sinTracking: previewLocal };
 
 page('', layout(home(ctx), { ...ctx, depth: 0, titulo: 'TAMABA · Terciario de Sonido y Música', descripcion: site.descripcion, esHome: true, ruta: '/', cta: { href: '#carreras', texto: 'Ver carreras' } }));
 
@@ -181,6 +187,24 @@ for (const c of carreras) {
   page(c.slug, layout(landing({ ...ctx, c }), { ...ctx, depth: 1, titulo: `${c.nombre} · TAMABA`, descripcion: c.metaDescripcion, ogImg: `assets/img/${c.heroImg}.webp`, ogImgAlt: c.heroImgAlt, jsonLd: jsonLdCarrera, ruta: `/${c.slug}/`, cta: { href: '#inscripcion', texto: 'Consultar ahora' }, conStickyCta: true, waTexto: `Hola, quiero información sobre ${c.nombre}` }));
   page(`gracias/${c.slug}`, layout(gracias({ ...ctx, c }), { ...ctx, depth: 2, titulo: `¡Gracias! · ${c.nombreCorto} · TAMABA`, descripcion: 'Recibimos tu consulta. Te contactamos a la brevedad.', noindex: true, esGracias: true, slugCarrera: c.slug, carreraNombre: c.nombre, ruta: `/gracias/${c.slug}/`, cta: { href: '../../', texto: 'Ver más carreras' } }));
 }
+
+// Curso intensivo de Sonido y Grabación de verano 2027
+page(sonidoVerano2027.slug, layout(sonidoVerano({ ...ctx, curso: sonidoVerano2027 }), {
+  ...ctx,
+  depth: 1,
+  titulo: `${sonidoVerano2027.nombre} · TAMABA`,
+  descripcion: sonidoVerano2027.descripcion,
+  ruta: `/${sonidoVerano2027.slug}/`,
+  slugCarrera: sonidoVerano2027.slug,
+  carreraNombre: sonidoVerano2027.nombre,
+  ogImg: `assets/${sonidoVerano2027.imagen}`,
+  ogImgAlt: sonidoVerano2027.imagenAlt,
+  ogDim: medir(sonidoVerano2027.imagen),
+  cssExtra: cssVeranoRuta,
+  noindex: previewLocal,
+  cta: { href: '#inscripcion', texto: 'Consultar cupos' },
+  waTexto: sonidoVerano2027.contacto
+}));
 
 // 4.º Seminario Internacional de Industria de la Música (19 al 22 de octubre de 2026)
 // El 4.º Seminario (19 al 22 de octubre de 2026) terminó: se despublicó el 2/11/2026 y su ruta
@@ -302,7 +326,7 @@ const base = site.dominio;
 // Sin Disallow de /gracias/: esas páginas llevan noindex, y bloquear el
 // crawl impediría que los buscadores lo lean.
 writeFileSync(join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
-const indexables = pages.filter(p => !p.startsWith('/gracias') && p !== '/privacidad/' && p !== '/bases-sorteo-beca/' && (beca.activa || p !== '/beca/'));
+const indexables = pages.filter(p => !p.startsWith('/gracias') && p !== '/privacidad/' && p !== '/bases-sorteo-beca/' && (beca.activa || p !== '/beca/') && (!previewLocal || p !== `/${sonidoVerano2027.slug}/`));
 writeFileSync(join(DIST, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   indexables.map(p => `  <url><loc>${base}${p}</loc><lastmod>${new Date().toISOString().slice(0, 10)}</lastmod><changefreq>weekly</changefreq><priority>${p === '/' ? '1.0' : p === '/eventos/' ? '0.9' : '0.8'}</priority></url>`).join('\n') + '\n</urlset>\n');
